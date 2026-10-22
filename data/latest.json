@@ -1,0 +1,1537 @@
+[
+  {
+    "city": "北京市",
+    "keyword": "王府井",
+    "stores": [
+      {
+        "storeCode": "1950526",
+        "storeName": "麦当劳北京新东安二号餐厅",
+        "address": "王府井大街138号新东安广场地下一层",
+        "bigmac": null,
+        "items": 90
+      },
+      {
+        "storeCode": "1950482",
+        "storeName": "麦当劳北京王府井东街(澳门中心)餐厅",
+        "address": "王府井大街东街8号",
+        "bigmac": 26.0,
+        "items": 92
+      },
+      {
+        "storeCode": "1950087",
+        "storeName": "麦当劳北京灯市口餐厅",
+        "address": "灯市口大街33号",
+        "bigmac": 26.0,
+        "items": 106
+      },
+      {
+        "storeCode": "1950514",
+        "storeName": "麦当劳北京东四南大街灯市口地铁餐厅",
+        "address": "东四南大街157号",
+        "bigmac": null,
+        "items": 69
+      },
+      {
+        "storeCode": "1950059",
+        "storeName": "麦当劳北京新王府井餐厅",
+        "address": "王府井大街200号北京工艺美术世界",
+        "bigmac": 26.0,
+        "items": 120
+      }
+    ]
+  },
+  {
+    "city": "上海市",
+    "keyword": "南京东路",
+    "stores": [
+      {
+        "storeCode": "1450104",
+        "storeName": "麦当劳上海黄浦悦荟广场餐厅",
+        "address": "南京东路３５３号（山东中路九江路）",
+        "bigmac": 25.5,
+        "items": 120
+      },
+      {
+        "storeCode": "1450449",
+        "storeName": "麦当劳上海黄浦恒基名人购物中心餐厅",
+        "address": "南京东路300号B2",
+        "bigmac": 25.5,
+        "items": 94
+      },
+      {
+        "storeCode": "1450556",
+        "storeName": "麦当劳上海黄浦区福州路上海书城餐厅",
+        "address": "福州路465号",
+        "bigmac": 25.5,
+        "items": 114
+      },
+      {
+        "storeCode": "1450056",
+        "storeName": "麦当劳上海食品一店餐厅",
+        "address": "南京东路720号",
+        "bigmac": 26.5,
+        "items": 104
+      },
+      {
+        "storeCode": "1450441",
+        "storeName": "麦当劳上海福州路餐厅",
+        "address": "福州路666号",
+        "bigmac": 25.5,
+        "items": 119
+      }
+    ]
+  },
+  {
+    "city": "广州市",
+    "keyword": "天河城",
+    "stores": [
+      {
+        "storeCode": "1400011",
+        "storeName": "麦当劳广州今日广场餐厅",
+        "address": "体育西路77号首层及二层",
+        "bigmac": 26.5,
+        "items": 122
+      },
+      {
+        "storeCode": "1400401",
+        "storeName": "麦当劳广州维多利广场餐厅",
+        "address": "体育西路101号维多利广场首层及二层部分",
+        "bigmac": 25.5,
+        "items": 125
+      },
+      {
+        "storeCode": "1400194",
+        "storeName": "麦当劳广州正佳五楼餐厅",
+        "address": "天河路228号正佳广场五楼561铺",
+        "bigmac": 26.5,
+        "items": 121
+      },
+      {
+        "storeCode": "1400095",
+        "storeName": "麦当劳广州正佳三楼餐厅",
+        "address": "天河路228号正佳商业广场3楼",
+        "bigmac": 26.5,
+        "items": 129
+      },
+      {
+        "storeCode": "1400708",
+        "storeName": "麦当劳广州体育东潮流站餐厅",
+        "address": "体育东路39-45号地下一层B101-06号商铺",
+        "bigmac": 26.5,
+        "items": 118
+      }
+    ]
+  },
+  {
+    "city": "深圳市",
+    "keyword": "华强北",
+    "stores": [
+      {
+        "storeCode": "1421180",
+        "storeName": "麦当劳深圳华强北茂业餐厅",
+        "address": "华强北路与振兴路交汇处东方时代广场（以下简称“建筑物”）的一部分，具体为负101，即-1层B01019X号商铺",
+        "bigmac": 25.5,
+        "items": 119
+      },
+      {
+        "storeCode": "1420245",
+        "storeName": "麦当劳深圳振中路餐厅",
+        "address": "华强北路华强广场1栋101建筑物的一部分",
+        "bigmac": 25.5,
+        "items": 114
+      },
+      {
+        "storeCode": "1420609",
+        "storeName": "麦当劳深圳中航城君尚餐厅",
+        "address": "华强北街道华航社区华富路1018号中航城君尚购物中心L116",
+        "bigmac": 26.5,
+        "items": 124
+      },
+      {
+        "storeCode": "1420416",
+        "storeName": "麦当劳深圳中航路餐厅",
+        "address": "深南大道3018号世纪汇广场商场第一层124及125号商铺",
+        "bigmac": 26.5,
+        "items": 124
+      },
+      {
+        "storeCode": "1420077",
+        "storeName": "麦当劳深圳华强北餐厅",
+        "address": "华强北上步工业区102栋部分一层、部分二层",
+        "bigmac": null,
+        "items": 121
+      }
+    ]
+  },
+  {
+    "city": "天津市",
+    "keyword": "滨江道",
+    "stores": [
+      {
+        "storeCode": "1980197",
+        "storeName": "麦当劳天津张自忠路餐厅(地铁3号线津湾广场站B出口)",
+        "address": "津湾广场2号楼",
+        "bigmac": null,
+        "items": 0
+      },
+      {
+        "storeCode": "1980442001",
+        "storeName": "天津和平路地铁A出口快捷小站",
+        "address": "和平路地铁A出口",
+        "bigmac": null,
+        "items": 0
+      },
+      {
+        "storeCode": "1980090",
+        "storeName": "麦当劳天津滨江四餐厅",
+        "address": "滨江道127号",
+        "bigmac": 26.5,
+        "items": 107
+      },
+      {
+        "storeCode": "1980442",
+        "storeName": "麦当劳天津赤峰道IS餐厅",
+        "address": "新华路116 号的一部分，具体为102、103、111、112、201、204商铺",
+        "bigmac": 26.5,
+        "items": 115
+      },
+      {
+        "storeCode": "1980320",
+        "storeName": "麦当劳天津站后广场餐厅",
+        "address": "天津站北广场B1",
+        "bigmac": 28.0,
+        "items": 60
+      }
+    ]
+  },
+  {
+    "city": "重庆市",
+    "keyword": "解放碑",
+    "stores": [
+      {
+        "storeCode": "3450149",
+        "storeName": "麦当劳重庆金鹰财富中心餐厅",
+        "address": "解放碑邹容路82号负一层",
+        "bigmac": 29.0,
+        "items": 111
+      },
+      {
+        "storeCode": "3450146",
+        "storeName": "麦当劳重庆1089艺术美丽中心餐厅",
+        "address": "八一路53号负一层B01号、第一层103号",
+        "bigmac": 26.5,
+        "items": 106
+      },
+      {
+        "storeCode": "3450379",
+        "storeName": "麦当劳重庆解放碑赛博城市餐厅",
+        "address": "解放碑街道民族路168号1层L1-2-1号",
+        "bigmac": null,
+        "items": 95
+      },
+      {
+        "storeCode": "3450136",
+        "storeName": "麦当劳重庆中信银行餐厅",
+        "address": "江北城西大街5号负5楼",
+        "bigmac": 26.5,
+        "items": 87
+      },
+      {
+        "storeCode": "3450303",
+        "storeName": "麦当劳重庆东原1891餐厅",
+        "address": "南滨路80号附2号麦当劳餐厅",
+        "bigmac": 26.5,
+        "items": 112
+      }
+    ]
+  },
+  {
+    "city": "成都市",
+    "keyword": "春熙路",
+    "stores": [
+      {
+        "storeCode": "3450410",
+        "storeName": "麦当劳成都锦江区联升巷(京都大厦)餐厅",
+        "address": "大科甲巷43号1栋1楼1号（自编号L10号）及2楼1号（自编号L210号）",
+        "bigmac": 26.0,
+        "items": 114
+      },
+      {
+        "storeCode": "3450339",
+        "storeName": "麦当劳成都锦江总府路茂业百货餐厅",
+        "address": "总府路1号茂业百货二层1号内部铺位号9F02001X商铺",
+        "bigmac": 26.5,
+        "items": 111
+      },
+      {
+        "storeCode": "3450069003",
+        "storeName": "成都锦江区春熙路地铁站快捷小站",
+        "address": "春熙路地铁站D1号商铺",
+        "bigmac": null,
+        "items": 46
+      },
+      {
+        "storeCode": "3450069",
+        "storeName": "麦当劳成都第一城餐厅",
+        "address": "小科甲巷１号二层30、31号商铺（IFS）对面",
+        "bigmac": 26.5,
+        "items": 124
+      },
+      {
+        "storeCode": "3450043",
+        "storeName": "麦当劳成都壹购广场餐厅",
+        "address": "东大街上东大街段１３３号壹购潮流广场",
+        "bigmac": 25.5,
+        "items": 121
+      }
+    ]
+  },
+  {
+    "city": "杭州市",
+    "keyword": "西湖",
+    "stores": [
+      {
+        "storeCode": "3330257",
+        "storeName": "麦当劳杭州灵隐景区餐厅",
+        "address": "天竺路15号",
+        "bigmac": null,
+        "items": 0
+      },
+      {
+        "storeCode": "3330536001",
+        "storeName": "杭州岳庙北山街88-5号商铺快捷小站",
+        "address": "西湖街道北山街88-5号商铺",
+        "bigmac": null,
+        "items": 0
+      },
+      {
+        "storeCode": "3330536",
+        "storeName": "麦当劳杭州西湖区岳庙码头餐厅",
+        "address": "西湖街道西湖风景名胜区湖口路5-3号麦当劳餐厅",
+        "bigmac": 29.0,
+        "items": 80
+      },
+      {
+        "storeCode": "3330052",
+        "storeName": "麦当劳杭州西湖银泰餐厅",
+        "address": "延安路９８号",
+        "bigmac": 26.5,
+        "items": 117
+      },
+      {
+        "storeCode": "3330341",
+        "storeName": "麦当劳杭州滨江天寓餐厅",
+        "address": "东信大道1226号",
+        "bigmac": 26.5,
+        "items": 110
+      }
+    ]
+  },
+  {
+    "city": "南京市",
+    "keyword": "新街口",
+    "stores": [
+      {
+        "storeCode": "1990346",
+        "storeName": "麦当劳南京新百餐厅",
+        "address": "中山南路1号A座负一层G-A-025号商铺",
+        "bigmac": 26.5,
+        "items": 114
+      },
+      {
+        "storeCode": "1990043",
+        "storeName": "麦当劳南京洪武餐厅",
+        "address": "洪武路119号",
+        "bigmac": 25.5,
+        "items": 123
+      },
+      {
+        "storeCode": "1990675",
+        "storeName": "麦当劳南京新街口苏宁餐厅",
+        "address": "淮海路 88 号苏宁广场一层101B商铺",
+        "bigmac": 26.0,
+        "items": 125
+      },
+      {
+        "storeCode": "1990762",
+        "storeName": "麦当劳南京青奥城市客厅餐厅",
+        "address": "中山东路145号1F-18、19商铺",
+        "bigmac": 25.5,
+        "items": 114
+      },
+      {
+        "storeCode": "1990100",
+        "storeName": "麦当劳南京汉中路餐厅",
+        "address": "白下区汉中路139-7号环亚广场一楼麦当劳",
+        "bigmac": 26.0,
+        "items": 118
+      }
+    ]
+  },
+  {
+    "city": "武汉市",
+    "keyword": "江汉路",
+    "stores": [
+      {
+        "storeCode": "1960008",
+        "storeName": "麦当劳武汉HAPPY站台餐厅(江汉路地铁H出口)",
+        "address": "中山大道888号新佳丽广场负一楼happy站台",
+        "bigmac": 26.5,
+        "items": 121
+      },
+      {
+        "storeCode": "1960138",
+        "storeName": "麦当劳武汉江汉路大汉口餐厅",
+        "address": "水塔街中山大道539号",
+        "bigmac": 26.5,
+        "items": 128
+      },
+      {
+        "storeCode": "1960073",
+        "storeName": "麦当劳武汉宝利金餐厅",
+        "address": "花楼街198号宝利金国际广场二期四座一层１－２号，二层１－４、30-34号商铺",
+        "bigmac": 26.5,
+        "items": 136
+      },
+      {
+        "storeCode": "1960327",
+        "storeName": "麦当劳武汉江汉路X118餐厅",
+        "address": "江汉路118号港澳中心一层L104、二层L203号商铺",
+        "bigmac": 25.5,
+        "items": 120
+      },
+      {
+        "storeCode": "1960258",
+        "storeName": "麦当劳武汉民众乐园餐厅",
+        "address": "中山大道704号",
+        "bigmac": 26.5,
+        "items": 123
+      }
+    ]
+  },
+  {
+    "city": "西安市",
+    "keyword": "钟楼",
+    "stores": [
+      {
+        "storeCode": "1960622",
+        "storeName": "麦当劳西安开元餐厅",
+        "address": "东大街解放市场6号首层",
+        "bigmac": 26.5,
+        "items": 109
+      },
+      {
+        "storeCode": "1960668",
+        "storeName": "麦当劳西安北大街餐厅",
+        "address": "北大街28号",
+        "bigmac": 26.5,
+        "items": 120
+      },
+      {
+        "storeCode": "1960602",
+        "storeName": "麦当劳西安钟鼓楼餐厅",
+        "address": "西大街1号钟鼓楼广场",
+        "bigmac": 25.5,
+        "items": 122
+      },
+      {
+        "storeCode": "1960701",
+        "storeName": "麦当劳西安北大街地铁站下沉广场餐厅",
+        "address": "北大街地铁站下沉广场",
+        "bigmac": 26.0,
+        "items": 123
+      },
+      {
+        "storeCode": "1960737",
+        "storeName": "麦当劳西安合生汇餐厅",
+        "address": "南大街合生汇",
+        "bigmac": 26.0,
+        "items": 123
+      }
+    ]
+  },
+  {
+    "city": "长沙市",
+    "keyword": "黄兴路",
+    "stores": [
+      {
+        "storeCode": "3390076",
+        "storeName": "麦当劳长沙南门口1662项目餐厅",
+        "address": "城南西路南门口步行街南端",
+        "bigmac": 26.5,
+        "items": 114
+      },
+      {
+        "storeCode": "3390047",
+        "storeName": "麦当劳长沙步行街中心广场餐厅",
+        "address": "天心区黄兴路步行街中心广场东北角",
+        "bigmac": 26.5,
+        "items": 122
+      },
+      {
+        "storeCode": "3390089",
+        "storeName": "麦当劳长沙九龙仓餐厅",
+        "address": "东牌楼长沙国金中心商场地下一层LG114-LG115号商铺",
+        "bigmac": 26.5,
+        "items": 112
+      },
+      {
+        "storeCode": "3390081",
+        "storeName": "麦当劳长沙五一路平和堂餐厅",
+        "address": "黄兴中路88号平和堂商厦负一楼",
+        "bigmac": 25.5,
+        "items": 128
+      },
+      {
+        "storeCode": "3390200",
+        "storeName": "麦当劳长沙汇景城餐厅",
+        "address": "汇景发展环球中心B塔文津巷路与书院路交叉口麦当劳",
+        "bigmac": 26.5,
+        "items": 115
+      }
+    ]
+  },
+  {
+    "city": "郑州市",
+    "keyword": "二七广场",
+    "stores": [
+      {
+        "storeCode": "3560134",
+        "storeName": "麦当劳郑州西太康路新华书店餐厅",
+        "address": "西太康路19号(郑州购书中心一层)",
+        "bigmac": 26.5,
+        "items": 111
+      },
+      {
+        "storeCode": "3560038",
+        "storeName": "麦当劳郑州紫荆山路新世界百货餐厅",
+        "address": "紫荆山路57号",
+        "bigmac": 26.5,
+        "items": 103
+      },
+      {
+        "storeCode": "3560003",
+        "storeName": "麦当劳郑州紫荆山餐厅",
+        "address": "人民路1号紫荆山百货1楼",
+        "bigmac": 26.0,
+        "items": 105
+      },
+      {
+        "storeCode": "3560007",
+        "storeName": "麦当劳郑州文化路餐厅",
+        "address": "文化路与黄河路交叉口新田大厦",
+        "bigmac": 26.5,
+        "items": 92
+      },
+      {
+        "storeCode": "3560118",
+        "storeName": "麦当劳郑州记忆油化厂创意园区餐厅",
+        "address": "黄河路68号",
+        "bigmac": 26.5,
+        "items": 94
+      }
+    ]
+  },
+  {
+    "city": "济南市",
+    "keyword": "泉城路",
+    "stores": [
+      {
+        "storeCode": "3350169",
+        "storeName": "麦当劳济南世茂广场餐厅",
+        "address": "舜井路6号世茂国际广场百货101",
+        "bigmac": 26.5,
+        "items": 115
+      },
+      {
+        "storeCode": "3350258",
+        "storeName": "麦当劳济南省府餐厅",
+        "address": "泉城路277号泰府广场一层107-1商铺餐厅",
+        "bigmac": 26.0,
+        "items": 107
+      },
+      {
+        "storeCode": "3350171",
+        "storeName": "麦当劳济南泉城广场餐厅",
+        "address": "泺源大街99号",
+        "bigmac": 26.5,
+        "items": 115
+      },
+      {
+        "storeCode": "3350353",
+        "storeName": "麦当劳济南剧院IS餐厅",
+        "address": "南门大街与泺源大街交叉口",
+        "bigmac": 26.0,
+        "items": 111
+      },
+      {
+        "storeCode": "3350332",
+        "storeName": "麦当劳济南大明湖南门IS餐厅",
+        "address": "大明湖路212号",
+        "bigmac": 26.5,
+        "items": 104
+      }
+    ]
+  },
+  {
+    "city": "青岛市",
+    "keyword": "五四广场",
+    "stores": [
+      {
+        "storeCode": "3350268",
+        "storeName": "麦当劳青岛五四广场餐厅",
+        "address": "香港中路18号五四广场麦当劳餐厅",
+        "bigmac": 25.5,
+        "items": 113
+      },
+      {
+        "storeCode": "3350179",
+        "storeName": "麦当劳青岛香港中路餐厅",
+        "address": "香港中路21号101B号铺位",
+        "bigmac": 26.0,
+        "items": 108
+      },
+      {
+        "storeCode": "3350203",
+        "storeName": "麦当劳青岛万象城餐厅",
+        "address": "山东路6号万象城南广场下扶梯B1-151",
+        "bigmac": 26.0,
+        "items": 106
+      },
+      {
+        "storeCode": "3350048",
+        "storeName": "麦当劳青岛澳门路餐厅",
+        "address": "澳门路88号百丽广场",
+        "bigmac": 26.0,
+        "items": 122
+      },
+      {
+        "storeCode": "3350371",
+        "storeName": "麦当劳青岛万邦中心餐厅",
+        "address": "香港中路2号",
+        "bigmac": 26.0,
+        "items": 120
+      }
+    ]
+  },
+  {
+    "city": "沈阳市",
+    "keyword": "中街",
+    "stores": [
+      {
+        "storeCode": "3230439",
+        "storeName": "麦当劳沈阳中街恒隆广场餐厅",
+        "address": "中街路128号皇城恒隆广场",
+        "bigmac": 26.5,
+        "items": 118
+      },
+      {
+        "storeCode": "3230365",
+        "storeName": "沈阳中街盛京大家庭G层中庭餐厅",
+        "address": "中街路115号盛京大家庭负一层麦当劳",
+        "bigmac": 26.0,
+        "items": 106
+      },
+      {
+        "storeCode": "3230028",
+        "storeName": "沈阳中街朝阳餐厅地铁B2出口",
+        "address": "中街路195号",
+        "bigmac": 26.5,
+        "items": 121
+      },
+      {
+        "storeCode": "3230016",
+        "storeName": "麦当劳沈阳东中街大悦城餐厅",
+        "address": "小东路5号",
+        "bigmac": 26.5,
+        "items": 114
+      },
+      {
+        "storeCode": "3230447",
+        "storeName": "麦当劳沈阳大什字街中街吾悦餐厅",
+        "address": "津桥路7-02号一层1008号商铺",
+        "bigmac": 25.5,
+        "items": 113
+      }
+    ]
+  },
+  {
+    "city": "大连市",
+    "keyword": "青泥洼桥",
+    "stores": [
+      {
+        "storeCode": "3230368",
+        "storeName": "麦当劳大商新玛特青泥洼桥餐厅",
+        "address": "大商新玛特青泥店北门右侧临街",
+        "bigmac": 26.0,
+        "items": 125
+      },
+      {
+        "storeCode": "3230461",
+        "storeName": "麦当劳大连希望广场儿童医院餐厅",
+        "address": "红岩街2号",
+        "bigmac": 26.5,
+        "items": 111
+      },
+      {
+        "storeCode": "3230136",
+        "storeName": "麦当劳解放路大都会餐厅",
+        "address": "解放路大都会广场一楼临街",
+        "bigmac": 26.0,
+        "items": 125
+      },
+      {
+        "storeCode": "3230058",
+        "storeName": "麦当劳天津街天和广场餐厅",
+        "address": "天津街天和广场塞隆眼镜广场一楼",
+        "bigmac": 25.5,
+        "items": 118
+      },
+      {
+        "storeCode": "3230226",
+        "storeName": "麦当劳大连胜利东路汇智云顶得来速餐厅",
+        "address": "胜利东路302号（麦当劳）",
+        "bigmac": 26.5,
+        "items": 129
+      }
+    ]
+  },
+  {
+    "city": "哈尔滨市",
+    "keyword": "中央大街",
+    "stores": []
+  },
+  {
+    "city": "长春市",
+    "keyword": "重庆路",
+    "stores": [
+      {
+        "storeCode": "3230209",
+        "storeName": "麦当劳长春钻石活力汇餐厅",
+        "address": "重庆路1388号钻石活力汇一层109号商铺",
+        "bigmac": 26.0,
+        "items": 103
+      },
+      {
+        "storeCode": "3230310",
+        "storeName": "麦当劳长春重庆路活力城餐厅",
+        "address": "重庆路活力城1层麦当劳",
+        "bigmac": 26.5,
+        "items": 110
+      },
+      {
+        "storeCode": "3230396",
+        "storeName": "麦当劳长春上海路万达广场餐厅",
+        "address": "上海路万达广场10号门旁负一层",
+        "bigmac": 26.0,
+        "items": 106
+      },
+      {
+        "storeCode": "3230372",
+        "storeName": "麦当劳长春亚泰大街中东新天地餐厅",
+        "address": "亚泰大街1138号中东新天地3层 W3F-11商铺麦当劳",
+        "bigmac": 26.5,
+        "items": 104
+      },
+      {
+        "storeCode": "3230146",
+        "storeName": "麦当劳长春季平餐厅",
+        "address": "辽宁路162号国商百货",
+        "bigmac": 29.0,
+        "items": 110
+      }
+    ]
+  },
+  {
+    "city": "石家庄市",
+    "keyword": "北国商城",
+    "stores": [
+      {
+        "storeCode": "1950398",
+        "storeName": "麦当劳石家庄中山东路北国餐厅",
+        "address": "石家庄桥西区中山东路188号",
+        "bigmac": 26.5,
+        "items": 111
+      },
+      {
+        "storeCode": "1950398002",
+        "storeName": "石家庄中山东路星悦茂快捷小站",
+        "address": "中山东路与建设南大街交口北国商城地铁站内地下一层商业营业厅S20号商铺",
+        "bigmac": null,
+        "items": 0
+      },
+      {
+        "storeCode": "1950234",
+        "storeName": "麦当劳石家庄休门街大洋百货餐厅",
+        "address": "桥东区中山东路158号滨江商务大厦一部分",
+        "bigmac": 25.5,
+        "items": 125
+      },
+      {
+        "storeCode": "1950068",
+        "storeName": "麦当劳石家庄长安广场餐厅",
+        "address": "中山东路289号",
+        "bigmac": 26.0,
+        "items": 105
+      },
+      {
+        "storeCode": "1950339",
+        "storeName": "麦当劳石家庄平安大街-荣盛广场餐厅",
+        "address": "光华路6号荣盛广场1013号商铺",
+        "bigmac": 26.0,
+        "items": 123
+      }
+    ]
+  },
+  {
+    "city": "太原市",
+    "keyword": "柳巷",
+    "stores": [
+      {
+        "storeCode": "1950206",
+        "storeName": "麦当劳太原铜锣湾餐厅",
+        "address": "柳巷北路68号铜锣湾小区3幢一层A18号及二层C29-33号铺",
+        "bigmac": 26.0,
+        "items": 122
+      },
+      {
+        "storeCode": "1950231",
+        "storeName": "麦当劳太原时代广场二餐厅",
+        "address": "开花寺街东米市小区53号建筑物西侧首层及地下一层部分物业",
+        "bigmac": 26.0,
+        "items": 130
+      },
+      {
+        "storeCode": "1950422",
+        "storeName": "麦当劳太原解放路餐厅",
+        "address": "解放路75号，万达百货2层2032商铺麦当劳餐厅",
+        "bigmac": 26.5,
+        "items": 122
+      },
+      {
+        "storeCode": "1950071",
+        "storeName": "麦当劳太原五一广场餐厅",
+        "address": "三晋大厦A区西北角首层及二层部分面积",
+        "bigmac": 25.5,
+        "items": 124
+      },
+      {
+        "storeCode": "1950630",
+        "storeName": "麦当劳太原水西关街餐厅",
+        "address": "太原市迎泽区水西关街92号建筑物一层东北角商铺",
+        "bigmac": 26.0,
+        "items": 131
+      }
+    ]
+  },
+  {
+    "city": "合肥市",
+    "keyword": "淮河路",
+    "stores": [
+      {
+        "storeCode": "3500005",
+        "storeName": "麦当劳合肥长江中路餐厅",
+        "address": "长江中路293号",
+        "bigmac": 25.5,
+        "items": 116
+      },
+      {
+        "storeCode": "3500143",
+        "storeName": "麦当劳合肥商之都餐厅",
+        "address": "宿州路8号",
+        "bigmac": 26.0,
+        "items": 117
+      },
+      {
+        "storeCode": "3500032",
+        "storeName": "麦当劳合肥百盛商场餐厅",
+        "address": "淮河路步行街77号百盛商场负一层（餐厅密集，请注意区分）",
+        "bigmac": 26.5,
+        "items": 114
+      },
+      {
+        "storeCode": "3500131",
+        "storeName": "麦当劳合肥庐阳世纪中心餐厅",
+        "address": "蒙城北路88号1幢商业111-112",
+        "bigmac": 26.5,
+        "items": 101
+      },
+      {
+        "storeCode": "3500115",
+        "storeName": "麦当劳合肥置地财富广场餐厅",
+        "address": "濉溪路278号",
+        "bigmac": 26.0,
+        "items": 105
+      }
+    ]
+  },
+  {
+    "city": "南昌市",
+    "keyword": "八一广场",
+    "stores": [
+      {
+        "storeCode": "1410399",
+        "storeName": "麦当劳南昌新牛广场餐厅",
+        "address": "中山路2号新牛广场一楼1006-1007，二楼2018-2019号商铺",
+        "bigmac": 26.5,
+        "items": 116
+      },
+      {
+        "storeCode": "1410419",
+        "storeName": "麦当劳南昌丁公路IM活力城餐厅",
+        "address": "丁公路120号IM乐盈广场2号楼1层1201-1202号商铺",
+        "bigmac": 26.5,
+        "items": 105
+      },
+      {
+        "storeCode": "1410469",
+        "storeName": "麦当劳南昌裕滔广场餐厅",
+        "address": "中山路217号裕滔广场一楼A001号、二楼B001号商铺",
+        "bigmac": 26.5,
+        "items": 111
+      },
+      {
+        "storeCode": "1410594",
+        "storeName": "麦当劳南昌绳金塔历史文化街区餐厅",
+        "address": "绳金塔历史文化街区",
+        "bigmac": 26.5,
+        "items": 109
+      },
+      {
+        "storeCode": "1410578",
+        "storeName": "麦当劳南昌长申购物广场餐厅",
+        "address": "青山南路418号",
+        "bigmac": 26.0,
+        "items": 108
+      }
+    ]
+  },
+  {
+    "city": "福州市",
+    "keyword": "东街口",
+    "stores": [
+      {
+        "storeCode": "1410199",
+        "storeName": "麦当劳福州八一七北路餐厅",
+        "address": "八一七北路88号东百中心A馆A6门负一层T02号商铺",
+        "bigmac": 26.5,
+        "items": 122
+      },
+      {
+        "storeCode": "1410100",
+        "storeName": "麦当劳福州杨桥东路餐厅",
+        "address": "杨桥路中闽大厦C#二层1/12-17轴AC-DC号商铺",
+        "bigmac": 26.5,
+        "items": 123
+      },
+      {
+        "storeCode": "1410563",
+        "storeName": "麦当劳福州鼓屏路红霞新城餐厅",
+        "address": "鼓东路八一七北路红霞新城一层114号、115号、116号、26号、27号、28号、29号商铺",
+        "bigmac": 26.0,
+        "items": 117
+      },
+      {
+        "storeCode": "1410143",
+        "storeName": "麦当劳福州东街餐厅",
+        "address": "东街96-98号东方大厦",
+        "bigmac": 26.0,
+        "items": 114
+      },
+      {
+        "storeCode": "1410176",
+        "storeName": "麦当劳福州南后街餐厅",
+        "address": "南后街１号",
+        "bigmac": 26.5,
+        "items": 126
+      }
+    ]
+  },
+  {
+    "city": "厦门市",
+    "keyword": "中山路",
+    "stores": [
+      {
+        "storeCode": "1410017",
+        "storeName": "麦当劳厦门美都餐厅",
+        "address": "中山路219-225号美都商厦一层及地下室",
+        "bigmac": 26.5,
+        "items": 114
+      },
+      {
+        "storeCode": "1410328",
+        "storeName": "麦当劳厦门镇海路中华城餐厅",
+        "address": "思明南路137-199号中华城D区三楼173号之74号/C区五楼5006号之3号商铺",
+        "bigmac": 26.5,
+        "items": 112
+      },
+      {
+        "storeCode": "1410053",
+        "storeName": "麦当劳厦门思明南路老虎城餐厅",
+        "address": "厦门思明南路118号老虎城",
+        "bigmac": 26.5,
+        "items": 103
+      },
+      {
+        "storeCode": "1410229",
+        "storeName": "麦当劳厦门局中街餐厅",
+        "address": "大中路南中广场局中街104-106号",
+        "bigmac": 26.5,
+        "items": 105
+      },
+      {
+        "storeCode": "1410431",
+        "storeName": "麦当劳厦门虎园路(白鹭宾馆)餐厅",
+        "address": "虎园路6-5-1号",
+        "bigmac": 26.0,
+        "items": 122
+      }
+    ]
+  },
+  {
+    "city": "昆明市",
+    "keyword": "南屏街",
+    "stores": [
+      {
+        "storeCode": "3570004001",
+        "storeName": "昆明南亚东南亚风情街快捷小站",
+        "address": "威远街和护国路交叉口南亚东南亚风情街06号商铺",
+        "bigmac": null,
+        "items": 79
+      },
+      {
+        "storeCode": "3570220",
+        "storeName": "麦当劳昆明柏联广场餐厅",
+        "address": "三市街6号柏联广场商场商业廊一层F1号，商业廊二层F2号",
+        "bigmac": 26.5,
+        "items": 114
+      },
+      {
+        "storeCode": "3570004",
+        "storeName": "麦当劳昆明鸿城广场餐厅",
+        "address": "青年路鸿城广场负一层（小花园十字路口）",
+        "bigmac": 25.5,
+        "items": 108
+      },
+      {
+        "storeCode": "3570062",
+        "storeName": "麦当劳昆明圆通山餐厅",
+        "address": "青年路92号昆明动物园餐饮区",
+        "bigmac": null,
+        "items": 0
+      },
+      {
+        "storeCode": "3570114",
+        "storeName": "麦当劳昆明联贸大厦餐厅",
+        "address": "北京路102-104号联贸大厦一楼商铺",
+        "bigmac": 25.5,
+        "items": 107
+      }
+    ]
+  },
+  {
+    "city": "贵阳市",
+    "keyword": "喷水池",
+    "stores": [
+      {
+        "storeCode": "3570060",
+        "storeName": "麦当劳贵阳汇金餐厅",
+        "address": "延安西路66号",
+        "bigmac": 26.5,
+        "items": 96
+      },
+      {
+        "storeCode": "3570123",
+        "storeName": "麦当劳贵阳中山西路地铁餐厅",
+        "address": "中山西路地铁站E口负一层",
+        "bigmac": null,
+        "items": 0
+      },
+      {
+        "storeCode": "3570050",
+        "storeName": "麦当劳贵阳大十字鲜花餐厅",
+        "address": "中华南路1号",
+        "bigmac": 25.5,
+        "items": 123
+      },
+      {
+        "storeCode": "3570206001",
+        "storeName": "贵医沙河街停车楼快捷小站",
+        "address": "沙河街智慧停车场1楼",
+        "bigmac": 26.5,
+        "items": 86
+      },
+      {
+        "storeCode": "3570075",
+        "storeName": "麦当劳贵阳市西路餐厅",
+        "address": "市西路金三角首层",
+        "bigmac": null,
+        "items": 0
+      }
+    ]
+  },
+  {
+    "city": "南宁市",
+    "keyword": "朝阳广场",
+    "stores": [
+      {
+        "storeCode": "3570001",
+        "storeName": "麦当劳南宁百货大楼餐厅",
+        "address": "朝阳路45号南宁百货大楼首层",
+        "bigmac": 26.5,
+        "items": 97
+      },
+      {
+        "storeCode": "3570100",
+        "storeName": "麦当劳南宁文化宫餐厅",
+        "address": "民主路20号文化宫",
+        "bigmac": 26.5,
+        "items": 117
+      },
+      {
+        "storeCode": "3570012",
+        "storeName": "麦当劳南宁新民生餐厅",
+        "address": "民生路步行街91-99号民生商场首层及二层(市中心步行街)",
+        "bigmac": 26.5,
+        "items": 76
+      },
+      {
+        "storeCode": "3570020",
+        "storeName": "麦当劳南宁青云街餐厅",
+        "address": "青云街昊天通信城二楼",
+        "bigmac": 26.5,
+        "items": 98
+      },
+      {
+        "storeCode": "3570012001",
+        "storeName": "南宁火车站缤果商业街快捷小站",
+        "address": "朝阳街道南宁火车站地铁缤果商业街C01-03号",
+        "bigmac": null,
+        "items": 0
+      }
+    ]
+  },
+  {
+    "city": "兰州市",
+    "keyword": "张掖路",
+    "stores": [
+      {
+        "storeCode": "5170001",
+        "storeName": "麦当劳兰州张掖路步行街餐厅",
+        "address": "通渭路1号",
+        "bigmac": 25.5,
+        "items": 116
+      },
+      {
+        "storeCode": "5170005",
+        "storeName": "麦当劳兰州时尚百盛餐厅",
+        "address": "庆阳路111号时尚百盛",
+        "bigmac": 26.0,
+        "items": 112
+      },
+      {
+        "storeCode": "5170030",
+        "storeName": "麦当劳兰州万象城餐厅",
+        "address": "庆阳路2号兰州万象城B201商铺",
+        "bigmac": 26.5,
+        "items": 105
+      },
+      {
+        "storeCode": "5170031",
+        "storeName": "麦当劳兰州环球中心餐厅",
+        "address": "兰州环球中心麦当劳餐厅",
+        "bigmac": 25.5,
+        "items": 121
+      },
+      {
+        "storeCode": "5170002",
+        "storeName": "麦当劳兰州瑞德摩尔餐厅",
+        "address": "城关东路1681号",
+        "bigmac": 26.0,
+        "items": 112
+      }
+    ]
+  },
+  {
+    "city": "西宁市",
+    "keyword": "西门口",
+    "stores": [
+      {
+        "storeCode": "1980425",
+        "storeName": "麦当劳西宁海湖广场得来速餐厅",
+        "address": "五四西路72号海湖新区",
+        "bigmac": 26.5,
+        "items": 99
+      }
+    ]
+  },
+  {
+    "city": "银川市",
+    "keyword": "新华街",
+    "stores": [
+      {
+        "storeCode": "1980421",
+        "storeName": "麦当劳银川新百中心餐厅",
+        "address": "新华东街12号",
+        "bigmac": 26.5,
+        "items": 112
+      },
+      {
+        "storeCode": "1980455",
+        "storeName": "麦当劳银川现代城餐厅",
+        "address": "解放西街街道解放西街31号(解放西街与进宁北街交汇处)",
+        "bigmac": 26.5,
+        "items": 105
+      },
+      {
+        "storeCode": "1980420",
+        "storeName": "麦当劳银川金凤万达餐厅",
+        "address": "正源北街22号万达广场1楼",
+        "bigmac": 26.5,
+        "items": 103
+      },
+      {
+        "storeCode": "1980441",
+        "storeName": "麦当劳银川悠阅城餐厅",
+        "address": "正源南街与凤仪路交汇处悠阅城1号楼1层115号商铺",
+        "bigmac": 26.5,
+        "items": 100
+      },
+      {
+        "storeCode": "1980415",
+        "storeName": "麦当劳银川阅彩城餐厅",
+        "address": "正源北街277号",
+        "bigmac": 26.5,
+        "items": 102
+      }
+    ]
+  },
+  {
+    "city": "乌鲁木齐市",
+    "keyword": "大巴扎",
+    "stores": [
+      {
+        "storeCode": "6180008",
+        "storeName": "麦当劳乌鲁木齐友好城市奥莱餐厅",
+        "address": "乌鲁木齐市沙依巴克区钱塘江路168号",
+        "bigmac": 26.5,
+        "items": 78
+      },
+      {
+        "storeCode": "6180005",
+        "storeName": "麦当劳乌鲁木齐瑞达丝路新天地餐厅",
+        "address": "延安路556号",
+        "bigmac": 26.5,
+        "items": 60
+      },
+      {
+        "storeCode": "6180006",
+        "storeName": "麦当劳乌鲁木齐天山百货大楼餐厅",
+        "address": "和平北路16号天山百货大楼一楼",
+        "bigmac": 26.5,
+        "items": 85
+      },
+      {
+        "storeCode": "6180004",
+        "storeName": "麦当劳乌鲁木齐红山新世纪购物广场餐厅",
+        "address": "新华北路38号红山新世纪广场一层",
+        "bigmac": 26.5,
+        "items": 93
+      },
+      {
+        "storeCode": "6180028",
+        "storeName": "麦当劳乌鲁木齐德汇万达餐厅",
+        "address": "奇台路658号",
+        "bigmac": 26.5,
+        "items": 85
+      }
+    ]
+  },
+  {
+    "city": "拉萨市",
+    "keyword": "布达拉宫",
+    "stores": [
+      {
+        "storeCode": "6190001",
+        "storeName": "麦当劳拉萨八廓商城餐厅",
+        "address": "林廓东路99号",
+        "bigmac": 29.0,
+        "items": 88
+      },
+      {
+        "storeCode": "6190002",
+        "storeName": "麦当劳拉萨柳梧万达广场餐厅",
+        "address": "柳梧新区顿珠金融城万达广场1016号商铺",
+        "bigmac": 29.0,
+        "items": 90
+      },
+      {
+        "storeCode": "6190012",
+        "storeName": "麦当劳拉萨藏游坛城餐厅",
+        "address": "罗堆西路16号藏游坛城F3栋1层",
+        "bigmac": 29.0,
+        "items": 114
+      },
+      {
+        "storeCode": "6190003",
+        "storeName": "麦当劳拉萨纳金中路摩登时代生活广场餐厅",
+        "address": "纳金乡纳金中路新天地（摩登时代生活广场）一楼",
+        "bigmac": 29.0,
+        "items": 98
+      },
+      {
+        "storeCode": "6190010",
+        "storeName": "麦当劳拉萨王府井餐厅",
+        "address": "柳梧新区王府井",
+        "bigmac": 29.0,
+        "items": 108
+      }
+    ]
+  },
+  {
+    "city": "海口市",
+    "keyword": "明珠广场",
+    "stores": [
+      {
+        "storeCode": "1420542",
+        "storeName": "麦当劳海口融创精彩天地餐厅",
+        "address": "海秀东路29号一层",
+        "bigmac": 26.5,
+        "items": 79
+      },
+      {
+        "storeCode": "1420117",
+        "storeName": "麦当劳海口南亚广场餐厅",
+        "address": "海府路１８号南亚广场",
+        "bigmac": 25.5,
+        "items": 105
+      },
+      {
+        "storeCode": "1420073",
+        "storeName": "麦当劳海口东方广场餐厅",
+        "address": "龙华一横路99号东方广场首层",
+        "bigmac": 25.5,
+        "items": 93
+      },
+      {
+        "storeCode": "1420910",
+        "storeName": "麦当劳海口国兴里餐厅",
+        "address": "大英山西三街A12地块国兴里商业街A12-133A号商铺",
+        "bigmac": 26.5,
+        "items": 98
+      },
+      {
+        "storeCode": "1420539",
+        "storeName": "麦当劳海口日月广场餐厅",
+        "address": "国兴大道8号海航日月广场处女座L层",
+        "bigmac": 26.5,
+        "items": 79
+      }
+    ]
+  },
+  {
+    "city": "呼和浩特市",
+    "keyword": "中山路",
+    "stores": [
+      {
+        "storeCode": "1980406",
+        "storeName": "麦当劳呼和浩特民族商场餐厅",
+        "address": "中山西路民族商场",
+        "bigmac": 26.5,
+        "items": 114
+      },
+      {
+        "storeCode": "1980031",
+        "storeName": "麦当劳呼和浩特天元餐厅",
+        "address": "中山西路98号天元商业大厦一层呼和浩特",
+        "bigmac": 25.5,
+        "items": 107
+      },
+      {
+        "storeCode": "1980048",
+        "storeName": "麦当劳呼和浩特中山东路餐厅",
+        "address": "中山东路与呼伦贝尔南路交口处",
+        "bigmac": 25.5,
+        "items": 116
+      },
+      {
+        "storeCode": "1980225",
+        "storeName": "麦当劳呼和浩特泰德潮空间餐厅",
+        "address": "呼和浩特锡林南路与大学西街交叉口",
+        "bigmac": 26.0,
+        "items": 114
+      },
+      {
+        "storeCode": "1980331",
+        "storeName": "麦当劳呼和浩特大学西街餐厅",
+        "address": "呼伦南路208号",
+        "bigmac": 26.0,
+        "items": 125
+      }
+    ]
+  },
+  {
+    "city": "苏州市",
+    "keyword": "观前街",
+    "stores": [
+      {
+        "storeCode": "1990565",
+        "storeName": "麦当劳苏州察院场站餐厅",
+        "address": "人民路1381号1F-40号商铺",
+        "bigmac": 25.5,
+        "items": 105
+      },
+      {
+        "storeCode": "1990118",
+        "storeName": "麦当劳苏州临顿路餐厅",
+        "address": "平江区临顿路32-33号三层商铺",
+        "bigmac": 26.0,
+        "items": 91
+      },
+      {
+        "storeCode": "1990485",
+        "storeName": "麦当劳苏州仁恒仓街餐厅",
+        "address": "仓街商业广场LG1层第152号商铺",
+        "bigmac": 26.0,
+        "items": 80
+      },
+      {
+        "storeCode": "1990638",
+        "storeName": "麦当劳苏州三元坊地铁站餐厅",
+        "address": "人民路750号一楼部分房屋",
+        "bigmac": 26.5,
+        "items": 100
+      },
+      {
+        "storeCode": "1990603",
+        "storeName": "麦当劳苏州南门地铁站餐厅",
+        "address": "新市路、人民路苏州市轨道交通5号线南门站1-05商铺",
+        "bigmac": 26.5,
+        "items": 108
+      }
+    ]
+  },
+  {
+    "city": "无锡市",
+    "keyword": "崇安寺",
+    "stores": [
+      {
+        "storeCode": "1990684",
+        "storeName": "麦当劳无锡云蝠大厦餐厅",
+        "address": "云蝠大厦地下公花园负一层 S038,S048,S058,S068,1C208 号商铺 ",
+        "bigmac": 25.5,
+        "items": 110
+      },
+      {
+        "storeCode": "1990239",
+        "storeName": "麦当劳无锡大东方百货餐厅",
+        "address": "地铁一号线三阳广场站西北翼商铺25号，27号",
+        "bigmac": 26.5,
+        "items": 112
+      },
+      {
+        "storeCode": "1990572",
+        "storeName": "麦当劳无锡五爱路餐厅",
+        "address": "人民西路25 号1F-1Y03，2F-2Y02 铺 1F-1Y03, 2F-2Y02",
+        "bigmac": 26.0,
+        "items": 111
+      },
+      {
+        "storeCode": "1990048",
+        "storeName": "麦当劳无锡火车站南广场餐厅",
+        "address": "火车站广场8号可成大厦一楼",
+        "bigmac": 25.5,
+        "items": 87
+      },
+      {
+        "storeCode": "1990216001",
+        "storeName": "无锡火车站北广场到达快捷小站",
+        "address": "锡沪西路222号宜乐园地下一层B17.18商铺",
+        "bigmac": null,
+        "items": 29
+      }
+    ]
+  },
+  {
+    "city": "宁波市",
+    "keyword": "天一广场",
+    "stores": [
+      {
+        "storeCode": "3330480",
+        "storeName": "麦当劳宁波海曙区开明街餐厅",
+        "address": "开明街天一广场Ib101、Ib102、Ib201商铺",
+        "bigmac": 25.5,
+        "items": 118
+      },
+      {
+        "storeCode": "3330440",
+        "storeName": "麦当劳宁波新天一广场餐厅",
+        "address": "日新街86号天一广场华润万家旁麦当劳",
+        "bigmac": 26.5,
+        "items": 115
+      },
+      {
+        "storeCode": "3330589",
+        "storeName": "麦当劳宁波海曙区甬安里餐厅",
+        "address": "解放南路154、156号",
+        "bigmac": 25.5,
+        "items": 116
+      },
+      {
+        "storeCode": "3330104",
+        "storeName": "麦当劳宁波鼓楼步行街餐厅",
+        "address": "鼓楼步行街一层45号商铺",
+        "bigmac": 26.5,
+        "items": 108
+      },
+      {
+        "storeCode": "3330588",
+        "storeName": "麦当劳宁波宁波塔餐厅",
+        "address": "三眼桥街51号",
+        "bigmac": 26.5,
+        "items": 108
+      }
+    ]
+  },
+  {
+    "city": "温州市",
+    "keyword": "五马街",
+    "stores": [
+      {
+        "storeCode": "3330307",
+        "storeName": "麦当劳温州解放街餐厅",
+        "address": "解放街108号",
+        "bigmac": 26.0,
+        "items": 117
+      },
+      {
+        "storeCode": "3330008",
+        "storeName": "麦当劳温州人民路餐厅",
+        "address": "人民中路14-16号环球大厦一层",
+        "bigmac": 25.5,
+        "items": 115
+      },
+      {
+        "storeCode": "3330471",
+        "storeName": "麦当劳温州鹿城区世贸银泰餐厅",
+        "address": "世贸大厦银泰百货B座一层麦当劳",
+        "bigmac": 26.0,
+        "items": 100
+      },
+      {
+        "storeCode": "3330032",
+        "storeName": "麦当劳温州飞霞餐厅",
+        "address": "飞霞北路欧洲城H栋",
+        "bigmac": 26.5,
+        "items": 116
+      },
+      {
+        "storeCode": "3330255",
+        "storeName": "麦当劳温州鹿城区万锦名邸酒店餐厅",
+        "address": "吴桥路77号",
+        "bigmac": 26.0,
+        "items": 106
+      }
+    ]
+  }
+]

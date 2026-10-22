@@ -1,0 +1,530 @@
+{
+  "generated_at": "2026-10-22 20:19",
+  "city_count": 38,
+  "valid_city_count": 38,
+  "store_count": 170,
+  "empty_store_count": 16,
+  "national": {
+    "min": 25.5,
+    "max": 29.0,
+    "median": 26.5,
+    "mean": 26.31,
+    "spread": 3.5,
+    "spread_pct": 13.7
+  },
+  "distribution": {
+    "25.5": 34,
+    "26.0": 41,
+    "26.5": 86,
+    "28.0": 1,
+    "29.0": 8
+  },
+  "cities": [
+    {
+      "city": "拉萨市",
+      "n": 5,
+      "min": 29.0,
+      "max": 29.0,
+      "median": 29.0,
+      "mean": 29.0,
+      "spread": 0.0,
+      "spread_pct": 0.0
+    },
+    {
+      "city": "长春市",
+      "n": 5,
+      "min": 26.0,
+      "max": 29.0,
+      "median": 26.5,
+      "mean": 26.8,
+      "spread": 3.0,
+      "spread_pct": 11.5
+    },
+    {
+      "city": "重庆市",
+      "n": 4,
+      "min": 26.5,
+      "max": 29.0,
+      "median": 26.5,
+      "mean": 27.12,
+      "spread": 2.5,
+      "spread_pct": 9.4
+    },
+    {
+      "city": "杭州市",
+      "n": 3,
+      "min": 26.5,
+      "max": 29.0,
+      "median": 26.5,
+      "mean": 27.33,
+      "spread": 2.5,
+      "spread_pct": 9.4
+    },
+    {
+      "city": "天津市",
+      "n": 3,
+      "min": 26.5,
+      "max": 28.0,
+      "median": 26.5,
+      "mean": 27.0,
+      "spread": 1.5,
+      "spread_pct": 5.7
+    },
+    {
+      "city": "广州市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.3,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "武汉市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.3,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "长沙市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.3,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "沈阳市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.2,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "贵阳市",
+      "n": 3,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.17,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "海口市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.1,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "宁波市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.1,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "郑州市",
+      "n": 5,
+      "min": 26.0,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.4,
+      "spread": 0.5,
+      "spread_pct": 1.9
+    },
+    {
+      "city": "济南市",
+      "n": 5,
+      "min": 26.0,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.3,
+      "spread": 0.5,
+      "spread_pct": 1.9
+    },
+    {
+      "city": "南昌市",
+      "n": 5,
+      "min": 26.0,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.4,
+      "spread": 0.5,
+      "spread_pct": 1.9
+    },
+    {
+      "city": "福州市",
+      "n": 5,
+      "min": 26.0,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.3,
+      "spread": 0.5,
+      "spread_pct": 1.9
+    },
+    {
+      "city": "厦门市",
+      "n": 5,
+      "min": 26.0,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.4,
+      "spread": 0.5,
+      "spread_pct": 1.9
+    },
+    {
+      "city": "南宁市",
+      "n": 4,
+      "min": 26.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.5,
+      "spread": 0.0,
+      "spread_pct": 0.0
+    },
+    {
+      "city": "西宁市",
+      "n": 1,
+      "min": 26.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.5,
+      "spread": 0.0,
+      "spread_pct": 0.0
+    },
+    {
+      "city": "银川市",
+      "n": 5,
+      "min": 26.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.5,
+      "spread": 0.0,
+      "spread_pct": 0.0
+    },
+    {
+      "city": "乌鲁木齐市",
+      "n": 5,
+      "min": 26.5,
+      "max": 26.5,
+      "median": 26.5,
+      "mean": 26.5,
+      "spread": 0.0,
+      "spread_pct": 0.0
+    },
+    {
+      "city": "成都市",
+      "n": 4,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.2,
+      "mean": 26.12,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "深圳市",
+      "n": 4,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 26.0,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "南京市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 25.9,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "西安市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 26.1,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "大连市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 26.1,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "石家庄市",
+      "n": 4,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 26.0,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "太原市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 26.0,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "合肥市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 26.1,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "兰州市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 25.9,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "呼和浩特市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 25.9,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "苏州市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 26.1,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "温州市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 26.0,
+      "mean": 26.0,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "青岛市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.0,
+      "median": 26.0,
+      "mean": 25.9,
+      "spread": 0.5,
+      "spread_pct": 2.0
+    },
+    {
+      "city": "北京市",
+      "n": 3,
+      "min": 26.0,
+      "max": 26.0,
+      "median": 26.0,
+      "mean": 26.0,
+      "spread": 0.0,
+      "spread_pct": 0.0
+    },
+    {
+      "city": "无锡市",
+      "n": 4,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 25.8,
+      "mean": 25.88,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "上海市",
+      "n": 5,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 25.5,
+      "mean": 25.7,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    },
+    {
+      "city": "昆明市",
+      "n": 3,
+      "min": 25.5,
+      "max": 26.5,
+      "median": 25.5,
+      "mean": 25.83,
+      "spread": 1.0,
+      "spread_pct": 3.9
+    }
+  ],
+  "top_premium": [
+    {
+      "city": "杭州市",
+      "storeName": "麦当劳杭州西湖区岳庙码头餐厅",
+      "address": "西湖街道西湖风景名胜区湖口路5-3号麦当劳餐厅",
+      "price": 29.0,
+      "items": 80,
+      "special": true,
+      "city_median": 26.5,
+      "delta": 2.5
+    },
+    {
+      "city": "重庆市",
+      "storeName": "麦当劳重庆金鹰财富中心餐厅",
+      "address": "解放碑邹容路82号负一层",
+      "price": 29.0,
+      "items": 111,
+      "special": false,
+      "city_median": 26.5,
+      "delta": 2.5
+    },
+    {
+      "city": "长春市",
+      "storeName": "麦当劳长春季平餐厅",
+      "address": "辽宁路162号国商百货",
+      "price": 29.0,
+      "items": 110,
+      "special": false,
+      "city_median": 26.5,
+      "delta": 2.5
+    },
+    {
+      "city": "天津市",
+      "storeName": "麦当劳天津站后广场餐厅",
+      "address": "天津站北广场B1",
+      "price": 28.0,
+      "items": 60,
+      "special": false,
+      "city_median": 26.5,
+      "delta": 1.5
+    },
+    {
+      "city": "上海市",
+      "storeName": "麦当劳上海食品一店餐厅",
+      "address": "南京东路720号",
+      "price": 26.5,
+      "items": 104,
+      "special": false,
+      "city_median": 25.5,
+      "delta": 1.0
+    },
+    {
+      "city": "昆明市",
+      "storeName": "麦当劳昆明柏联广场餐厅",
+      "address": "三市街6号柏联广场商场商业廊一层F1号，商业廊二层F2号",
+      "price": 26.5,
+      "items": 114,
+      "special": false,
+      "city_median": 25.5,
+      "delta": 1.0
+    },
+    {
+      "city": "无锡市",
+      "storeName": "麦当劳无锡大东方百货餐厅",
+      "address": "地铁一号线三阳广场站西北翼商铺25号，27号",
+      "price": 26.5,
+      "items": 112,
+      "special": false,
+      "city_median": 25.8,
+      "delta": 0.7
+    },
+    {
+      "city": "兰州市",
+      "storeName": "麦当劳兰州万象城餐厅",
+      "address": "庆阳路2号兰州万象城B201商铺",
+      "price": 26.5,
+      "items": 105,
+      "special": false,
+      "city_median": 26.0,
+      "delta": 0.5
+    },
+    {
+      "city": "南京市",
+      "storeName": "麦当劳南京新百餐厅",
+      "address": "中山南路1号A座负一层G-A-025号商铺",
+      "price": 26.5,
+      "items": 114,
+      "special": false,
+      "city_median": 26.0,
+      "delta": 0.5
+    },
+    {
+      "city": "合肥市",
+      "storeName": "麦当劳合肥百盛商场餐厅",
+      "address": "淮河路步行街77号百盛商场负一层（餐厅密集，请注意区分）",
+      "price": 26.5,
+      "items": 114,
+      "special": false,
+      "city_median": 26.0,
+      "delta": 0.5
+    },
+    {
+      "city": "合肥市",
+      "storeName": "麦当劳合肥庐阳世纪中心餐厅",
+      "address": "蒙城北路88号1幢商业111-112",
+      "price": 26.5,
+      "items": 101,
+      "special": false,
+      "city_median": 26.0,
+      "delta": 0.5
+    },
+    {
+      "city": "呼和浩特市",
+      "storeName": "麦当劳呼和浩特民族商场餐厅",
+      "address": "中山西路民族商场",
+      "price": 26.5,
+      "items": 114,
+      "special": false,
+      "city_median": 26.0,
+      "delta": 0.5
+    }
+  ],
+  "special_avg": 26.8,
+  "normal_avg": 26.29,
+  "special_n": 5,
+  "normal_n": 165
+}

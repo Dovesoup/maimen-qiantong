@@ -156,7 +156,7 @@ footer{{margin-top:48px;padding-top:16px;border-top:1px solid #e6e6e2;font-size:
 </footer>
 </div></body></html>"""
 
-    out = ROOT / "docs" / "index.html"
+    out = ROOT / "web" / "report.html"
     out.parent.mkdir(parents=True, exist_ok=True) if not out.parent.exists() else None
     out.write_text(page)
     print(f"→ {out} ({len(page)} 字符)")

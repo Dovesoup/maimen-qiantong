@@ -1,437 +1,603 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>麦门签筒 · 摇一根薯条，定今天中午吃什么</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="麦门签：三根薯条摇成一卦，给今天一个明确的麦当劳点餐答案。无城市、无价格、无下下签。">
+<meta name="theme-color" content="#da291c">
+<meta property="og:title" content="麦门签 · 今天吃什么？">
+<meta property="og:description" content="三根薯条，一卦定一餐。选早签或正餐签，摇出一个明确答案。">
+<meta property="og:type" content="website">
+<title>麦门签 · 今天吃什么？</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23da291c'/%3E%3Cpath d='M15 48V31c0-12 15-12 17 0 2-12 17-12 17 0v17' fill='none' stroke='%23ffc72c' stroke-width='7'/%3E%3C/svg%3E">
 <style>
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   :root{
-    --red:#DA291C; --red-deep:#A8140A; --red-dark:#7d1208;
-    --gold:#FFC72C; --ink:#1b1712; --ink2:#6b625a; --ink3:#9a9188;
-    --paper:#faf6ef; --line:#e8dfd2;
+    --red:#da291c;
+    --red-deep:#ae190f;
+    --red-dark:#74160f;
+    --gold:#ffc72c;
+    --gold-deep:#f0b21c;
+    --cream:#f6f0e5;
+    --paper:#fffdf8;
+    --ink:#231e19;
+    --muted:#786f65;
+    --soft:#eee6d8;
+    --line:#ded4c4;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --serif:"Songti SC","STSong","SimSun",serif;
   }
-  html,body{margin:0}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
   body{
-    background:var(--paper); color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-    display:flex;flex-direction:column;align-items:center;
-    padding:0 20px 56px;overflow-x:hidden;
+    margin:0;min-height:100vh;background:var(--cream);color:var(--ink);
+    font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
-  .topline{position:fixed;top:0;left:0;right:0;height:4px;background:var(--red)}
-  header{text-align:center;padding:38px 0 0;max-width:520px;width:100%}
-  .eyebrow{font-size:11px;letter-spacing:.3em;color:var(--red);font-weight:600;margin-bottom:14px}
-  h1{font-size:34px;letter-spacing:.1em;margin:0;font-weight:700;text-indent:.1em}
-  .tagline{font-size:13px;color:var(--ink2);line-height:1.9;margin:14px 0 0}
-  .tagline b{color:var(--ink);font-weight:600}
-  .citybar{display:flex;align-items:center;justify-content:center;gap:10px;margin:20px 0 0;font-size:12px;color:var(--ink3)}
-  .pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:20px;padding:4px 11px;background:#fff}
-  .pill .sq{width:5px;height:5px;background:var(--red);border-radius:1px}
-  select{font-family:inherit;font-size:12px;color:var(--ink);border:none;background:transparent;outline:none;cursor:pointer;padding:0}
+  button{font:inherit;color:inherit}
+  button:focus-visible{outline:3px solid var(--gold-deep);outline-offset:4px}
+  [hidden]{display:none!important}
+  .site-head{
+    max-width:1120px;margin:0 auto;padding:24px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;cursor:pointer}
+  .brand-mark{width:31px;height:31px;border-radius:8px;background:var(--red);display:grid;place-items:center;flex:0 0 auto}
+  .brand-mark svg{width:23px;height:18px;display:block}
+  .brand-word{font-size:15px;font-weight:750;letter-spacing:.12em}
+  .brand-sub{font-size:9px;letter-spacing:.2em;color:var(--muted);margin-top:1px}
+  .head-actions{display:flex;align-items:center;gap:10px}
+  .mode-chip{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:7px 12px;background:var(--paper)}
+  .back-home{background:none;border:0;padding:6px 2px;font-size:12px;color:var(--red);font-weight:650;cursor:pointer}
+  .back-home:hover{text-decoration:underline;text-underline-offset:4px}
 
-  .stage{position:relative;width:100%;max-width:520px;min-height:470px;
-         display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:26px}
-  .floor{position:absolute;bottom:56px;left:50%;transform:translateX(-50%);
-         width:250px;height:26px;background:radial-gradient(ellipse at center,rgba(60,35,10,.16),transparent 68%);
-         filter:blur(2px);pointer-events:none}
+  .landing{max-width:980px;margin:0 auto;padding:44px 28px 84px}
+  .three-lines{display:flex;flex-direction:column;gap:5px;width:44px;margin:0 0 24px}
+  .three-lines i{display:block;height:6px;border-radius:3px;background:var(--gold)}
+  .three-lines i:nth-child(2){width:70%}
+  .three-lines i:nth-child(3){width:86%}
+  .kicker{font-size:11px;font-weight:750;letter-spacing:.2em;color:var(--red);margin:0 0 16px}
+  .landing h1{
+    font-size:clamp(52px,8.4vw,94px);line-height:.98;letter-spacing:-.065em;
+    margin:0;font-weight:800;max-width:800px;
+  }
+  .landing h1 span{color:var(--red)}
+  .lead{max-width:580px;margin:26px 0 0;color:var(--muted);font-size:15px;line-height:1.9}
+  .lead b{color:var(--ink);font-weight:650}
+  .mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:54px}
+  .mode-card{
+    position:relative;text-align:left;background:var(--paper);border:1px solid var(--line);
+    border-radius:18px;padding:28px 26px 24px;cursor:pointer;overflow:hidden;
+    transition:transform .18s ease,border-color .18s ease,background .18s ease;
+  }
+  .mode-card:before{content:"";position:absolute;left:0;top:0;width:100%;height:7px;background:var(--gold)}
+  .mode-card[data-mode="all_day"]:before{background:var(--red)}
+  .mode-card:hover{transform:translateY(-4px);border-color:#b8aa97;background:#fff}
+  .mode-card:active{transform:translateY(-1px)}
+  .mode-no{font:700 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;color:var(--red)}
+  .mode-card h2{font-size:32px;line-height:1.1;margin:20px 0 9px;letter-spacing:-.035em;font-weight:800}
+  .mode-desc{font-size:13px;line-height:1.8;color:var(--muted);margin:0;min-height:47px}
+  .mode-go{display:flex;align-items:center;justify-content:space-between;margin-top:23px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;font-weight:700;color:var(--red)}
+  .mode-go span{display:inline-grid;place-items:center;width:27px;height:27px;border:1px solid var(--red);border-radius:50%;font-size:15px;transition:background .18s,color .18s}
+  .mode-card:hover .mode-go span{background:var(--red);color:#fff}
+  .entry-note{margin:20px 0 0;font-size:11.5px;color:#92887b;letter-spacing:.03em}
+  .entry-note b{color:var(--ink);font-weight:650}
 
-  .carton{position:relative;width:196px;height:200px;cursor:pointer;
-          transform-origin:50% 100%;filter:drop-shadow(0 16px 18px rgba(80,30,10,.18));
-          -webkit-user-select:none;user-select:none}
-  .carton-back{position:absolute;bottom:0;left:0;width:196px;height:200px;
-    background:linear-gradient(105deg,#8e150b,#b81f10 45%,#8e150b);
-    clip-path:polygon(0 0,100% 0,84% 100%,16% 100%)}
-  .carton-front{position:absolute;bottom:0;left:0;width:196px;height:186px;
-    background:linear-gradient(100deg,#c22214 0%,#DA291C 26%,#e8331f 52%,#c81f12 84%,#a81a0e 100%);
-    clip-path:polygon(0 0,100% 0,84% 100%,16% 100%);
-    display:flex;flex-direction:column;align-items:center}
-  .carton-front:after{content:"";position:absolute;top:0;left:0;width:100%;height:14px;
-    background:linear-gradient(rgba(0,0,0,.22),transparent)}
-  .mlogo{margin-top:44px;width:96px;height:64px}
-  .ff{margin-top:2px;color:#ffe9b0;font-size:10px;letter-spacing:.32em;font-weight:600;text-indent:.32em}
-  .cn{margin-top:auto;margin-bottom:26px;color:#ffd9a0;font-size:12px;letter-spacing:.42em;text-indent:.42em;
-      font-family:"Songti SC","STSong",serif;opacity:.85}
+  .ritual{max-width:980px;margin:0 auto;padding:8px 28px 58px}
+  .ritual-head{text-align:center;margin:8px auto 4px;max-width:620px}
+  .ritual-eyebrow{font-size:11px;letter-spacing:.2em;font-weight:750;color:var(--red);margin:0 0 10px}
+  .ritual-head h2{font-size:clamp(31px,4.4vw,46px);letter-spacing:-.05em;margin:0;font-weight:800}
+  .hint{font-size:12.5px;line-height:1.85;color:var(--muted);margin:12px 0 0;min-height:23px}
+  .stage{
+    position:relative;display:grid;grid-template-columns:280px 270px;gap:56px;
+    align-items:center;justify-content:center;min-height:365px;margin:2px auto 0;
+    touch-action:manipulation;
+  }
+  .gua-board{
+    position:relative;width:100%;max-width:280px;height:218px;justify-self:end;
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  }
+  .gua-board:before{content:"";position:absolute;left:16px;top:16px;width:8px;height:8px;border-radius:2px;background:var(--gold)}
+  .board-label{position:absolute;right:16px;top:15px;font-size:9px;letter-spacing:.18em;color:#a39889;font-weight:650}
+  .ghost-lines{
+    position:absolute;left:24px;right:24px;top:46px;bottom:60px;
+    display:flex;flex-direction:column;justify-content:space-between;transition:opacity .25s ease;
+  }
+  .ghost-row{height:11px;display:flex;justify-content:center;gap:16px}
+  .ghost-row i{display:block;height:11px;border-radius:4px;background:#ece3d4}
+  .ghost-row i.full{width:100%}
+  .ghost-row i.half{width:42%}
+  .filled .ghost-lines{opacity:0}
+  .pieces{position:absolute;left:24px;right:24px;top:46px;bottom:60px}
+  .piece{position:absolute;height:11px;border-radius:4px;background:var(--gold);opacity:0}
+  .piece.alt{background:var(--gold-deep)}
+  .gua-caption{
+    position:absolute;left:20px;right:20px;bottom:15px;display:flex;align-items:baseline;
+    justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:11px;
+  }
+  .gua-caption b{font-size:16px;letter-spacing:.04em;font-weight:750;min-width:70px}
+  .gua-caption span{font-size:11px;color:var(--muted);text-align:right;line-height:1.4}
+  .gua-board.landed .gua-caption b{color:var(--red)}
+  .gua-board.landed .gua-caption{animation:capIn .38s ease both}
+  @keyframes capIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  .fries{position:absolute;bottom:172px;left:0;width:196px;height:130px;z-index:2;pointer-events:none}
-  .fry{position:absolute;bottom:0;width:9px;border-radius:3px 3px 1px 1px;
-       background:linear-gradient(90deg,#c8901f 0%,#f2c248 26%,#ffe08a 55%,#f7d061 78%,#d79c25 100%);
-       box-shadow:inset 0 -6px 6px rgba(160,100,20,.25),inset 0 3px 2px rgba(255,240,200,.6);
-       transform-origin:50% 100%}
-  .fry:before{content:"";position:absolute;top:0;left:0;width:100%;height:9px;
-       background:linear-gradient(rgba(150,95,20,.35),transparent);border-radius:3px 3px 0 0}
-
-  .carton.shake{animation:rock .72s cubic-bezier(.36,.07,.19,.97)}
+  .carton{
+    position:relative;display:block;width:260px;height:330px;aspect-ratio:260/330;
+    padding:0;border:0;background:transparent;cursor:pointer;justify-self:start;
+    transform-origin:50% 92%;user-select:none;
+  }
+  .carton-back,.carton-front{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+  .carton-back{z-index:1}
+  .carton-front{z-index:3}
+  .fries-layer{position:absolute;z-index:2;left:13%;right:13%;top:0;height:74%}
+  .fry{position:absolute;bottom:0;border-radius:3px;transform-origin:50% 100%;background:var(--gold)}
+  .fry.alt{background:var(--gold-deep)}
+  .carton-face{
+    position:absolute;z-index:4;inset:0;display:flex;flex-direction:column;align-items:center;
+    padding-top:31%;pointer-events:none;color:#fff5df;
+  }
+  .mlogo{display:block;width:36%;height:auto;margin-bottom:7%}
+  .carton-name{font-size:clamp(14px,2.7vw,17px);line-height:1.3;font-weight:700;letter-spacing:.15em;text-indent:.15em;color:#fff3d2}
+  .carton-question{margin-top:5px;font-size:clamp(12px,2.3vw,14px);letter-spacing:.08em;text-indent:.08em;color:#ffe2a6}
+  .carton.shake{animation:rock .66s cubic-bezier(.36,.07,.19,.97)}
   @keyframes rock{
     0%,100%{transform:rotate(0) translateX(0)}
-    12%{transform:rotate(-8deg) translateX(-12px)}
-    30%{transform:rotate(7deg) translateX(11px)}
-    48%{transform:rotate(-6deg) translateX(-9px)}
-    66%{transform:rotate(4deg) translateX(6px)}
-    84%{transform:rotate(-2deg) translateX(-3px)}
+    12%{transform:rotate(-7deg) translateX(-11px)}
+    30%{transform:rotate(6deg) translateX(10px)}
+    48%{transform:rotate(-5deg) translateX(-8px)}
+    66%{transform:rotate(3deg) translateX(5px)}
+    84%{transform:rotate(-1.4deg) translateX(-2px)}
   }
-  .carton.shake .fry{animation:jiggle .72s ease-in-out;animation-delay:calc(var(--i) * 9ms)}
+  .carton.shake .fry{animation:jiggle .66s ease-in-out;animation-delay:calc(var(--i) * 8ms)}
   @keyframes jiggle{
     0%,100%{transform:rotate(var(--r)) translateY(0)}
-    25%{transform:rotate(calc(var(--r) + 5deg)) translateY(-9px)}
-    55%{transform:rotate(calc(var(--r) - 4deg)) translateY(-3px)}
+    28%{transform:rotate(calc(var(--r) + 5deg)) translateY(-8px)}
+    56%{transform:rotate(calc(var(--r) - 4deg)) translateY(-2px)}
     80%{transform:rotate(calc(var(--r) + 2deg)) translateY(-5px)}
   }
 
-  .flyer{position:absolute;width:12px;height:104px;border-radius:4px;z-index:20;pointer-events:none;
-    background:linear-gradient(90deg,#c8901f,#f2c248 30%,#ffe08a 58%,#d79c25);
-    box-shadow:inset 0 -6px 6px rgba(160,100,20,.25),0 10px 16px -6px rgba(90,60,10,.4);
-    transform-origin:50% 50%;opacity:0}
-
-  .hint{margin-top:22px;font-size:12.5px;color:var(--ink2);text-align:center;line-height:2;min-height:44px}
-  .hint em{font-style:normal;color:var(--red);font-weight:600}
+  .cast-row{text-align:center;margin-top:6px}
+  .has-result .cast-row{display:none}
   .cast{
-    margin-top:6px;font-family:inherit;font-size:14px;font-weight:600;letter-spacing:.18em;text-indent:.18em;
-    color:#fff;background:var(--red);border:none;border-radius:26px;padding:14px 44px;cursor:pointer;
-    box-shadow:0 8px 20px -8px rgba(218,41,28,.7);transition:transform .12s,box-shadow .2s}
-  .cast:hover{box-shadow:0 10px 26px -8px rgba(218,41,28,.8)}
-  .cast:active{transform:scale(.96)}
-  .cast:disabled{opacity:.45;cursor:default;box-shadow:none}
-  .micro{font-size:11px;color:var(--ink3);margin-top:14px;letter-spacing:.04em}
+    border:0;border-radius:999px;background:var(--red);color:#fff;cursor:pointer;
+    padding:15px 46px;font-size:13px;font-weight:750;letter-spacing:.17em;text-indent:.17em;
+    transition:background .16s,transform .12s;
+  }
+  .cast:hover{background:var(--red-deep)}
+  .cast:active{transform:scale(.975)}
+  .cast:disabled{background:#b9ab9b;cursor:default}
+  .micro{font-size:10.5px;color:#958b7f;letter-spacing:.02em;margin:12px 0 0}
 
-  .result{width:100%;max-width:520px;display:none}
-  .result.show{display:block;animation:rise .45s ease both}
-  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 26px 24px;
-        box-shadow:0 24px 50px -30px rgba(80,50,20,.35);position:relative;overflow:hidden}
-  .card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--red)}
-  .card-top{display:flex;align-items:center;justify-content:space-between}
-  .no{font-size:11px;letter-spacing:.2em;color:var(--ink3);font-variant-numeric:tabular-nums}
-  .seal{background:var(--red);color:#fff8ea;font-size:12px;font-weight:600;letter-spacing:.2em;text-indent:.2em;
-        padding:5px 12px 4px;border-radius:3px;transform:rotate(-3deg);
-        animation:stamp .4s cubic-bezier(.2,1.5,.4,1) both .15s}
-  @keyframes stamp{from{transform:rotate(-12deg) scale(1.9);opacity:0}to{transform:rotate(-3deg) scale(1);opacity:1}}
-  .hex{font-size:30px;font-weight:700;letter-spacing:.12em;margin:20px 0 6px;text-align:center;text-indent:.12em}
-  .hexsub{text-align:center;font-size:11px;letter-spacing:.24em;color:var(--ink3)}
-  .poem{margin:24px 0 0;text-align:center;font-size:17px;line-height:2.4;letter-spacing:.12em;
-        font-family:"Songti SC","STSong","SimSun",serif;color:#2a2119}
-  .poem div{opacity:0;animation:fadein .5s ease forwards}
-  .poem div:nth-child(1){animation-delay:.3s}.poem div:nth-child(2){animation-delay:.42s}
-  .poem div:nth-child(3){animation-delay:.54s}.poem div:nth-child(4){animation-delay:.66s}
-  @keyframes fadein{to{opacity:1}}
-  .rule{height:1px;background:repeating-linear-gradient(90deg,var(--line) 0 5px,transparent 5px 10px);margin:24px 0 18px}
-  .dish-h{font-size:10.5px;letter-spacing:.28em;color:var(--red);font-weight:600;margin-bottom:12px}
-  .dish{display:flex;align-items:baseline;gap:10px;padding:9px 0;font-size:14px;border-bottom:1px solid #f4eee4}
-  .dish .lb{flex:0 0 34px;font-size:11px;color:var(--ink3)}
-  .dish .nm{flex:1;color:var(--ink)}
-  .dish .pr{font-variant-numeric:tabular-nums;color:var(--ink2);font-size:13px}
-  .sum{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px}
-  .sum span{font-size:12px;letter-spacing:.2em;color:var(--ink2)}
-  .sum b{font-size:26px;font-variant-numeric:tabular-nums;letter-spacing:.01em}
-  .aside{margin-top:22px;padding:14px 16px;background:#fff8e8;border-left:3px solid var(--gold);
-         border-radius:0 8px 8px 0;font-size:12px;line-height:1.9;color:var(--ink2)}
-  .aside b{color:var(--ink);font-weight:600}
-  .aside .tag{display:block;font-size:10px;letter-spacing:.26em;color:#b8912f;font-weight:600;margin-bottom:6px}
-  .again{display:block;margin:24px auto 0;font-family:inherit;font-size:13px;letter-spacing:.16em;text-indent:.16em;
-    color:var(--red);background:transparent;border:1px solid var(--red);border-radius:22px;padding:11px 30px;cursor:pointer}
-  .again:hover{background:rgba(218,41,28,.05)}
+  .result{max-width:680px;margin:36px auto 0;scroll-margin-top:24px}
+  .result.show{animation:rise .42s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .result-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+  .result-head{display:flex;align-items:center;gap:18px;padding:22px 24px;border-bottom:1px solid var(--line)}
+  .gua-seal{
+    flex:0 0 auto;width:66px;height:66px;display:grid;place-items:center;background:var(--red);
+    color:var(--gold);border-radius:12px;font-family:var(--serif);font-size:38px;line-height:1;
+  }
+  .result-heading{flex:1;min-width:0}
+  .result-kicker{font-size:10px;letter-spacing:.16em;color:var(--muted);margin:0 0 5px;font-weight:700}
+  .result-title{font-size:22px;letter-spacing:-.025em;margin:0;font-weight:800;line-height:1.25}
+  .result-title span{color:var(--red);margin-left:5px;font-size:13px;font-weight:600}
+  .fortune{
+    flex:0 0 auto;background:var(--gold);color:#4e3000;border-radius:5px;
+    padding:7px 10px;font-size:11px;font-weight:800;white-space:nowrap;letter-spacing:.05em;
+  }
+  .result-line{padding:17px 24px 0;font-family:var(--serif);font-size:14px;color:var(--muted);line-height:1.7}
+  .meal-panel{margin:16px 24px 0;padding:24px 24px 20px;background:var(--cream);border-radius:12px}
+  .meal-label{font-size:10px;letter-spacing:.2em;color:var(--red);font-weight:800;margin:0 0 10px}
+  .meal-main{font-size:clamp(27px,4vw,36px);line-height:1.24;letter-spacing:-.04em;font-weight:800;margin:0}
+  .meal-pair{margin:8px 0 0;font-size:15px;line-height:1.6;color:#574d42}
+  .meal-fallback{margin:17px 0 0;padding-top:13px;border-top:1px dashed #d9cebd;font-size:11.5px;line-height:1.7;color:#8a7f71}
+  .meal-fallback b{color:var(--red);font-weight:700}
+  .result-note{padding:14px 24px 0;font-size:10.5px;line-height:1.65;color:#958a7d}
+  .result-actions{display:flex;gap:10px;padding:19px 24px 24px}
+  .action{border-radius:999px;padding:12px 22px;font-size:12px;font-weight:700;cursor:pointer;transition:background .16s,color .16s}
+  .action.primary{flex:1;background:var(--red);color:#fff;border:1px solid var(--red)}
+  .action.primary:hover{background:var(--red-deep);border-color:var(--red-deep)}
+  .action.secondary{background:transparent;color:var(--red);border:1px solid var(--red)}
+  .action.secondary:hover{background:#fbebe7}
 
-  footer{max-width:520px;width:100%;margin-top:36px;padding-top:16px;border-top:1px solid var(--line);
-         font-size:10.5px;line-height:1.95;color:var(--ink3);text-align:center}
-  footer b{color:var(--ink2)}
-  @media (max-width:400px){
-    h1{font-size:28px}
-    .card{padding:24px 20px 20px}
-    .poem{font-size:16px}
+  footer{max-width:980px;margin:38px auto 0;padding:18px 28px 40px;border-top:1px solid var(--line);color:#948a7d;font-size:10.5px;line-height:1.9;text-align:center}
+  footer b{color:var(--muted);font-weight:650}
+  footer a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(218,41,28,.35)}
+  footer a:hover{border-bottom-color:var(--red)}
+  .toast{
+    position:fixed;z-index:50;left:50%;bottom:28px;transform:translate(-50%,16px);
+    background:var(--ink);color:#fff8eb;border-radius:8px;padding:11px 17px;font-size:12px;
+    opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media(max-width:760px){
+    .site-head{padding:18px 18px}
+    .brand-sub{display:none}
+    .landing{padding:30px 18px 62px}
+    .landing h1{font-size:clamp(50px,15.2vw,72px)}
+    .lead{font-size:14px;margin-top:22px}
+    .mode-grid{grid-template-columns:1fr;gap:12px;margin-top:36px}
+    .mode-card{padding:22px 21px 19px;border-radius:15px}
+    .mode-card h2{font-size:27px;margin-top:14px}
+    .mode-desc{min-height:0}
+    .mode-go{margin-top:17px;padding-top:13px}
+    .entry-note{font-size:11px;line-height:1.7}
+    .ritual{padding:4px 18px 42px}
+    .stage{grid-template-columns:1fr;gap:9px;min-height:0;margin-top:8px}
+    .gua-board{width:min(76vw,260px);height:168px;justify-self:center;order:1}
+    .gua-board:before{left:13px;top:13px}
+    .board-label{top:12px;right:13px}
+    .ghost-lines{left:20px;right:20px;top:37px;bottom:54px}
+    .pieces{left:20px;right:20px;top:37px;bottom:54px}
+    .gua-caption{left:16px;right:16px;bottom:11px;padding-top:9px}
+    .gua-caption b{font-size:14px;min-width:60px}
+    .gua-caption span{font-size:10px}
+    .carton{width:212px;height:269px;justify-self:center;order:2}
+    .carton-face{padding-top:32%}
+    .carton-name{font-size:13px}
+    .carton-question{font-size:11px}
+    .hint{font-size:11.5px}
+    .cast-row{margin-top:2px}
+    .cast{padding:14px 38px}
+    .micro{font-size:10px}
+    .result{margin-top:24px}
+    .result-head{padding:17px 17px;gap:12px}
+    .gua-seal{width:52px;height:52px;font-size:30px;border-radius:9px}
+    .result-title{font-size:18px}
+    .result-title span{display:block;margin:3px 0 0;font-size:11px}
+    .fortune{font-size:10px;padding:6px 7px}
+    .result-line{padding:14px 17px 0;font-size:12.5px}
+    .meal-panel{margin:13px 17px 0;padding:19px 17px 17px}
+    .meal-main{font-size:27px}
+    .meal-pair{font-size:13px}
+    .meal-fallback{font-size:10.5px}
+    .result-note{padding:12px 17px 0;font-size:10px}
+    .result-actions{padding:15px 17px 18px}
+    .action{padding:11px 14px;font-size:11px}
+    footer{margin-top:26px;padding:16px 18px 32px;font-size:10px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto} *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   }
 </style>
 </head>
 <body>
-<div class="topline"></div>
-
-<header>
-  <div class="eyebrow">MAI MEN QIAN TONG</div>
-  <h1>麦门签筒</h1>
-  <p class="tagline">摇一根薯条，今天吃什么都由它定。<br>签是随机的，<b>签上那顿饭的价钱是真的</b>。</p>
-  <div class="citybar">
-    <span class="pill"><span class="sq"></span><span id="slotTag">正签</span></span>
-    <span class="pill"><select id="city"></select></span>
-    <span id="storeName" style="font-size:11px"></span>
+<header class="site-head">
+  <button class="brand" id="brandBtn" type="button" aria-label="回到麦门签首页">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 132 104"><path d="M22 96V52C22 18 66 18 66 52V96V52C66 18 110 18 110 52V96" fill="none" stroke="#ffc72c" stroke-width="15" stroke-linecap="butt" stroke-linejoin="round"/></svg>
+    </span>
+    <span><span class="brand-word">麦门签</span><br><span class="brand-sub">一卦定一餐</span></span>
+  </button>
+  <div class="head-actions">
+    <span class="mode-chip" id="headMode" hidden>早签 · 早餐</span>
+    <button class="back-home" id="backHome" type="button" hidden>换一顿</button>
   </div>
 </header>
 
-<div class="stage" id="stage">
-  <div class="floor"></div>
-  <div class="carton" id="carton" role="button" tabindex="0" aria-label="摇一摇薯条盒">
-    <div class="fries" id="fries"></div>
-    <div class="carton-back"></div>
-    <div class="carton-front">
-      <svg class="mlogo" viewBox="0 0 120 76" aria-hidden="true">
-        <path d="M14 66 V30 Q14 12 30 12 Q46 12 46 30 V66" fill="none" stroke="#FFC72C" stroke-width="12"/>
-        <path d="M74 66 V30 Q74 12 90 12 Q106 12 106 30 V66" fill="none" stroke="#FFC72C" stroke-width="12"/>
-      </svg>
-      <div class="ff">FRENCH FRIES</div>
-      <div class="cn">麥門簽</div>
+<main>
+  <section class="landing" id="landing">
+    <div class="three-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p class="kicker">三根薯条 · 一个明确答案</p>
+    <h1>今天，<br><span>吃哪一顿？</span></h1>
+    <p class="lead">不查城市，不看价格，也不让时钟替你猜。<b>你选一顿，摇三根薯条，落成一卦，只给一个结果。</b></p>
+    <div class="mode-grid">
+      <button class="mode-card" type="button" data-mode="breakfast">
+        <span class="mode-no">01 / 早签</span>
+        <h2>早餐</h2>
+        <p class="mode-desc">麦满分、炒双蛋堡、脆薯饼、油条豆浆。早上的胃，值得一套明确的答案。</p>
+        <span class="mode-go">进早餐签筒 <span aria-hidden="true">→</span></span>
+      </button>
+      <button class="mode-card" type="button" data-mode="all_day">
+        <span class="mode-no">02 / 正餐签</span>
+        <h2>午晚</h2>
+        <p class="mode-desc">汉堡、鸡排、麦乐鸡。中午和晚上共用一套签，不看钟点，只问你此刻想吃什么。</p>
+        <span class="mode-go">进正餐签筒 <span aria-hidden="true">→</span></span>
+      </button>
     </div>
-  </div>
-  <div class="hint" id="hint">点击盒子，或按住鼠标<em>快速左右摇</em><br>也可以直接点下面这根</div>
-  <button class="cast" id="cast">摇 一 根</button>
-  <div class="micro">手机端可以真的摇一摇</div>
-</div>
+    <p class="entry-note"><b>餐段由你决定。</b> 十点半的早餐还是午餐，不该由网页猜。</p>
+  </section>
 
-<div class="result" id="result"></div>
+  <section class="ritual" id="ritual" hidden>
+    <div class="ritual-head">
+      <p class="ritual-eyebrow" id="ritualEyebrow">早签 · 早餐</p>
+      <h2>摇三根，落一卦。</h2>
+      <p class="hint" id="hint">点击盒子，或按住鼠标快速左右摇。三根薯条会落成一卦。</p>
+    </div>
+    <div class="stage" id="stage">
+      <div class="gua-board" id="guaBoard" aria-label="卦象区">
+        <span class="board-label">今 日 卦 象</span>
+        <div class="ghost-lines" aria-hidden="true">
+          <div class="ghost-row"><i class="full"></i></div>
+          <div class="ghost-row"><i class="half"></i><i class="half"></i></div>
+          <div class="ghost-row"><i class="full"></i></div>
+        </div>
+        <div class="pieces" id="pieces" aria-hidden="true"></div>
+        <div class="gua-caption"><b id="guaName">签未落</b><span id="guaImage">摇一摇，让薯条说话</span></div>
+      </div>
+      <button class="carton" id="carton" type="button" aria-label="摇一摇薯条盒">
+        <div class="fries-layer" id="fries" aria-hidden="true"></div>
+        <svg class="carton-back" viewBox="0 0 260 330" aria-hidden="true">
+          <path d="M19 31Q130 18 241 31L215 286Q130 273 45 286Z" fill="#9b1a11"/>
+        </svg>
+        <svg class="carton-front" viewBox="0 0 260 330" aria-hidden="true">
+          <path d="M17 49Q130 96 243 49L209 310Q130 285 51 310Z" fill="#da291c"/>
+        </svg>
+        <div class="carton-face" aria-hidden="true">
+          <svg class="mlogo" viewBox="0 0 132 104"><path d="M22 96V52C22 18 66 18 66 52V96V52C66 18 110 18 110 52V96" fill="none" stroke="#ffc72c" stroke-width="15" stroke-linecap="butt" stroke-linejoin="round"/></svg>
+          <div class="carton-name">麦门签：</div>
+          <div class="carton-question">今天吃什么？</div>
+        </div>
+      </button>
+    </div>
+    <div class="cast-row">
+      <button class="cast" id="cast" type="button">摇 一 签</button>
+      <p class="micro">点击盒子 · 快速左右摇鼠标 · 请把餐段选对</p>
+    </div>
+  </section>
+
+  <section class="result" id="result" hidden aria-live="polite"></section>
+</main>
 
 <footer>
-  <b>娱乐声明</b>：本签为随机游戏，不具任何预测功能，不构成饮食、消费或健康建议。<br>
-  菜单与价格来自麦当劳中国官方 MCP（mcp.mcd.cn）实时查询，采集于 <span id="genAt">—</span>，以门店实际为准。<br>
-  签诗为原创文案，与麦当劳无关。
+  <b>食运只图一乐</b>，不预测吉凶，也不代表菜品高低。大吉不等于更贵，平也不等于不好。<br>
+  菜单锚点核对自麦当劳中国官方 MCP 查询结果（2026-10-22），本页不含价格，不保证各门店全时段供应。<br>
+  本作品为参赛创意，非麦当劳官方产品。<br>
+  <a href="https://github.com/Dovesoup/maimen-qiantong" target="_blank" rel="noopener">在 GitHub 看源码 · 给这签点一颗 Star</a>
 </footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-window.META={"genAt": "2026-10-22 20:19", "cities": 11};
-window.SIGNS={"main":[{"no":1,"hex":"乾为天","mood":"主饱","poem":["金拱门下立斜阳","两片纯牛压作梁","薯条如戟排云上","一杯冰可落九肠"],"main":["巨无霸"],"side":["薯条"],"drink":["可乐"]},{"no":2,"hex":"坤为地","mood":"主稳","poem":["铁板微焦贴地香","生菜一层护嫩黄","不争豪横只争稳","饱后无求即是方"],"main":["板烧鸡腿堡"],"side":["玉米杯"],"drink":["纯牛奶"]},{"no":3,"hex":"水雷屯","mood":"主辣","poem":["初咬一口辣当先","汗出如浆不敢言","莫道此签多阻滞","三口过后自甘甜"],"main":["麦辣鸡腿汉堡"],"side":[],"drink":["可乐"]},{"no":4,"hex":"山水蒙","mood":"主初","poem":["童稚初尝麦乐鸡","蘸酱一抹认天地","酸甜未辨先开口","万事皆从第一块"],"main":["麦乐鸡"],"side":[],"drink":["可乐"]},{"no":5,"hex":"水天需","mood":"主堂食","poem":["候单如候雨前云","薯条一软便失真","此签只宜堂内取","莫教外送误良辰"],"main":["巨无霸"],"side":["薯条"],"drink":[]},{"no":6,"hex":"天水讼","mood":"主择","poem":["鸡鱼两堡各争强","一个清鲜一个香","争到最后都入腹","何必分谁更胜场"],"main":["麦香鸡","麦香鱼"],"side":[],"drink":[]},{"no":7,"hex":"地水师","mood":"主战","poem":["双堡列阵芝士锋","翅骨如戈指长空","此签主战不主和","饿时出手莫从容"],"main":["双层吉士汉堡"],"side":["麦辣鸡翅"],"drink":[]},{"no":8,"hex":"水地比","mood":"主分","poem":["聚处共食似比邻","你一块来我一根","分食反觉滋味长","独吞总是少三分"],"main":["麦乐鸡"],"side":["麦辣鸡翅"],"drink":["雪碧"]},{"no":9,"hex":"风天小畜","mood":"主小","poem":["细薯如金积小仓","莫嫌量少莫贪长","积少成多终是饱","一把一把胜空忙"],"main":[],"side":["薯条"],"drink":["可乐"]},{"no":10,"hex":"天泽履","mood":"主序","poem":["履霜坚冰渐次来","板烧一层一层开","行事如堡须分层","急火反把好味埋"],"main":["板烧鸡腿堡"],"side":["薯条"],"drink":[]},{"no":11,"hex":"地天泰","mood":"主顺","poem":["三件成泰上下通","一堡一薯一饮中","此签主顺宜出行","莫在工位误春风"],"main":["巨无霸"],"side":["薯条"],"drink":["雪碧"]},{"no":12,"hex":"天地否","mood":"主省","poem":["否极之时一支甜","五元消得半日闲","莫愁囊中钱数少","圆筒在手亦成仙"],"main":[],"side":["圆筒冰淇淋"],"drink":[]},{"no":13,"hex":"天火同人","mood":"主交","poem":["同人于野共一餐","清淡之交最耐看","君子往来不在贵","可乐一杯不必干"],"main":["麦香鸡"],"side":["薯条"],"drink":["可乐"]},{"no":14,"hex":"火天大有","mood":"主丰","poem":["厚牛一块压乾坤","芝香四溢满口春","大有之年宜纵口","莫待饥过悔吝人"],"main":["芝士安格斯厚牛堡"],"side":["薯条"],"drink":["鲜萃咖啡"]},{"no":15,"hex":"地山谦","mood":"主俭","poem":["谦谦君子只一堡","不添薯条不添糕","省下浮财留后手","果腹何必尽奢豪"],"main":["麦香鸡"],"side":[],"drink":[]},{"no":16,"hex":"雷地豫","mood":"主乐","poem":["旋开一勺乐无涯","饼干碎里响沙沙","此签主豫宜自喜","莫问明日有无茶"],"main":[],"side":["经典麦旋风"],"drink":["可乐"]},{"no":17,"hex":"泽雷随","mood":"主随","poem":["随时随事随时吃","饿了便食最为宜","不必择日不必算","算来算去误了饥"],"main":["麦乐鸡"],"side":[],"drink":["雪碧"]},{"no":18,"hex":"山风蛊","mood":"主慢","poem":["积弊如翅须慢啃","一节一节见真章","治事当从细处起","莫嫌骨多肉少方"],"main":[],"side":["麦辣鸡翅"],"drink":["可乐"]},{"no":19,"hex":"地泽临","mood":"主新","poem":["临门厚味试一遭","培根贴肉正烧烧","此签主新宜尝鲜","莫守旧味到明朝"],"main":["培根安格斯厚牛堡"],"side":[],"drink":[]},{"no":20,"hex":"风地观","mood":"主断","poem":["观遍菜单未肯决","鸡鱼牛堡处处佳","此签主断不主看","看得越久越难拿"],"main":["麦香鱼"],"side":["薯条"],"drink":[]},{"no":21,"hex":"火雷噬嗑","mood":"主合","poem":["噬嗑为卦主咬合","上下两片紧相夹","中间七层皆有序","一口咬下莫松牙"],"main":["巨无霸"],"side":[],"drink":[]},{"no":22,"hex":"山火贲","mood":"主巧","poem":["贲饰其外亦其内","芝士拉丝三尺长","莫笑此签多花巧","好看之物也好尝"],"main":["芝士安格斯厚牛堡"],"side":[],"drink":[]},{"no":23,"hex":"山地剥","mood":"主纯","poem":["剥尽浮华见本真","单堡一只也安身","套餐虽好价更重","剥到无时即是纯"],"main":["麦香鸡"],"side":[],"drink":[]},{"no":24,"hex":"地雷复","mood":"主旧","poem":["复卦归来仍旧味","点来点去还是它","人间至味非新奇","一味千回不觉乏"],"main":["板烧鸡腿堡"],"side":[],"drink":[]},{"no":25,"hex":"天雷无妄","mood":"主偶","poem":["无妄之福不期来","双牛一压两开怀","莫问此签何以得","人间好事偶然栽"],"main":["高达吉士双牛堡"],"side":[],"drink":["可乐"]},{"no":26,"hex":"山天大畜","mood":"主囤","poem":["大畜之卦宜囤积","翅排在手不须愁","风来雨来皆可坐","饱食终日胜封侯"],"main":["那么大鸡排（椒盐风味）"],"side":["薄皮焦香V翅"],"drink":["可乐"]},{"no":27,"hex":"山雷颐","mood":"主养","poem":["颐养之道在适量","一杯一玉米当时","此签主养不主纵","口腹之欲要有止"],"main":[],"side":["玉米杯"],"drink":["纯牛奶"]},{"no":28,"hex":"泽风大过","mood":"主过","poem":["大过之时宜大嚼","双层厚肉压满膛","此签主过不宜久","过饱伤身记心上"],"main":["不素之霸双层牛堡"],"side":["薯条"],"drink":["可乐"]},{"no":29,"hex":"坎为水","mood":"主速","poem":["坎为水兮甜易化","出门三步便成汤","此签主险须速食","莫持在手久端详"],"main":[],"side":["新地"],"drink":[]},{"no":30,"hex":"离为火","mood":"主暖","poem":["离为火兮宜热饮","一杯暖手过清晨","此签主明不宜夜","早间得之最宜人"],"main":[],"side":[],"drink":["鲜萃咖啡"]},{"no":31,"hex":"泽山咸","mood":"主感","poem":["咸卦主感在舌尖","一蘸一蘸各有天","酸甜苦辣皆可配","人间滋味在心间"],"main":["麦乐鸡"],"side":["薯条"],"drink":[]},{"no":32,"hex":"雷风恒","mood":"主恒","poem":["恒久之道在不变","板烧一味守多年","此签主稳宜长计","莫为新奇弃旧缘"],"main":["板烧鸡腿堡"],"side":[],"drink":["锡兰红茶"]},{"no":33,"hex":"天山遁","mood":"主退","poem":["遁卦宜退不宜争","一瓶清水且消停","囊中羞涩非可耻","退一步处有清风"],"main":[],"side":[],"drink":["纯悦"]},{"no":34,"hex":"雷天大壮","mood":"主壮","poem":["大壮之卦宜大块","鸡排一掌压双肩","此签主壮宜饱食","莫学小儿半口还"],"main":["那么大鸡排（椒盐风味）"],"side":[],"drink":[]},{"no":35,"hex":"火地晋","mood":"主进","poem":["晋如日出宜上进","鱼堡清鲜配薯青","此签主进不主守","多走一步多吃一口"],"main":["双层深海鳕鱼堡"],"side":["薯条"],"drink":["雪碧"]},{"no":36,"hex":"地火明夷","mood":"主收","poem":["明夷之时宜守晦","莫在人前显我饥","若逢末单将尽处","剩什么便吃什么"],"main":[],"side":["派"],"drink":[]}],"morning":[{"no":1,"hex":"晨签一","mood":"主醒","poem":["晨光未上金拱门","猪柳一蛋夹得匀","薯饼如月圆且脆","咖啡半盏唤我魂"],"main":["猪柳蛋麦满分"],"side":["脆薯饼"],"drink":["鲜萃咖啡"]},{"no":2,"hex":"晨签二","mood":"主平","poem":["晨起无端腹作声","板烧一片贴麦饼","豆浆温吞不用糖","此签主稳早安平"],"main":["原味板烧鸡腿麦满分"],"side":[],"drink":["优品豆浆"]},{"no":3,"hex":"晨签三","mood":"主常","poem":["吉士黄如朝日升","油条一节脆生生","豆浆三样皆寻常","寻常才是好光景"],"main":["吉士蛋麦满分"],"side":["脆香油条"],"drink":["优品豆浆"]},{"no":4,"hex":"晨签四","mood":"主厚","poem":["双层猪柳压危城","此签主厚不主轻","若问今晨何以饱","一层未尽一层迎"],"main":["双层猪柳蛋麦满分"],"side":[],"drink":[]},{"no":5,"hex":"晨签五","mood":"主狂","poem":["脆鸡一块大如掌","清早先把可乐尝","世人笑我太放纵","我笑世人不敢狂"],"main":["大脆鸡扒麦满分"],"side":[],"drink":["可乐"]},{"no":6,"hex":"晨签六","mood":"主省","poem":["火腿薄如一片霞","麦满分里夹着它","此签最是便宜签","省下钱来慢慢花"],"main":["火腿扒麦满分"],"side":[],"drink":[]},{"no":7,"hex":"晨签七","mood":"主淡","poem":["猪柳单薄玉米甜","一咸一淡两相安","此签主平无大起","日子原在淡中看"],"main":["猪柳麦满分"],"side":["玉米杯"],"drink":[]},{"no":8,"hex":"晨签八","mood":"主进","poem":["双蛋炒得似云堆","板烧横卧不曾飞","咖啡一杯提神气","此签主进不宜归"],"main":["原味板烧鸡腿炒双蛋堡"],"side":[],"drink":["鲜萃咖啡"]},{"no":9,"hex":"晨签九","mood":"主异","poem":["图林根肠带烟熏","薯饼作伴正相衬","此签主异宜尝新","莫守白粥到日昏"],"main":["德式图林根香肠"],"side":["脆薯饼"],"drink":[]},{"no":10,"hex":"晨签十","mood":"主简","poem":["一根油条一碗浆","最是人间旧模样","此签主简不宜繁","简单反能吃得香"],"main":["脆香油条"],"side":[],"drink":["优品豆浆"]},{"no":11,"hex":"晨签十一","mood":"主行","poem":["卷里有肠也有蔬","红茶一盏解晨孤","此签主卷宜打包","路上行走也自如"],"main":["图林根香肠早安营养卷"],"side":[],"drink":["锡兰红茶"]},{"no":12,"hex":"晨签十二","mood":"主胆","poem":["清晨吃冰世所稀","此签偏要反着来","莫问旁人问胃胆","敢吃的人先得快"],"main":[],"side":["圆筒冰淇淋"],"drink":[]}]};
-window.MENUS={"北京市":{"storeName":"麦当劳北京新东安二号餐厅","slots":{"morning":[],"main":[{"name":"龙焰芝士棒鸡腿堡","price":27.0},{"name":"麦辣鸡腿汉堡","price":22.5},{"name":"板烧鸡腿堡","price":23.5},{"name":"麦香鸡","price":16.5},{"name":"鸡肉堡单品精选","price":23.5},{"name":"蘸酱麦麦脆汁鸡","price":11.9},{"name":"蘸酱韩式甜辣酱鸡块","price":11.9},{"name":"蘸酱BFF四宫格小食盘","price":43.3},{"name":"日式鲜磨山葵酱","price":3.0},{"name":"巨无霸","price":26.5},{"name":"双层深海鳕鱼堡","price":24.0},{"name":"麦香鱼","price":22.0},{"name":"双层吉士汉堡","price":23.0},{"name":"牛肉堡单品精选","price":14.0},{"name":"麦辣鸡翅","price":14.5},{"name":"薄皮焦香V翅","price":15.5},{"name":"麦乐鸡","price":14.0},{"name":"那么大鸡排（椒盐风味）","price":14.0},{"name":"麦麦脆汁鸡1块","price":15.0},{"name":"心形薯饼8块","price":9.9},{"name":"马苏里拉拉丝芝士条","price":16.0},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"月下相思扭扭薯","price":16.0},{"name":"麦当劳素龙限定饼干","price":2.0},{"name":"柠檬脆脆麦旋风","price":16.5},{"name":"脆薯饼","price":8.0},{"name":"薯条","price":14.5},{"name":"玉米杯","price":13.0},{"name":"苹果片","price":7.0},{"name":"经典麦旋风","price":15.5},{"name":"新地","price":13.0},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":8.5},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"可乐","price":9.5},{"name":"雪碧","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"阳光橙麦炫酷","price":13.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯悦","price":7.5},{"name":"锡兰红茶","price":10.5}]}},"上海市":{"storeName":"麦当劳上海黄浦悦荟广场餐厅","slots":{"morning":[{"name":"北非蛋风味猪柳蛋麦满分组合","price":15.0},{"name":"北非蛋风味脆鸡排麦满分组合","price":14.1},{"name":"北非蛋风味麦满分组合","price":12.6},{"name":"猪柳蛋麦满分组合","price":12.6},{"name":"原味板烧鸡腿麦满分组合","price":10.8},{"name":"大脆鸡扒麦满分组合","price":7.8},{"name":"双层原味板烧鸡腿麦满分组合","price":13.2},{"name":"火腿扒麦满分组合","price":7.2},{"name":"吉士蛋麦满分组合","price":7.2},{"name":"猪柳麦满分组合","price":10.2},{"name":"北非蛋风味猪柳蛋麦满分","price":22.0},{"name":"北非蛋风味脆鸡排麦满分","price":20.5},{"name":"北非蛋风味麦满分","price":18.0},{"name":"猪柳蛋麦满分","price":18.0},{"name":"原味板烧鸡腿麦满分","price":15.0},{"name":"大脆鸡扒麦满分","price":11.0},{"name":"双层原味板烧鸡腿麦满分","price":19.0},{"name":"火腿扒麦满分","price":10.0},{"name":"吉士蛋麦满分","price":10.0},{"name":"猪柳麦满分","price":14.0},{"name":"双层猪柳蛋麦满分","price":21.0},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"原味板烧鸡腿炒双蛋堡组合","price":12.6},{"name":"猪柳炒双蛋堡组合","price":12.6},{"name":"原味板烧鸡腿炒双蛋堡","price":18.0},{"name":"猪柳炒双蛋堡","price":18.0},{"name":"火腿扒早安营养卷组合","price":11.1},{"name":"图林根香肠早安营养卷组合","price":11.4},{"name":"火腿扒早安营养卷","price":15.5},{"name":"图林根香肠早安营养卷","price":16.0},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"泷愿成真麦旋风——大米风味","price":16.5},{"name":"奶香大米派","price":9.5},{"name":"脆薯饼","price":8.5},{"name":"德式图林根香肠","price":9.5},{"name":"脆香油条","price":8.5},{"name":"玉米杯","price":13.0},{"name":"脆香油条豆浆组合","price":17.0},{"name":"派","price":8.5},{"name":"经典麦旋风","price":15.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"新地","price":12.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"优品豆浆","price":9.5},{"name":"麦咖啡™热奶铁中杯","price":13.9},{"name":"麦咖啡™热美式中杯","price":11.9},{"name":"锡兰红茶","price":11.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯牛奶(盒装)","price":10.5},{"name":"冰牛奶中杯","price":19.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"雪碧","price":9.5},{"name":"可乐","price":9.5},{"name":"纯悦","price":7.5}],"main":[{"name":"龙焰芝士棒鸡腿堡","price":27.0},{"name":"龙焰鸡腿堡","price":15.9},{"name":"咸蛋黄鸡腿蛋月堡","price":25.0},{"name":"麦辣鸡腿汉堡","price":22.5},{"name":"板烧鸡腿堡","price":23.5},{"name":"麦香鸡","price":17.0},{"name":"鸡肉堡单品精选","price":23.5},{"name":"蘸酱麦麦脆汁鸡","price":11.9},{"name":"蘸酱脆皮鸡块","price":11.9},{"name":"蘸酱BFF四宫格小食盘","price":42.8},{"name":"日式鲜磨山葵酱","price":3.0},{"name":"巨无霸","price":25.5},{"name":"双层深海鳕鱼堡","price":24.0},{"name":"麦香鱼","price":22.5},{"name":"不素之霸双层牛堡","price":26.5},{"name":"培根蔬萃双层牛堡","price":24.5},{"name":"双层吉士汉堡","price":23.0},{"name":"高达吉士双牛堡","price":22.5},{"name":"牛肉堡单品精选","price":14.0},{"name":"培根安格斯厚牛堡","price":34.5},{"name":"芝士安格斯厚牛堡","price":31.5},{"name":"马来咖喱风味薄皮肉骨鸡3块","price":15.5},{"name":"麦辣鸡翅","price":15.0},{"name":"薄皮焦香V翅","price":16.0},{"name":"麦乐鸡","price":14.0},{"name":"那么大鸡排（椒盐风味）","price":14.0},{"name":"麦麦脆汁鸡1块","price":15.0},{"name":"心形薯饼8块","price":9.9},{"name":"马苏里拉拉丝芝士条","price":15.0},{"name":"心形薯饼5块","price":14.5},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"月下相思扭扭薯","price":15.0},{"name":"泷愿成真麦旋风——大米风味","price":16.5},{"name":"奶香大米派","price":9.5},{"name":"脆薯饼","price":8.5},{"name":"薯条","price":13.5},{"name":"玉米杯","price":13.0},{"name":"苹果片","price":7.0},{"name":"经典麦旋风","price":15.5},{"name":"新地","price":12.0},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":8.5},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"可乐","price":9.5},{"name":"雪碧","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"纯牛奶(盒装)","price":10.5},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯悦","price":7.5},{"name":"锡兰红茶","price":11.5}]}},"广州市":{"storeName":"麦当劳广州今日广场餐厅","slots":{"morning":[{"name":"猪柳蛋麦满分组合","price":12.6},{"name":"原味板烧鸡腿麦满分组合","price":10.8},{"name":"大脆鸡扒麦满分组合","price":8.1},{"name":"双层原味板烧鸡腿麦满分组合","price":12.9},{"name":"火腿扒麦满分组合","price":7.8},{"name":"吉士蛋麦满分组合","price":7.2},{"name":"猪柳麦满分组合","price":10.2},{"name":"猪柳蛋麦满分","price":18.0},{"name":"原味板烧鸡腿麦满分","price":15.0},{"name":"大脆鸡扒麦满分","price":11.5},{"name":"双层原味板烧鸡腿麦满分","price":18.5},{"name":"火腿扒麦满分","price":11.0},{"name":"吉士蛋麦满分","price":10.0},{"name":"猪柳麦满分","price":14.0},{"name":"双层猪柳蛋麦满分","price":21.0},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"茉莉奶绿雪冰","price":9.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"原味板烧鸡腿炒双蛋堡组合","price":12.6},{"name":"猪柳炒双蛋堡组合","price":12.6},{"name":"原味板烧鸡腿炒双蛋堡","price":18.0},{"name":"猪柳炒双蛋堡","price":18.0},{"name":"火腿扒早安营养卷组合","price":11.7},{"name":"图林根香肠早安营养卷组合","price":11.7},{"name":"火腿扒早安营养卷","price":16.5},{"name":"图林根香肠早安营养卷","price":16.5},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"泷愿成真麦旋风——大米风味","price":16.5},{"name":"脆薯饼","price":8.0},{"name":"德式图林根香肠","price":8.5},{"name":"脆香油条","price":8.0},{"name":"玉米杯","price":13.0},{"name":"脆香油条豆浆组合","price":18.0},{"name":"派","price":8.5},{"name":"柠檬脆脆麦旋风","price":16.5},{"name":"泷盐星星麦旋风","price":16.5},{"name":"经典麦旋风","price":15.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"新地","price":13.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"粤式丝滑奶茶","price":11.0},{"name":"优品豆浆","price":9.5},{"name":"麦咖啡™热奶铁中杯","price":13.9},{"name":"麦咖啡™热美式中杯","price":11.9},{"name":"锡兰红茶","price":10.5},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"冰牛奶中杯","price":19.0},{"name":"怡泉+C","price":11.5},{"name":"可乐","price":9.5},{"name":"纯悦","price":7.5}],"main":[{"name":"龙焰芝士棒鸡腿堡","price":27.0},{"name":"龙焰鸡腿堡","price":15.9},{"name":"麦辣鸡腿汉堡","price":22.5},{"name":"板烧鸡腿堡","price":23.5},{"name":"麦香鸡","price":16.5},{"name":"鸡肉堡单品精选","price":23.5},{"name":"蘸酱韩式甜辣酱鸡块","price":11.9},{"name":"蘸酱BFF四宫格小食盘","price":42.3},{"name":"韩式烟熏芝士风味酱","price":3.0},{"name":"日式鲜磨山葵酱","price":3.0},{"name":"巨无霸","price":26.5},{"name":"双层深海鳕鱼堡","price":24.0},{"name":"麦香鱼","price":22.0},{"name":"不素之霸双层牛堡","price":26.5},{"name":"培根蔬萃双层牛堡","price":25.0},{"name":"双层吉士汉堡","price":23.0},{"name":"高达吉士双牛堡","price":22.5},{"name":"牛肉堡单品精选","price":14.0},{"name":"培根安格斯厚牛堡","price":34.5},{"name":"芝士安格斯厚牛堡","price":31.5},{"name":"马来咖喱风味薄皮肉骨鸡3块","price":15.0},{"name":"麦辣鸡翅","price":14.5},{"name":"薄皮焦香V翅","price":15.5},{"name":"麦乐鸡","price":14.0},{"name":"那么大鸡排（椒盐风味）","price":14.0},{"name":"心形薯饼8块","price":9.9},{"name":"马苏里拉拉丝芝士条","price":16.0},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"月下相思扭扭薯","price":16.0},{"name":"泷愿成真麦旋风——大米风味","price":16.5},{"name":"柠檬脆脆麦旋风","price":16.5},{"name":"脆薯饼","price":8.0},{"name":"薯条","price":14.5},{"name":"玉米杯","price":13.0},{"name":"苹果片","price":7.0},{"name":"泷盐星星麦旋风","price":16.5},{"name":"经典麦旋风","price":15.5},{"name":"新地","price":13.0},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":8.5},{"name":"麦咖啡冰爽一夏","price":9.9},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"茉莉奶绿雪冰","price":9.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"可乐","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯悦","price":7.5},{"name":"锡兰红茶","price":10.5}]}},"深圳市":{"storeName":"麦当劳深圳华强北茂业餐厅","slots":{"morning":[],"main":[{"name":"龙焰芝士棒鸡腿堡","price":27.0},{"name":"龙焰鸡腿堡","price":15.9},{"name":"麦辣鸡腿汉堡","price":22.5},{"name":"板烧鸡腿堡","price":23.5},{"name":"麦香鸡","price":17.0},{"name":"鸡肉堡单品精选","price":23.5},{"name":"蘸酱麦麦脆汁鸡","price":11.9},{"name":"蘸酱BFF四宫格小食盘","price":42.8},{"name":"韩式烟熏芝士风味酱","price":3.0},{"name":"日式鲜磨山葵酱","price":3.0},{"name":"北美招牌牧场酱","price":3.0},{"name":"巨无霸","price":25.5},{"name":"双层深海鳕鱼堡","price":24.0},{"name":"麦香鱼","price":22.5},{"name":"不素之霸双层牛堡","price":26.5},{"name":"培根蔬萃双层牛堡","price":24.5},{"name":"双层吉士汉堡","price":23.0},{"name":"高达吉士双牛堡","price":22.5},{"name":"牛肉堡单品精选","price":14.0},{"name":"培根安格斯厚牛堡","price":34.5},{"name":"芝士安格斯厚牛堡","price":31.5},{"name":"马来咖喱风味薄皮肉骨鸡3块","price":15.5},{"name":"麦辣鸡翅","price":15.0},{"name":"薄皮焦香V翅","price":16.0},{"name":"麦乐鸡","price":14.0},{"name":"那么大鸡排（椒盐风味）","price":14.0},{"name":"麦麦脆汁鸡1块","price":15.0},{"name":"心形薯饼8块","price":9.9},{"name":"马苏里拉拉丝芝士条","price":15.0},{"name":"心形薯饼5块","price":14.5},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"月下相思扭扭薯","price":15.0},{"name":"奶香大米派","price":9.5},{"name":"柠檬脆脆麦旋风","price":16.5},{"name":"脆薯饼","price":8.5},{"name":"薯条","price":13.5},{"name":"玉米杯","price":13.0},{"name":"苹果片","price":7.0},{"name":"经典麦旋风","price":15.5},{"name":"新地","price":12.0},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":8.5},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓浓黑巧雪冰","price":23.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"可乐","price":9.5},{"name":"雪碧","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"阳光橙麦炫酷","price":13.0},{"name":"纯牛奶(盒装)","price":10.5},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯悦","price":7.5},{"name":"锡兰红茶","price":11.5}]}},"杭州市":{"storeName":"麦当劳杭州灵隐景区餐厅","slots":{"morning":[{"name":"猪柳蛋麦满分","price":19.0},{"name":"原味板烧鸡腿麦满分","price":16.0},{"name":"大脆鸡扒麦满分","price":12.5},{"name":"双层原味板烧鸡腿麦满分","price":20.0},{"name":"火腿扒麦满分","price":12.0},{"name":"吉士蛋麦满分","price":10.5},{"name":"猪柳麦满分","price":15.0},{"name":"原味板烧鸡腿炒双蛋堡","price":19.5},{"name":"猪柳炒双蛋堡","price":19.5},{"name":"火腿扒早安营养卷","price":17.0},{"name":"图林根香肠早安营养卷","price":17.0},{"name":"蓝莓爆爆珠麦旋风","price":17.5},{"name":"灰焰圆筒","price":5.0},{"name":"脆薯饼","price":9.0},{"name":"德式图林根香肠","price":9.5},{"name":"脆香油条","price":9.0},{"name":"玉米杯","price":14.5},{"name":"脆香油条豆浆组合","price":30.5},{"name":"派","price":9.5},{"name":"泷盐星星麦旋风","price":17.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"新地","price":14.5},{"name":"【美汁源】“多汁柠柠”","price":13.5},{"name":"优品豆浆","price":11.0},{"name":"鲜萃咖啡","price":11.0},{"name":"锡兰红茶","price":12.5},{"name":"【美汁源】“黄金橙橙”","price":15.0},{"name":"100% 苹果汁(盒装)","price":12.5},{"name":"纯牛奶(盒装)","price":12.5},{"name":"阳光柠檬红茶","price":11.0},{"name":"怡泉+C","price":13.5},{"name":"雪碧","price":11.0},{"name":"可乐","price":11.0},{"name":"纯悦","price":9.0}],"main":[{"name":"龙焰芝士棒鸡腿堡","price":30.5},{"name":"龙焰鸡腿堡","price":27.5},{"name":"麦辣鸡腿汉堡","price":26.0},{"name":"板烧鸡腿堡","price":27.0},{"name":"麦香鸡","price":19.5},{"name":"鸡肉堡单品精选","price":27.0},{"name":"蘸酱麦麦脆汁鸡","price":19.0},{"name":"蘸酱BFF四宫格小食盘","price":62.5},{"name":"北美招牌牧场酱","price":3.0},{"name":"巨无霸","price":29.0},{"name":"双层深海鳕鱼堡","price":28.0},{"name":"麦香鱼","price":25.0},{"name":"不素之霸双层牛堡","price":29.5},{"name":"培根蔬萃双层牛堡","price":26.5},{"name":"双层吉士汉堡","price":26.5},{"name":"高达吉士双牛堡","price":26.0},{"name":"牛肉堡单品精选","price":15.5},{"name":"培根安格斯厚牛堡","price":39.0},{"name":"芝士安格斯厚牛堡","price":35.5},{"name":"麦辣鸡翅","price":15.5},{"name":"薄皮焦香V翅","price":16.5},{"name":"麦乐鸡","price":15.5},{"name":"那么大鸡排（椒盐风味）","price":15.0},{"name":"麦麦脆汁鸡1块","price":16.0},{"name":"心形薯饼8块","price":24.0},{"name":"马苏里拉拉丝芝士条","price":16.0},{"name":"心形薯饼5块","price":15.5},{"name":"蓝莓爆爆珠麦旋风","price":17.5},{"name":"灰焰圆筒","price":5.0},{"name":"脆薯饼","price":9.0},{"name":"薯条","price":14.5},{"name":"脆脆薯条","price":17.0},{"name":"玉米杯","price":14.5},{"name":"苹果片","price":7.5},{"name":"泷盐星星麦旋风","price":17.5},{"name":"新地","price":14.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":9.5},{"name":"【美汁源】“多汁柠柠”","price":13.5},{"name":"可乐","price":11.0},{"name":"雪碧","price":11.0},{"name":"怡泉+C","price":13.5},{"name":"【美汁源】“黄金橙橙”","price":15.0},{"name":"阳光柠檬红茶","price":11.0},{"name":"纯牛奶(盒装)","price":12.5},{"name":"100% 苹果汁(盒装)","price":12.5},{"name":"纯悦","price":9.0},{"name":"鲜萃咖啡","price":11.0},{"name":"锡兰红茶","price":12.5}]}},"成都市":{"storeName":"麦当劳成都锦江区联升巷(京都大厦)餐厅","slots":{"morning":[{"name":"猪柳蛋麦满分组合","price":12.6},{"name":"原味板烧鸡腿麦满分组合","price":10.8},{"name":"大脆鸡扒麦满分组合","price":8.1},{"name":"双层原味板烧鸡腿麦满分组合","price":12.9},{"name":"火腿扒麦满分组合","price":7.8},{"name":"吉士蛋麦满分组合","price":7.2},{"name":"猪柳麦满分组合","price":10.2},{"name":"猪柳蛋麦满分","price":18.0},{"name":"原味板烧鸡腿麦满分","price":15.0},{"name":"大脆鸡扒麦满分","price":11.5},{"name":"双层原味板烧鸡腿麦满分","price":18.5},{"name":"火腿扒麦满分","price":11.0},{"name":"吉士蛋麦满分","price":10.0},{"name":"猪柳麦满分","price":14.0},{"name":"双层猪柳蛋麦满分","price":21.0},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"浓浓黑巧雪冰","price":23.0},{"name":"牛奶","price":19.0},{"name":"原味板烧鸡腿炒双蛋堡组合","price":12.6},{"name":"猪柳炒双蛋堡组合","price":12.6},{"name":"原味板烧鸡腿炒双蛋堡","price":18.0},{"name":"猪柳炒双蛋堡","price":18.0},{"name":"图林根香肠早安营养卷组合","price":11.4},{"name":"图林根香肠早安营养卷","price":16.0},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"脆薯饼","price":8.5},{"name":"德式图林根香肠","price":9.0},{"name":"脆香油条","price":8.5},{"name":"玉米杯","price":13.0},{"name":"脆香油条豆浆组合","price":17.5},{"name":"派","price":8.0},{"name":"柠檬脆脆麦旋风","price":16.5},{"name":"经典麦旋风","price":15.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"新地","price":12.5},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"优品豆浆","price":9.5},{"name":"麦咖啡™热奶铁中杯","price":13.9},{"name":"麦咖啡™热美式中杯","price":11.9},{"name":"锡兰红茶","price":11.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"100% 苹果汁(盒装)","price":12.0},{"name":"纯牛奶(盒装)","price":11.0},{"name":"冰牛奶中杯","price":19.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"雪碧","price":9.5},{"name":"可乐","price":9.5},{"name":"纯悦","price":7.5}],"main":[{"name":"龙焰芝士棒鸡腿堡","price":27.0},{"name":"龙焰鸡腿堡","price":15.9},{"name":"麦辣鸡腿汉堡","price":22.5},{"name":"板烧鸡腿堡","price":23.5},{"name":"麦香鸡","price":17.0},{"name":"鸡肉堡单品精选","price":23.5},{"name":"蘸酱韩式甜辣酱鸡块","price":11.9},{"name":"蘸酱BFF四宫格小食盘","price":41.8},{"name":"韩式烟熏芝士风味酱","price":3.0},{"name":"日式鲜磨山葵酱","price":3.0},{"name":"北美招牌牧场酱","price":3.0},{"name":"三文鱼双虾至尊月堡","price":30.5},{"name":"厚薯泥培根肉酱双牛堡买一送一","price":28.9},{"name":"厚薯泥培根肉酱双牛堡","price":29.5},{"name":"巨无霸","price":26.0},{"name":"双层深海鳕鱼堡","price":25.0},{"name":"麦香鱼","price":23.0},{"name":"不素之霸双层牛堡","price":27.0},{"name":"培根蔬萃双层牛堡","price":25.0},{"name":"双层吉士汉堡","price":23.0},{"name":"高达吉士双牛堡","price":22.5},{"name":"牛肉堡单品精选","price":14.0},{"name":"培根安格斯厚牛堡","price":34.5},{"name":"芝士安格斯厚牛堡","price":31.5},{"name":"马来咖喱风味薄皮肉骨鸡3块","price":15.0},{"name":"麦辣鸡翅","price":15.0},{"name":"薄皮焦香V翅","price":16.0},{"name":"麦乐鸡","price":14.0},{"name":"那么大鸡排（椒盐风味）","price":14.0},{"name":"马苏里拉拉丝芝士条","price":16.0},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"柠檬脆脆麦旋风","price":16.5},{"name":"脆薯饼","price":8.5},{"name":"薯条","price":14.5},{"name":"玉米杯","price":13.0},{"name":"经典麦旋风","price":15.5},{"name":"新地","price":12.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":8.0},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"浓浓黑巧雪冰","price":23.0},{"name":"牛奶","price":19.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"可乐","price":9.5},{"name":"雪碧","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"阳光橙麦炫酷","price":12.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"100% 苹果汁(盒装)","price":12.0},{"name":"纯悦","price":7.5},{"name":"锡兰红茶","price":11.5}]}},"武汉市":{"storeName":"麦当劳武汉HAPPY站台餐厅(江汉路地铁H出口)","slots":{"morning":[{"name":"北非蛋风味猪柳蛋麦满分组合","price":15.0},{"name":"北非蛋风味脆鸡排麦满分组合","price":14.1},{"name":"北非蛋风味麦满分组合","price":12.6},{"name":"猪柳蛋麦满分组合","price":12.6},{"name":"原味板烧鸡腿麦满分组合","price":10.8},{"name":"大脆鸡扒麦满分组合","price":8.1},{"name":"双层原味板烧鸡腿麦满分组合","price":12.9},{"name":"火腿扒麦满分组合","price":7.8},{"name":"吉士蛋麦满分组合","price":7.2},{"name":"猪柳麦满分组合","price":10.2},{"name":"北非蛋风味猪柳蛋麦满分","price":22.0},{"name":"北非蛋风味脆鸡排麦满分","price":20.5},{"name":"北非蛋风味麦满分","price":18.0},{"name":"猪柳蛋麦满分","price":18.0},{"name":"原味板烧鸡腿麦满分","price":15.0},{"name":"大脆鸡扒麦满分","price":11.5},{"name":"双层原味板烧鸡腿麦满分","price":18.5},{"name":"火腿扒麦满分","price":11.0},{"name":"吉士蛋麦满分","price":10.0},{"name":"猪柳麦满分","price":14.0},{"name":"双层猪柳蛋麦满分","price":21.0},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"原味板烧鸡腿炒双蛋堡组合","price":12.6},{"name":"猪柳炒双蛋堡组合","price":12.6},{"name":"原味板烧鸡腿炒双蛋堡","price":18.0},{"name":"猪柳炒双蛋堡","price":18.0},{"name":"火腿扒早安营养卷组合","price":11.7},{"name":"图林根香肠早安营养卷组合","price":11.7},{"name":"火腿扒早安营养卷","price":16.5},{"name":"图林根香肠早安营养卷","price":16.5},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"脆薯饼","price":8.0},{"name":"德式图林根香肠","price":8.5},{"name":"脆香油条","price":8.0},{"name":"玉米杯","price":13.0},{"name":"脆香油条豆浆组合","price":18.0},{"name":"派","price":8.5},{"name":"柠檬脆脆麦旋风","price":16.5},{"name":"泷盐星星麦旋风","price":16.5},{"name":"经典麦旋风","price":15.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"新地","price":13.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"优品豆浆","price":9.5},{"name":"麦咖啡™热奶铁中杯","price":13.9},{"name":"麦咖啡™热美式中杯","price":11.9},{"name":"锡兰红茶","price":10.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"冰牛奶中杯","price":19.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"雪碧","price":9.5},{"name":"可乐","price":9.5}],"main":[{"name":"龙焰芝士棒鸡腿堡","price":27.0},{"name":"龙焰鸡腿堡","price":15.9},{"name":"麦辣鸡腿汉堡","price":22.5},{"name":"板烧鸡腿堡","price":23.5},{"name":"麦香鸡","price":16.5},{"name":"鸡肉堡单品精选","price":23.5},{"name":"蘸酱麦麦脆汁鸡","price":11.9},{"name":"蘸酱韩式甜辣酱鸡块","price":11.9},{"name":"蘸酱BFF四宫格小食盘","price":43.3},{"name":"韩式烟熏芝士风味酱","price":3.0},{"name":"北美招牌牧场酱","price":3.0},{"name":"巨无霸","price":26.5},{"name":"双层深海鳕鱼堡","price":24.0},{"name":"麦香鱼","price":22.0},{"name":"不素之霸双层牛堡","price":26.5},{"name":"培根蔬萃双层牛堡","price":25.0},{"name":"双层吉士汉堡","price":23.0},{"name":"高达吉士双牛堡","price":22.5},{"name":"牛肉堡单品精选","price":14.0},{"name":"培根安格斯厚牛堡","price":34.5},{"name":"芝士安格斯厚牛堡","price":31.5},{"name":"马来咖喱风味薄皮肉骨鸡3块","price":15.0},{"name":"麦辣鸡翅","price":14.5},{"name":"薄皮焦香V翅","price":15.5},{"name":"麦乐鸡","price":14.0},{"name":"那么大鸡排（椒盐风味）","price":14.0},{"name":"麦麦脆汁鸡1块","price":15.0},{"name":"心形薯饼8块","price":9.9},{"name":"马苏里拉拉丝芝士条","price":16.0},{"name":"心形薯饼5块","price":15.5},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"灰焰圆筒","price":5.0},{"name":"柠檬脆脆麦旋风","price":16.5},{"name":"脆薯饼","price":8.0},{"name":"薯条","price":14.5},{"name":"脆脆薯条","price":16.0},{"name":"玉米杯","price":13.0},{"name":"苹果片","price":7.0},{"name":"泷盐星星麦旋风","price":16.5},{"name":"经典麦旋风","price":15.5},{"name":"新地","price":13.0},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":8.5},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"可乐","price":9.5},{"name":"雪碧","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"阳光橙麦炫酷","price":13.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"锡兰红茶","price":10.5}]}},"西安市":{"storeName":"麦当劳西安开元餐厅","slots":{"morning":[{"name":"猪柳蛋麦满分组合","price":12.6},{"name":"原味板烧鸡腿麦满分组合","price":10.8},{"name":"大脆鸡扒麦满分组合","price":8.1},{"name":"双层原味板烧鸡腿麦满分组合","price":12.9},{"name":"火腿扒麦满分组合","price":7.8},{"name":"吉士蛋麦满分组合","price":7.2},{"name":"猪柳麦满分组合","price":10.2},{"name":"猪柳蛋麦满分","price":18.0},{"name":"原味板烧鸡腿麦满分","price":15.0},{"name":"大脆鸡扒麦满分","price":11.5},{"name":"双层原味板烧鸡腿麦满分","price":18.5},{"name":"火腿扒麦满分","price":11.0},{"name":"吉士蛋麦满分","price":10.0},{"name":"猪柳麦满分","price":14.0},{"name":"双层猪柳蛋麦满分","price":21.0},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"原味板烧鸡腿炒双蛋堡组合","price":12.6},{"name":"猪柳炒双蛋堡组合","price":12.6},{"name":"原味板烧鸡腿炒双蛋堡","price":18.0},{"name":"猪柳炒双蛋堡","price":18.0},{"name":"火腿扒早安营养卷组合","price":11.7},{"name":"火腿扒早安营养卷","price":16.5},{"name":"图林根香肠早安营养卷","price":16.5},{"name":"泷愿成真麦旋风——大米风味","price":16.5},{"name":"脆薯饼","price":8.0},{"name":"德式图林根香肠","price":8.5},{"name":"脆香油条","price":8.0},{"name":"玉米杯","price":13.0},{"name":"脆香油条豆浆组合","price":18.0},{"name":"派","price":8.5},{"name":"经典麦旋风","price":15.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"新地","price":13.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"优品豆浆","price":9.5},{"name":"麦咖啡™热奶铁中杯","price":13.9},{"name":"麦咖啡™热美式中杯","price":11.9},{"name":"锡兰红茶","price":10.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"冰牛奶中杯","price":19.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"雪碧","price":10.0},{"name":"可乐","price":9.5},{"name":"纯悦","price":7.5}],"main":[{"name":"龙焰芝士棒鸡腿堡","price":27.0},{"name":"龙焰鸡腿堡","price":15.9},{"name":"咸蛋黄鸡腿蛋月堡","price":25.0},{"name":"麦辣鸡腿汉堡","price":22.5},{"name":"板烧鸡腿堡","price":23.5},{"name":"麦香鸡","price":16.5},{"name":"鸡肉堡单品精选","price":23.5},{"name":"蘸酱麦麦脆汁鸡","price":11.9},{"name":"蘸酱脆皮鸡块","price":11.9},{"name":"蘸酱BFF四宫格小食盘","price":42.8},{"name":"韩式烟熏芝士风味酱","price":3.0},{"name":"日式鲜磨山葵酱","price":3.0},{"name":"巨无霸","price":26.5},{"name":"双层深海鳕鱼堡","price":24.0},{"name":"麦香鱼","price":22.0},{"name":"不素之霸双层牛堡","price":26.5},{"name":"培根蔬萃双层牛堡","price":25.0},{"name":"双层吉士汉堡","price":23.0},{"name":"高达吉士双牛堡","price":22.5},{"name":"牛肉堡单品精选","price":14.0},{"name":"培根安格斯厚牛堡","price":34.5},{"name":"芝士安格斯厚牛堡","price":31.5},{"name":"马来咖喱风味薄皮肉骨鸡3块","price":15.0},{"name":"麦辣鸡翅","price":14.5},{"name":"薄皮焦香V翅","price":15.5},{"name":"麦乐鸡","price":14.0},{"name":"那么大鸡排（椒盐风味）","price":14.0},{"name":"麦麦脆汁鸡1块","price":15.0},{"name":"心形薯饼8块","price":9.9},{"name":"马苏里拉拉丝芝士条","price":16.0},{"name":"泷愿成真麦旋风——大米风味","price":16.5},{"name":"脆薯饼","price":8.0},{"name":"薯条","price":14.5},{"name":"玉米杯","price":13.0},{"name":"苹果片","price":7.0},{"name":"经典麦旋风","price":15.5},{"name":"新地","price":13.0},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":8.5},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"可乐","price":9.5},{"name":"雪碧","price":10.0},{"name":"怡泉+C","price":11.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯悦","price":7.5},{"name":"锡兰红茶","price":10.5}]}},"南京市":{"storeName":"麦当劳南京新百餐厅","slots":{"morning":[{"name":"猪柳蛋麦满分组合","price":12.6},{"name":"原味板烧鸡腿麦满分组合","price":10.8},{"name":"大脆鸡扒麦满分组合","price":8.1},{"name":"双层原味板烧鸡腿麦满分组合","price":12.9},{"name":"火腿扒麦满分组合","price":7.8},{"name":"吉士蛋麦满分组合","price":7.2},{"name":"猪柳麦满分组合","price":10.2},{"name":"猪柳蛋麦满分","price":18.0},{"name":"原味板烧鸡腿麦满分","price":15.0},{"name":"大脆鸡扒麦满分","price":11.5},{"name":"双层原味板烧鸡腿麦满分","price":18.5},{"name":"火腿扒麦满分","price":11.0},{"name":"吉士蛋麦满分","price":10.0},{"name":"猪柳麦满分","price":14.0},{"name":"双层猪柳蛋麦满分","price":21.0},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"原味板烧鸡腿炒双蛋堡组合","price":12.6},{"name":"猪柳炒双蛋堡组合","price":12.6},{"name":"原味板烧鸡腿炒双蛋堡","price":18.0},{"name":"猪柳炒双蛋堡","price":18.0},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"泷愿成真麦旋风——大米风味","price":16.5},{"name":"脆薯饼","price":8.0},{"name":"德式图林根香肠","price":8.5},{"name":"脆香油条","price":8.0},{"name":"玉米杯","price":13.0},{"name":"脆香油条豆浆组合","price":18.0},{"name":"派","price":8.5},{"name":"泷盐星星麦旋风","price":16.5},{"name":"经典麦旋风","price":15.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"新地","price":13.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"优品豆浆","price":9.5},{"name":"麦咖啡™热奶铁中杯","price":13.9},{"name":"麦咖啡™热美式中杯","price":11.9},{"name":"锡兰红茶","price":10.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"雪碧","price":9.5},{"name":"可乐","price":9.5},{"name":"纯悦","price":7.5}],"main":[{"name":"龙焰芝士棒鸡腿堡","price":27.0},{"name":"龙焰鸡腿堡","price":15.9},{"name":"麦辣鸡腿汉堡","price":22.5},{"name":"板烧鸡腿堡","price":23.5},{"name":"麦香鸡","price":16.5},{"name":"鸡肉堡单品精选","price":23.5},{"name":"蘸酱麦麦脆汁鸡","price":11.9},{"name":"蘸酱韩式甜辣酱鸡块","price":11.9},{"name":"蘸酱BFF四宫格小食盘","price":43.3},{"name":"韩式烟熏芝士风味酱","price":3.0},{"name":"日式鲜磨山葵酱","price":3.0},{"name":"北美招牌牧场酱","price":3.0},{"name":"巨无霸","price":26.5},{"name":"双层深海鳕鱼堡","price":24.0},{"name":"麦香鱼","price":22.0},{"name":"不素之霸双层牛堡","price":26.5},{"name":"双层吉士汉堡","price":23.0},{"name":"高达吉士双牛堡","price":22.5},{"name":"牛肉堡单品精选","price":14.0},{"name":"芝士安格斯厚牛堡","price":31.5},{"name":"麦辣鸡翅","price":14.5},{"name":"薄皮焦香V翅","price":15.5},{"name":"麦乐鸡","price":14.0},{"name":"那么大鸡排（椒盐风味）","price":14.0},{"name":"麦麦脆汁鸡1块","price":15.0},{"name":"心形薯饼8块","price":9.9},{"name":"马苏里拉拉丝芝士条","price":16.0},{"name":"心形薯饼5块","price":15.5},{"name":"蓝莓爆爆珠麦旋风","price":16.5},{"name":"泷愿成真麦旋风——大米风味","price":16.5},{"name":"脆薯饼","price":8.0},{"name":"薯条","price":14.5},{"name":"脆脆薯条","price":16.0},{"name":"玉米杯","price":13.0},{"name":"苹果片","price":7.0},{"name":"泷盐星星麦旋风","price":16.5},{"name":"经典麦旋风","price":15.5},{"name":"新地","price":13.0},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":8.5},{"name":"浓浓黑巧（冰/热）","price":13.9},{"name":"浓浓燕麦黑巧（冰/热）","price":15.9},{"name":"麦咖啡™美式","price":11.9},{"name":"麦咖啡™奶铁","price":13.9},{"name":"燕麦奶铁","price":9.9},{"name":"咖啡阿芙佳朵","price":15.0},{"name":"鲜萃咖啡","price":9.5},{"name":"浓缩咖啡","price":15.0},{"name":"牛奶","price":19.0},{"name":"燕麦奶","price":21.0},{"name":"【美汁源】“多汁柠柠”","price":12.0},{"name":"可乐","price":9.5},{"name":"雪碧","price":9.5},{"name":"怡泉+C","price":11.5},{"name":"【美汁源】“黄金橙橙”","price":13.0},{"name":"阳光柠檬红茶","price":9.5},{"name":"阳光橙麦炫酷","price":13.5},{"name":"纯牛奶(盒装)","price":11.0},{"name":"100% 苹果汁(盒装)","price":11.5},{"name":"纯悦","price":7.5},{"name":"锡兰红茶","price":10.5}]}},"重庆市":{"storeName":"麦当劳重庆金鹰财富中心餐厅","slots":{"morning":[{"name":"猪柳蛋麦满分","price":19.0},{"name":"原味板烧鸡腿麦满分","price":16.0},{"name":"大脆鸡扒麦满分","price":12.5},{"name":"双层原味板烧鸡腿麦满分","price":20.0},{"name":"火腿扒麦满分","price":12.0},{"name":"吉士蛋麦满分","price":10.5},{"name":"猪柳麦满分","price":15.0},{"name":"双层猪柳蛋麦满分","price":22.0},{"name":"浓浓黑巧（冰/热）","price":25.0},{"name":"美禄可可雪冰","price":27.0},{"name":"茉莉奶绿雪冰","price":27.0},{"name":"麦咖啡™美式","price":9.9},{"name":"麦咖啡™奶铁","price":9.9},{"name":"燕麦奶铁","price":9.9},{"name":"鲜萃咖啡","price":13.0},{"name":"浓缩咖啡","price":19.0},{"name":"牛奶","price":23.0},{"name":"燕麦奶","price":25.0},{"name":"原味板烧鸡腿炒双蛋堡","price":19.5},{"name":"猪柳炒双蛋堡","price":19.5},{"name":"火腿扒早安营养卷","price":17.0},{"name":"图林根香肠早安营养卷","price":17.0},{"name":"灰焰圆筒","price":5.0},{"name":"奶香大米派","price":10.5},{"name":"脆薯饼","price":9.0},{"name":"德式图林根香肠","price":9.5},{"name":"脆香油条","price":9.0},{"name":"玉米杯","price":14.5},{"name":"脆香油条豆浆组合","price":30.5},{"name":"派","price":9.5},{"name":"经典麦旋风","price":16.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"新地","price":14.5},{"name":"【美汁源】“多汁柠柠”","price":13.5},{"name":"优品豆浆","price":13.0},{"name":"麦咖啡™热奶铁中杯","price":9.9},{"name":"锡兰红茶","price":12.5},{"name":"【美汁源】“黄金橙橙”","price":15.0},{"name":"100% 苹果汁(盒装)","price":12.5},{"name":"纯牛奶(盒装)","price":12.5},{"name":"冰牛奶中杯","price":23.0},{"name":"阳光柠檬红茶","price":11.0},{"name":"怡泉+C","price":13.5},{"name":"雪碧","price":11.0},{"name":"可乐","price":11.0},{"name":"纯悦","price":9.0}],"main":[{"name":"咸蛋黄鸡腿蛋月堡","price":28.5},{"name":"麦辣鸡腿汉堡","price":26.0},{"name":"板烧鸡腿堡","price":27.0},{"name":"麦香鸡","price":19.5},{"name":"鸡肉堡单品精选","price":27.0},{"name":"蘸酱麦麦脆汁鸡","price":19.0},{"name":"蘸酱韩式甜辣酱鸡块","price":19.5},{"name":"蘸酱BFF四宫格小食盘","price":62.5},{"name":"韩式烟熏芝士风味酱","price":3.0},{"name":"日式鲜磨山葵酱","price":3.0},{"name":"巨无霸","price":29.0},{"name":"双层深海鳕鱼堡","price":28.0},{"name":"麦香鱼","price":25.0},{"name":"不素之霸双层牛堡","price":29.5},{"name":"培根蔬萃双层牛堡","price":26.5},{"name":"双层吉士汉堡","price":26.5},{"name":"高达吉士双牛堡","price":26.0},{"name":"牛肉堡单品精选","price":15.5},{"name":"培根安格斯厚牛堡","price":39.0},{"name":"芝士安格斯厚牛堡","price":35.5},{"name":"麦辣鸡翅","price":15.5},{"name":"薄皮焦香V翅","price":16.5},{"name":"麦乐鸡","price":15.5},{"name":"那么大鸡排（椒盐风味）","price":15.0},{"name":"麦麦脆汁鸡1块","price":16.0},{"name":"灰焰圆筒","price":5.0},{"name":"玫瑰红糖糍粑风味派","price":11.0},{"name":"奶香大米派","price":10.5},{"name":"脆薯饼","price":9.0},{"name":"薯条","price":14.5},{"name":"脆脆薯条","price":17.0},{"name":"玉米杯","price":14.5},{"name":"苹果片","price":7.5},{"name":"经典麦旋风","price":16.5},{"name":"新地","price":14.5},{"name":"圆筒冰淇淋","price":5.0},{"name":"派","price":9.5},{"name":"浓浓黑巧（冰/热）","price":25.0},{"name":"美禄可可雪冰","price":27.0},{"name":"茉莉奶绿雪冰","price":27.0},{"name":"麦咖啡™美式","price":9.9},{"name":"麦咖啡™奶铁","price":9.9},{"name":"燕麦奶铁","price":9.9},{"name":"鲜萃咖啡","price":13.0},{"name":"浓缩咖啡","price":19.0},{"name":"牛奶","price":23.0},{"name":"燕麦奶","price":25.0},{"name":"【美汁源】“多汁柠柠”","price":13.5},{"name":"可乐","price":11.0},{"name":"雪碧","price":11.0},{"name":"怡泉+C","price":13.5},{"name":"【美汁源】“黄金橙橙”","price":15.0},{"name":"阳光柠檬红茶","price":11.0},{"name":"纯牛奶(盒装)","price":12.5},{"name":"100% 苹果汁(盒装)","price":12.5},{"name":"纯悦","price":9.0},{"name":"锡兰红茶","price":12.5}]}},"拉萨市":{"storeName":"麦当劳拉萨八廓商城餐厅","slots":{"morning":[{"name":"猪柳蛋麦满分","price":19.0},{"name":"原味板烧鸡腿麦满分","price":16.0},{"name":"大脆鸡扒麦满分","price":12.5},{"name":"双层原味板烧鸡腿麦满分","price":20.0},{"name":"火腿扒麦满分","price":12.0},{"name":"吉士蛋麦满分","price":10.5},{"name":"猪柳麦满分","price":15.0},{"name":"双层猪柳蛋麦满分","price":22.0},{"name":"浓浓黑巧（冰/热）","price":25.0},{"name":"浓浓燕麦黑巧（冰/热）","price":27.0},{"name":"麦咖啡™美式","price":9.9},{"name":"麦咖啡™奶铁","price":9.9},{"name":"燕麦奶铁","price":9.9},{"name":"鲜萃咖啡","price":11.0},{"name":"牛奶","price":23.0},{"name":"燕麦奶","price":25.0},{"name":"原味板烧鸡腿炒双蛋堡","price":19.5},{"name":"猪柳炒双蛋堡","price":19.5},{"name":"火腿扒早安营养卷","price":17.0},{"name":"图林根香肠早安营养卷","price":17.0},{"name":"脆薯饼","price":9.0},{"name":"德式图林根香肠","price":9.5},{"name":"脆香油条","price":9.0},{"name":"玉米杯","price":14.5},{"name":"脆香油条豆浆组合","price":30.5},{"name":"派","price":9.5},{"name":"【美汁源】“多汁柠柠”","price":13.5},{"name":"优品豆浆","price":13.0},{"name":"麦咖啡™热奶铁中杯","price":9.9},{"name":"麦咖啡™热美式中杯","price":9.9},{"name":"锡兰红茶","price":12.5},{"name":"【美汁源】“黄金橙橙”","price":15.0},{"name":"100% 苹果汁(盒装)","price":12.5},{"name":"纯牛奶(盒装)","price":12.5},{"name":"冰牛奶中杯","price":23.0},{"name":"阳光柠檬红茶","price":11.0},{"name":"怡泉+C","price":13.5},{"name":"雪碧","price":11.0},{"name":"可乐","price":11.0},{"name":"纯悦","price":9.0}],"main":[{"name":"麦辣鸡腿汉堡","price":26.0},{"name":"板烧鸡腿堡","price":27.0},{"name":"麦香鸡","price":19.5},{"name":"鸡肉堡单品精选","price":27.0},{"name":"巨无霸","price":29.0},{"name":"双层深海鳕鱼堡","price":28.0},{"name":"麦香鱼","price":25.0},{"name":"不素之霸双层牛堡","price":29.5},{"name":"培根蔬萃双层牛堡","price":26.5},{"name":"双层吉士汉堡","price":26.5},{"name":"高达吉士双牛堡","price":26.0},{"name":"牛肉堡单品精选","price":15.5},{"name":"培根安格斯厚牛堡","price":39.0},{"name":"芝士安格斯厚牛堡","price":35.5},{"name":"麦辣鸡翅","price":15.5},{"name":"薄皮焦香V翅","price":16.5},{"name":"麦乐鸡","price":15.5},{"name":"那么大鸡排（椒盐风味）","price":15.0},{"name":"麦麦脆汁鸡1块","price":16.0},{"name":"脆薯饼","price":9.0},{"name":"薯条","price":14.5},{"name":"脆脆薯条","price":17.0},{"name":"玉米杯","price":14.5},{"name":"苹果片","price":7.5},{"name":"派","price":9.5},{"name":"浓浓黑巧（冰/热）","price":25.0},{"name":"浓浓燕麦黑巧（冰/热）","price":27.0},{"name":"麦咖啡™美式","price":9.9},{"name":"麦咖啡™奶铁","price":9.9},{"name":"燕麦奶铁","price":9.9},{"name":"鲜萃咖啡","price":11.0},{"name":"牛奶","price":23.0},{"name":"燕麦奶","price":25.0},{"name":"【美汁源】“多汁柠柠”","price":13.5},{"name":"可乐","price":11.0},{"name":"雪碧","price":11.0},{"name":"怡泉+C","price":13.5},{"name":"【美汁源】“黄金橙橙”","price":15.0},{"name":"阳光柠檬红茶","price":11.0},{"name":"纯牛奶(盒装)","price":12.5},{"name":"100% 苹果汁(盒装)","price":12.5},{"name":"纯悦","price":9.0},{"name":"锡兰红茶","price":12.5}]}}};
+window.GUA_DATA = {"meta":{"title":"麦门签·两套八卦 × 八个食帖","version":"v0.2","dataSource":"麦当劳中国 MCP 菜单快照 · repo/data/menus.json","collectedOn":"2026-10-22","cityCount":11,"breakfastStoreCount":9,"mainStoreCount":11,"note":"早餐另有 2 家门店返回空菜单，不计入供应判断。快照用于设计核对，不代表全国全时段供应承诺。"},"fortuneScale":[{"label":"大吉","meaning":"今天值得认真满足自己"},{"label":"中吉","meaning":"稳妥合口，不容易出错"},{"label":"小吉","meaning":"轻快一点，留点余量"},{"label":"平","meaning":"不折腾，简单解决一餐"}],"gua":[{"id":"qian","symbol":"☰","name":"乾","image":"天行·顶饱","line":"天行健，今天要吃饱。","fortune":"大吉","breakfast":{"main":"双层原味板烧鸡腿麦满分","companions":["脆薯饼","优品豆浆"],"fallback":{"main":"原味板烧鸡腿麦满分","companions":["脆薯饼","优品豆浆"]}},"all_day":{"main":"巨无霸","companions":["薯条","可乐"],"fallback":{"main":"双层吉士汉堡","companions":["薯条","可乐"]}}},{"id":"dui","symbol":"☱","name":"兑","image":"泽畔·清爽","line":"泽畔一口，清爽收尾。","fortune":"小吉","breakfast":{"main":"吉士蛋麦满分","companions":["玉米杯","纯牛奶(盒装)"],"fallback":{"main":"火腿扒麦满分","companions":["玉米杯","纯牛奶(盒装)"]}},"all_day":{"main":"麦香鱼","companions":["玉米杯","怡泉+C"],"fallback":{"main":"麦香鸡","companions":["玉米杯","怡泉+C"]}}},{"id":"li","symbol":"☲","name":"离","image":"火候·热烈","line":"火候正旺，来点痛快。","fortune":"大吉","breakfast":{"main":"大脆鸡扒麦满分","companions":["脆薯饼","可乐"],"fallback":{"main":"猪柳蛋麦满分","companions":["脆薯饼","可乐"]}},"all_day":{"main":"麦辣鸡腿汉堡","companions":["薯条","可乐"],"fallback":{"main":"板烧鸡腿堡","companions":["薯条","可乐"]}}},{"id":"zhen","symbol":"☳","name":"震","image":"雷响·酥脆","line":"雷声一响，先听脆的。","fortune":"中吉","breakfast":{"main":"脆香油条","companions":["脆薯饼","优品豆浆"],"fallback":{"main":"猪柳麦满分","companions":["脆薯饼","优品豆浆"]}},"all_day":{"main":"那么大鸡排（椒盐风味）","companions":["玉米杯","锡兰红茶"],"fallback":{"main":"麦乐鸡","companions":["玉米杯","锡兰红茶"]}}},{"id":"xun","symbol":"☴","name":"巽","image":"风入·入味","line":"风入味里，慢慢顺口。","fortune":"中吉","breakfast":{"main":"原味板烧鸡腿麦满分","companions":["玉米杯","锡兰红茶"],"fallback":{"main":"吉士蛋麦满分","companions":["玉米杯","锡兰红茶"]}},"all_day":{"main":"板烧鸡腿堡","companions":["薯条","锡兰红茶"],"fallback":{"main":"麦香鸡","companions":["薯条","锡兰红茶"]}}},{"id":"kan","symbol":"☵","name":"坎","image":"水润·浓郁","line":"水气丰足，浓郁一点。","fortune":"中吉","breakfast":{"main":"猪柳蛋麦满分","companions":["脆薯饼","鲜萃咖啡"],"fallback":{"main":"猪柳麦满分","companions":["脆薯饼","鲜萃咖啡"]}},"all_day":{"main":"双层吉士汉堡","companions":["麦辣鸡翅","可乐"],"fallback":{"main":"巨无霸","companions":["麦辣鸡翅","可乐"]}}},{"id":"gen","symbol":"☶","name":"艮","image":"山止·慢吃","line":"山不赶路，一口一口。","fortune":"平","breakfast":{"main":"火腿扒麦满分","companions":["玉米杯","纯牛奶(盒装)"],"fallback":{"main":"吉士蛋麦满分","companions":["玉米杯","纯牛奶(盒装)"]}},"all_day":{"main":"麦乐鸡","companions":["玉米杯","纯牛奶(盒装)"],"fallback":{"main":"麦辣鸡翅","companions":["玉米杯","纯牛奶(盒装)"]}}},{"id":"kun","symbol":"☷","name":"坤","image":"地载·当令","line":"地载时令，今天吃鸡。","fortune":"小吉","breakfast":{"main":"当季鸡肉早餐新品（请店员选一个）","companions":["脆薯饼","优品豆浆"],"fallback":{"main":"原味板烧鸡腿炒双蛋堡","companions":["脆薯饼","优品豆浆"]}},"all_day":{"main":"当季鸡肉新品主食（请店员选一个）","companions":["玉米杯","锡兰红茶"],"fallback":{"main":"麦香鸡","companions":["玉米杯","锡兰红茶"]}}}]};
 </script>
 <script>
 (function(){
-  const SIGNS = window.SIGNS, MENUS = window.MENUS;
-  const MU = ["零","一","二","三","四","五","六","七","八","九","十"];
-  const CN = n => n<=10 ? MU[n] : (n<20 ? "十"+MU[n-10] : (n%10===0 ? MU[Math.floor(n/10)]+"十" : MU[Math.floor(n/10)]+"十"+MU[n%10]));
-  const GRADES = [
-    {max:.15, name:"上上", word:"最丰"},
-    {max:.40, name:"上吉", word:"有肉"},
-    {max:.70, name:"中平", word:"主常"},
-    {max:.90, name:"中下", word:"从简"},
-    {max:1.01,name:"下下", word:"最简"}
-  ];
+  'use strict';
+  const DATA = window.GUA_DATA;
+  if(!DATA || !Array.isArray(DATA.gua)) return;
 
-  let current = null, busy = false;
+  const LINES = {
+    qian:[1,1,1], dui:[0,1,1], li:[1,0,1], zhen:[0,0,1],
+    xun:[1,1,0], kan:[0,1,0], gen:[1,0,0], kun:[0,0,0]
+  };
+  const MODE = {
+    breakfast:{label:'早签', title:'早餐', intro:'早签 · 早餐'},
+    all_day:{label:'正餐签', title:'午晚', intro:'正餐签 · 午晚'}
+  };
+  const $ = id => document.getElementById(id);
+  const refs = {
+    landing:$('landing'), ritual:$('ritual'), result:$('result'), stage:$('stage'),
+    board:$('guaBoard'), pieces:$('pieces'), guaName:$('guaName'), guaImage:$('guaImage'),
+    carton:$('carton'), fries:$('fries'), cast:$('cast'), hint:$('hint'),
+    headMode:$('headMode'), backHome:$('backHome'), ritualEyebrow:$('ritualEyebrow'), toast:$('toast')
+  };
+  const state = { mode:null, busy:false, last:null };
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function pick(items, keys){
-    for(const k of keys){
-      let h = items.find(i => i.name === k);
-      if(h) return h;
-      h = items.find(i => i.name.indexOf(k) >= 0);
-      if(h) return h;
+  function makeFries(){
+    const colors = ['', ' alt', '', '', ' alt'];
+    for(let i=0;i<21;i++){
+      const el=document.createElement('i');
+      const w=2.9 + (i%5)*0.36;
+      const h=78 + ((i*37)%31);
+      const left=2 + i*4.55;
+      const rot=((i*53)%17)-8;
+      el.className='fry'+colors[i%colors.length];
+      el.style.cssText=`left:${left}%;width:${w}%;height:${h}%;transform:rotate(${rot}deg);--r:${rot}deg;--i:${i}`;
+      refs.fries.appendChild(el);
     }
-    return null;
   }
 
-  function buildFor(city){
-    const rec = MENUS[city];
-    if(!rec) return null;
-    const now = new Date();
-    const isMorning = now.getHours() < 10 || (now.getHours() === 10 && now.getMinutes() < 30);
-    let slot = isMorning && (rec.slots.morning||[]).length >= 6 ? "morning" : "main";
-    let items = rec.slots[slot] || [];
-    if(items.length < 6){ slot = "main"; items = rec.slots.main || []; }
-    if(!items.length) return null;
+  function setMode(mode, fromEntry){
+    state.mode=mode;
+    refs.landing.hidden=true;
+    refs.ritual.hidden=false;
+    refs.result.hidden=true;
+    refs.headMode.hidden=false;
+    refs.backHome.hidden=false;
+    refs.headMode.textContent=MODE[mode].label+' · '+MODE[mode].title;
+    refs.ritualEyebrow.textContent=MODE[mode].intro;
+    refs.hint.textContent='点击盒子，或按住鼠标快速左右摇。三根薯条会落成一卦。';
+    refs.cast.disabled=false;
+    refs.cast.textContent='摇 一 签';
+    resetBoard();
+    if(fromEntry) window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});
+  }
 
-    const built = [];
-    for(const s of (SIGNS[slot] || [])){
-      const got = [];
-      let ok = true;
-      for(const [key,label] of [["main","主食"],["side","小食"],["drink","饮品"]]){
-        const keys = s[key] || [];
-        if(!keys.length) continue;
-        const hit = pick(items, keys);
-        if(!hit){ ok = false; break; }
-        got.push({label, name:hit.name, price:hit.price});
+  function resetBoard(){
+    refs.pieces.innerHTML='';
+    refs.board.classList.remove('filled','landed');
+    refs.guaName.textContent='签未落';
+    refs.guaImage.textContent='摇一摇，让薯条说话';
+    refs.result.hidden=true;
+    refs.result.innerHTML='';
+    document.body.classList.remove('has-result');
+  }
+
+  function home(){
+    state.mode=null; state.busy=false;
+    refs.landing.hidden=false;
+    refs.ritual.hidden=true;
+    refs.result.hidden=true;
+    refs.headMode.hidden=true;
+    refs.backHome.hidden=true;
+    resetBoard();
+    window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});
+  }
+
+  function randomGua(){
+    return DATA.gua[Math.floor(Math.random()*DATA.gua.length)];
+  }
+
+  function wait(ms){return new Promise(r=>setTimeout(r,ms));}
+
+  function makePiece(x,y,w,delay,alt){
+    const el=document.createElement('i');
+    el.className='piece'+(alt?' alt':'');
+    el.style.left=x+'px'; el.style.top=y+'px'; el.style.width=w+'px';
+    refs.pieces.appendChild(el);
+
+    const pr=refs.pieces.getBoundingClientRect();
+    const cr=refs.carton.getBoundingClientRect();
+    const sourceX=cr.left+cr.width/2-pr.left+(Math.random()-.5)*34;
+    const sourceY=cr.top+32-pr.top;
+    const dx=sourceX-(x+w/2);
+    const dy=sourceY-(y+5.5);
+    const startRot=-90+((Math.random()*12)-6);
+
+    el.style.opacity='0';
+    if(reduced){el.style.opacity='1';return Promise.resolve();}
+    const anim=el.animate([
+      {transform:`translate(${dx}px,${dy}px) rotate(${startRot}deg)`,opacity:0},
+      {opacity:1,offset:.14},
+      {transform:'translate(0,0) rotate(0deg)',opacity:1}
+    ],{duration:560,delay,easing:'cubic-bezier(.18,.82,.3,1)',fill:'both'});
+    return anim.finished.then(()=>{el.style.opacity='1';el.style.transform='none';anim.cancel();});
+  }
+
+  async function drawGua(g){
+    refs.board.classList.add('filled');
+    const pr=refs.pieces.getBoundingClientRect();
+    const rows=LINES[g.id]||[1,1,1];
+    const rowH=pr.height/3;
+    const long=Math.min(pr.width*.7,152);
+    const gap=16;
+    const short=(long-gap)/2;
+    const tasks=[];
+    let order=0;
+    for(let row=2;row>=0;row--){
+      const y=rowH*(row+.5)-5.5;
+      if(rows[row]){
+        const x=(pr.width-long)/2;
+        tasks.push(makePiece(x,y,long,order*105,false));
+        order++;
+      }else{
+        const x=(pr.width-long)/2;
+        tasks.push(makePiece(x,y,short,order*105,false));
+        tasks.push(makePiece(x+short+gap,y,short,order*105+55,true));
+        order++;
       }
-      if(!ok || !got.length) continue;
-      built.push({sign:s, items:got, total:+got.reduce((a,b)=>a+b.price,0).toFixed(1)});
     }
-    if(built.length < 5) return null;
-
-    const W = {"主食":2.0,"小食":1.0,"饮品":0.6};
-    built.forEach(b=>{ b.score = +b.items.reduce((a,i)=>a+(W[i.label]||0),0).toFixed(2); });
-    const sorted = built.slice().sort((a,b)=> b.score-a.score || b.total-a.total);
-    sorted.forEach((b,i)=>{
-      b.grade = GRADES.find(g => (i+1)/sorted.length <= g.max) || GRADES[4];
-      b.rank = i+1;
-    });
-    return {city, slot, storeName:rec.storeName, signs:sorted, count:sorted.length};
+    await Promise.all(tasks);
+    refs.board.classList.add('landed');
+    refs.guaName.textContent=g.symbol+'  '+g.name;
+    refs.guaImage.textContent=g.image;
+    await wait(reduced?0:150);
   }
 
-  function aside(st, res){
-    const out = [];
-    const cityBm = (MENUS[st.city].slots.main||[]).find(i => i.name === "巨无霸");
-    const totals = st.signs.map(x=>x.total).sort((a,b)=>a-b);
-    const med = totals[Math.floor(totals.length/2)];
-    const n = res.items.length;
-
-    if(res.rank === 1) out.push("这是本店 <b>"+st.count+"</b> 支签里最丰盛的一支："+n+" 样东西，合计 <b>"+res.total.toFixed(1)+"</b> 元。");
-    else if(res.rank === st.count) out.push("这是本店 <b>"+st.count+"</b> 支签里最简的一支，只有 "+n+" 样。想吃饱的人抽到它，算是一种考验。");
-    else out.push("你这一签 "+n+" 样东西，合计 <b>"+res.total.toFixed(1)+"</b> 元；本店 "+st.count+" 支签的合计价中位数是 <b>"+med.toFixed(1)+"</b> 元，你比中位"+(res.total>med?"贵":"省")+" <b>"+Math.abs(res.total-med).toFixed(1)+"</b> 元。");
-
-    if(cityBm){
-      const p = cityBm.price;
-      const lhasa = (MENUS["拉萨市"] && (MENUS["拉萨市"].slots.main||[]).find(i=>i.name==="巨无霸"));
-      let t = "巨无霸在"+st.city.replace("市","")+"卖 <b>"+p.toFixed(1)+"</b> 元";
-      if(lhasa && st.city !== "拉萨市") t += "，比拉萨的 "+lhasa.price.toFixed(1)+" 元便宜 <b>"+(lhasa.price-p).toFixed(1)+"</b> 元";
-      else if(st.city === "拉萨市") t += "，是全国最贵的一档（170 家门店里 50.6% 都卖 26.5 元）";
-      out.push(t + "。");
-    }
-    return out.join("<br>");
+  function mealHtml(m){
+    return `<p class="meal-label">今日食帖</p>
+      <h3 class="meal-main">${m.main}</h3>
+      <p class="meal-pair">${m.companions.join(' · ')}</p>
+      <p class="meal-fallback"><b>若无此味，整份换：</b>${m.fallback.main} · ${m.fallback.companions.join(' · ')}</p>`;
   }
 
-  function drawFries(){
-    const box = document.getElementById("fries");
-    box.innerHTML = "";
-    const N = 24;
-    for(let i=0;i<N;i++){
-      const f = document.createElement("div");
-      f.className = "fry";
-      f.style.width = (8 + ((i*17)%3)) + "px";
-      f.style.height = (62 + ((i*41)%58)) + "px";
-      f.style.left = (16 + i*6.6 + ((i*29)%5)) + "px";
-      const r = ((i*53)%100)/100*14 - 7;
-      f.style.setProperty("--r", r+"deg");
-      f.style.setProperty("--i", i);
-      f.style.transform = "rotate("+r+"deg)";
-      f.style.zIndex = (i%3);
-      box.appendChild(f);
-    }
-  }
-
-  function renderChoices(){
-    const sel = document.getElementById("city");
-    sel.innerHTML = "";
-    Object.keys(MENUS).forEach(c=>{
-      const o = document.createElement("option");
-      o.value = c; o.textContent = c.replace("市","");
-      sel.appendChild(o);
-    });
-    const prefer = ["杭州市","上海市","北京市"].find(c=>MENUS[c]);
-    if(prefer) sel.value = prefer;
-  }
-
-  function loadCity(){
-    current = buildFor(document.getElementById("city").value);
-    const tag = document.getElementById("slotTag");
-    const sn = document.getElementById("storeName");
-    const btn = document.getElementById("cast");
-    if(!current){
-      tag.textContent = "无签"; sn.textContent = ""; btn.disabled = true;
-      document.getElementById("hint").innerHTML = "这家门店此刻的菜单不足，换一座城试试";
-      return;
-    }
-    btn.disabled = false;
-    tag.textContent = current.slot === "morning" ? "早签" : "正签";
-    sn.textContent = (current.storeName||"").replace("麦当劳","").slice(0,12);
-  }
-
-  function flyFry(done){
-    const stage = document.getElementById("stage");
-    const carton = document.getElementById("carton");
-    const sr = stage.getBoundingClientRect(), cr = carton.getBoundingClientRect();
-    const f = document.createElement("div");
-    f.className = "flyer";
-    const startX = cr.left - sr.left + cr.width/2 - 6;
-    const startY = cr.top - sr.top - 66;
-    f.style.left = startX+"px";
-    f.style.top = startY+"px";
-    f.style.opacity = "1";
-    stage.appendChild(f);
-    const dx = 108, dy = cr.height + 66 - 26;
-    const anim = f.animate([
-      {transform:"translate(0,0) rotate(0deg) scale(1)",opacity:1,offset:0},
-      {transform:`translate(${dx*0.42}px,${-150}px) rotate(140deg) scale(1.04)`,opacity:1,offset:.42},
-      {transform:`translate(${dx}px,${dy}px) rotate(238deg) scale(1)`,opacity:1,offset:.86},
-      {transform:`translate(${dx}px,${dy}px) rotate(262deg) scale(1)`,opacity:1,offset:1}
-    ],{duration:900,easing:"cubic-bezier(.25,.6,.35,1)",fill:"forwards"});
-    anim.onfinish = ()=>{ setTimeout(()=>{ f.remove(); done(); }, 260); };
-  }
-
-  function cast(){
-    if(!current || busy) return;
-    busy = true;
-    const btn = document.getElementById("cast");
-    const carton = document.getElementById("carton");
-    const hint = document.getElementById("hint");
-    btn.disabled = true;
-    carton.classList.remove("shake");
-    void carton.offsetWidth;
-    carton.classList.add("shake");
-    hint.innerHTML = "薯条晃动中……";
-
-    setTimeout(()=>{
-      carton.classList.remove("shake");
-      flyFry(()=>{
-        const pool = current.signs;
-        showResult(pool[Math.floor(Math.random()*pool.length)]);
-        btn.disabled = false; busy = false;
-        hint.innerHTML = "点击盒子，或按住鼠标<em>快速左右摇</em>";
-      });
-    }, 620);
-  }
-
-  function showResult(res){
-    const st = current, s = res.sign;
-    const el = document.getElementById("result");
-    el.innerHTML = `
-      <div class="card">
-        <div class="card-top">
-          <span class="no">第 ${CN(s.no)} 签 / ${st.slot==="morning"?"早":"正"}签</span>
-          <span class="seal">${res.grade.name}</span>
+  function showResult(g){
+    const m=g[state.mode];
+    refs.result.innerHTML=`<div class="result-card">
+      <div class="result-head">
+        <div class="gua-seal" aria-hidden="true">${g.symbol}</div>
+        <div class="result-heading">
+          <p class="result-kicker">${MODE[state.mode].label} · ${MODE[state.mode].title}</p>
+          <h3 class="result-title">${g.name}<span>${g.image}</span></h3>
         </div>
-        <div class="hex">${s.hex}</div>
-        <div class="hexsub">${s.mood}　·　${res.grade.word}</div>
-        <div class="poem">${s.poem.map(l=>`<div>${l}</div>`).join("")}</div>
-        <div class="rule"></div>
-        <div class="dish-h">应 签 之 餐</div>
-        ${res.items.map(i=>`<div class="dish"><span class="lb">${i.label}</span><span class="nm">${i.name}</span><span class="pr">¥${i.price.toFixed(1)}</span></div>`).join("")}
-        <div class="sum"><span>合 计</span><b>¥${res.total.toFixed(1)}</b></div>
-        <div class="aside"><span class="tag">签 外 话</span>${aside(st,res)}</div>
-        <button class="again" id="again">再摇一根</button>
-      </div>`;
-    el.classList.add("show");
-    document.getElementById("again").onclick = ()=>{
-      el.classList.remove("show"); el.innerHTML = "";
-      document.getElementById("hint").innerHTML = "心念不变的话，签可能会重复<br>想换口味就先换个念头";
-      window.scrollTo({top:0,behavior:"smooth"});
-    };
-    setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),120);
+        <span class="fortune">食运 · ${g.fortune}</span>
+      </div>
+      <p class="result-line">${g.line}</p>
+      <div class="meal-panel">${mealHtml(m)}</div>
+      <p class="result-note">不给价格，不给第二选择。门店缺货时只换这一份食帖，不重新摇签。</p>
+      <div class="result-actions">
+        <button class="action primary" id="shareBtn" type="button">分享这一签</button>
+        <button class="action secondary" id="againBtn" type="button">再摇一签</button>
+      </div>
+    </div>`;
+    refs.result.hidden=false;
+    document.body.classList.add('has-result');
+    refs.result.classList.remove('show');
+    void refs.result.offsetWidth;
+    refs.result.classList.add('show');
+    $('shareBtn').addEventListener('click',()=>share(g,m));
+    $('againBtn').addEventListener('click',()=>{if(state.busy)return;resetBoard();cast();});
+    setTimeout(()=>refs.result.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'}),100);
   }
 
-  let lastX = null, lastT = 0, lastDir = 0, swings = 0, swingReset = null;
-  document.getElementById("stage").addEventListener("mousemove", e=>{
-    if(busy) return;
-    const now = performance.now();
-    if(lastX === null){ lastX = e.clientX; lastT = now; return; }
-    const dt = Math.max(1, now-lastT), dx = e.clientX-lastX;
-    const v = Math.abs(dx)/dt*1000;
-    if(v > 620){
-      const dir = Math.sign(dx);
-      if(lastDir && dir !== lastDir){
-        swings++;
-        clearTimeout(swingReset);
-        swingReset = setTimeout(()=>{ swings = 0; }, 700);
-        if(swings >= 2){ swings = 0; cast(); }
+  async function cast(){
+    if(!state.mode || state.busy) return;
+    state.busy=true;
+    resetBoard();
+    refs.cast.disabled=true;
+    refs.cast.textContent='摇 签 中…';
+    refs.hint.textContent='签在筒里响。等三根薯条落定。';
+    refs.carton.classList.remove('shake');
+    void refs.carton.offsetWidth;
+    refs.carton.classList.add('shake');
+    if(navigator.vibrate) navigator.vibrate([28,40,28]);
+    await wait(reduced?40:660);
+    refs.carton.classList.remove('shake');
+    const g=randomGua();
+    state.last=g;
+    await drawGua(g);
+    showResult(g);
+    refs.cast.disabled=false;
+    refs.cast.textContent='再 摇 一 签';
+    refs.hint.textContent='一卦已定。往下看这一顿。';
+    state.busy=false;
+  }
+
+  async function copyText(text){
+    try{await navigator.clipboard.writeText(text);return true;}
+    catch(e){
+      try{
+        const t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';
+        document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();return ok;
+      }catch(_){return false;}
+    }
+  }
+
+  function toast(msg){
+    refs.toast.textContent=msg;refs.toast.classList.add('show');
+    clearTimeout(toast.t);toast.t=setTimeout(()=>refs.toast.classList.remove('show'),2200);
+  }
+
+  async function share(g,m){
+    const url=location.origin+location.pathname;
+    const text=`我在麦门签摇到「${g.name}·${g.image}」：${m.main}，配 ${m.companions.join('、')}。今天你吃哪一卦？`;
+    if(navigator.share){
+      try{await navigator.share({title:'麦门签 · 今天吃什么？',text,url});return;}catch(e){if(e && e.name==='AbortError')return;}
+    }
+    const ok=await copyText(`${text}\n${url}`);
+    toast(ok?'文案已复制，去发给那个也选不出来的人':'复制失败，请手动复制地址');
+  }
+
+  document.querySelectorAll('.mode-card').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode,true)));
+  refs.carton.addEventListener('click',cast);
+  refs.cast.addEventListener('click',cast);
+  $('brandBtn').addEventListener('click',home);
+  refs.backHome.addEventListener('click',home);
+
+  let lastX=null,lastT=0,dir=0,reversals=0,firstReverse=0,lastMove=0;
+  refs.stage.addEventListener('mousemove',e=>{
+    if(!state.mode||state.busy||!refs.result.hidden) return;
+    const now=performance.now();
+    if(now-lastMove>700){lastX=e.clientX;reversals=0;dir=0;lastMove=now;return;}
+    lastMove=now;
+    if(lastX===null){lastX=e.clientX;lastT=now;return;}
+    const dx=e.clientX-lastX;
+    const dt=Math.max(1,now-lastT);
+    const speed=Math.abs(dx)/dt*1000;
+    if(Math.abs(dx)>=3 && speed>520){
+      const nd=Math.sign(dx);
+      if(dir && nd!==dir){
+        if(now-firstReverse>850){reversals=1;firstReverse=now;}
+        else reversals++;
+        if(reversals>=4){reversals=0;cast();}
       }
-      lastDir = dir;
+      dir=nd;
     }
-    lastX = e.clientX; lastT = now;
+    lastX=e.clientX;lastT=now;
   });
+  refs.stage.addEventListener('mouseleave',()=>{lastX=null;dir=0;reversals=0;});
 
-  let lastShake = 0;
-  window.addEventListener("devicemotion", e=>{
-    const a = e.accelerationIncludingGravity;
-    if(!a) return;
-    const m = Math.abs(a.x||0)+Math.abs(a.y||0)+Math.abs(a.z||0);
-    if(m > 34 && Date.now()-lastShake > 1800){
-      lastShake = Date.now();
-      if(!busy) cast();
-    }
-  });
-
-  document.addEventListener("DOMContentLoaded", ()=>{
-    drawFries(); renderChoices(); loadCity();
-    document.getElementById("cast").onclick = cast;
-    const carton = document.getElementById("carton");
-    carton.onclick = cast;
-    carton.onkeydown = e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cast(); } };
-    document.getElementById("city").onchange = ()=>{
-      document.getElementById("result").classList.remove("show");
-      document.getElementById("result").innerHTML = "";
-      loadCity();
-    };
-    document.getElementById("genAt").textContent = (window.META||{}).genAt || "—";
-  });
+  makeFries();
 })();
 </script>
 </body>

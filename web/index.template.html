@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="麦门签：三根薯条摇成一卦，给今天一个明确的麦当劳点餐答案。无城市、无价格、无下下签。">
+<meta name="theme-color" content="#da291c">
+<meta property="og:title" content="麦门签 · 今天吃什么？">
+<meta property="og:description" content="三根薯条，一卦定一餐。选早签或正餐签，摇出一个明确答案。">
+<meta property="og:type" content="website">
+<title>麦门签 · 今天吃什么？</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23da291c'/%3E%3Cpath d='M15 48V31c0-12 15-12 17 0 2-12 17-12 17 0v17' fill='none' stroke='%23ffc72c' stroke-width='7'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --red:#da291c;
+    --red-deep:#ae190f;
+    --red-dark:#74160f;
+    --gold:#ffc72c;
+    --gold-deep:#f0b21c;
+    --cream:#f6f0e5;
+    --paper:#fffdf8;
+    --ink:#231e19;
+    --muted:#786f65;
+    --soft:#eee6d8;
+    --line:#ded4c4;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --serif:"Songti SC","STSong","SimSun",serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;min-height:100vh;background:var(--cream);color:var(--ink);
+    font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  button{font:inherit;color:inherit}
+  button:focus-visible{outline:3px solid var(--gold-deep);outline-offset:4px}
+  [hidden]{display:none!important}
+  .site-head{
+    max-width:1120px;margin:0 auto;padding:24px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;cursor:pointer}
+  .brand-mark{width:31px;height:31px;border-radius:8px;background:var(--red);display:grid;place-items:center;flex:0 0 auto}
+  .brand-mark svg{width:23px;height:18px;display:block}
+  .brand-word{font-size:15px;font-weight:750;letter-spacing:.12em}
+  .brand-sub{font-size:9px;letter-spacing:.2em;color:var(--muted);margin-top:1px}
+  .head-actions{display:flex;align-items:center;gap:10px}
+  .mode-chip{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:7px 12px;background:var(--paper)}
+  .back-home{background:none;border:0;padding:6px 2px;font-size:12px;color:var(--red);font-weight:650;cursor:pointer}
+  .back-home:hover{text-decoration:underline;text-underline-offset:4px}
+
+  .landing{max-width:980px;margin:0 auto;padding:44px 28px 84px}
+  .three-lines{display:flex;flex-direction:column;gap:5px;width:44px;margin:0 0 24px}
+  .three-lines i{display:block;height:6px;border-radius:3px;background:var(--gold)}
+  .three-lines i:nth-child(2){width:70%}
+  .three-lines i:nth-child(3){width:86%}
+  .kicker{font-size:11px;font-weight:750;letter-spacing:.2em;color:var(--red);margin:0 0 16px}
+  .landing h1{
+    font-size:clamp(52px,8.4vw,94px);line-height:.98;letter-spacing:-.065em;
+    margin:0;font-weight:800;max-width:800px;
+  }
+  .landing h1 span{color:var(--red)}
+  .lead{max-width:580px;margin:26px 0 0;color:var(--muted);font-size:15px;line-height:1.9}
+  .lead b{color:var(--ink);font-weight:650}
+  .mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:54px}
+  .mode-card{
+    position:relative;text-align:left;background:var(--paper);border:1px solid var(--line);
+    border-radius:18px;padding:28px 26px 24px;cursor:pointer;overflow:hidden;
+    transition:transform .18s ease,border-color .18s ease,background .18s ease;
+  }
+  .mode-card:before{content:"";position:absolute;left:0;top:0;width:100%;height:7px;background:var(--gold)}
+  .mode-card[data-mode="all_day"]:before{background:var(--red)}
+  .mode-card:hover{transform:translateY(-4px);border-color:#b8aa97;background:#fff}
+  .mode-card:active{transform:translateY(-1px)}
+  .mode-no{font:700 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;color:var(--red)}
+  .mode-card h2{font-size:32px;line-height:1.1;margin:20px 0 9px;letter-spacing:-.035em;font-weight:800}
+  .mode-desc{font-size:13px;line-height:1.8;color:var(--muted);margin:0;min-height:47px}
+  .mode-go{display:flex;align-items:center;justify-content:space-between;margin-top:23px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;font-weight:700;color:var(--red)}
+  .mode-go span{display:inline-grid;place-items:center;width:27px;height:27px;border:1px solid var(--red);border-radius:50%;font-size:15px;transition:background .18s,color .18s}
+  .mode-card:hover .mode-go span{background:var(--red);color:#fff}
+  .entry-note{margin:20px 0 0;font-size:11.5px;color:#92887b;letter-spacing:.03em}
+  .entry-note b{color:var(--ink);font-weight:650}
+
+  .ritual{max-width:980px;margin:0 auto;padding:8px 28px 58px}
+  .ritual-head{text-align:center;margin:8px auto 4px;max-width:620px}
+  .ritual-eyebrow{font-size:11px;letter-spacing:.2em;font-weight:750;color:var(--red);margin:0 0 10px}
+  .ritual-head h2{font-size:clamp(31px,4.4vw,46px);letter-spacing:-.05em;margin:0;font-weight:800}
+  .hint{font-size:12.5px;line-height:1.85;color:var(--muted);margin:12px 0 0;min-height:23px}
+  .stage{
+    position:relative;display:grid;grid-template-columns:280px 270px;gap:56px;
+    align-items:center;justify-content:center;min-height:365px;margin:2px auto 0;
+    touch-action:manipulation;
+  }
+  .gua-board{
+    position:relative;width:100%;max-width:280px;height:218px;justify-self:end;
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  }
+  .gua-board:before{content:"";position:absolute;left:16px;top:16px;width:8px;height:8px;border-radius:2px;background:var(--gold)}
+  .board-label{position:absolute;right:16px;top:15px;font-size:9px;letter-spacing:.18em;color:#a39889;font-weight:650}
+  .ghost-lines{
+    position:absolute;left:24px;right:24px;top:46px;bottom:60px;
+    display:flex;flex-direction:column;justify-content:space-between;transition:opacity .25s ease;
+  }
+  .ghost-row{height:11px;display:flex;justify-content:center;gap:16px}
+  .ghost-row i{display:block;height:11px;border-radius:4px;background:#ece3d4}
+  .ghost-row i.full{width:100%}
+  .ghost-row i.half{width:42%}
+  .filled .ghost-lines{opacity:0}
+  .pieces{position:absolute;left:24px;right:24px;top:46px;bottom:60px}
+  .piece{position:absolute;height:11px;border-radius:4px;background:var(--gold);opacity:0}
+  .piece.alt{background:var(--gold-deep)}
+  .gua-caption{
+    position:absolute;left:20px;right:20px;bottom:15px;display:flex;align-items:baseline;
+    justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:11px;
+  }
+  .gua-caption b{font-size:16px;letter-spacing:.04em;font-weight:750;min-width:70px}
+  .gua-caption span{font-size:11px;color:var(--muted);text-align:right;line-height:1.4}
+  .gua-board.landed .gua-caption b{color:var(--red)}
+  .gua-board.landed .gua-caption{animation:capIn .38s ease both}
+  @keyframes capIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .carton{
+    position:relative;display:block;width:260px;height:330px;aspect-ratio:260/330;
+    padding:0;border:0;background:transparent;cursor:pointer;justify-self:start;
+    transform-origin:50% 92%;user-select:none;
+  }
+  .carton-back,.carton-front{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+  .carton-back{z-index:1}
+  .carton-front{z-index:3}
+  .fries-layer{position:absolute;z-index:2;left:13%;right:13%;top:0;height:74%}
+  .fry{position:absolute;bottom:0;border-radius:3px;transform-origin:50% 100%;background:var(--gold)}
+  .fry.alt{background:var(--gold-deep)}
+  .carton-face{
+    position:absolute;z-index:4;inset:0;display:flex;flex-direction:column;align-items:center;
+    padding-top:31%;pointer-events:none;color:#fff5df;
+  }
+  .mlogo{display:block;width:36%;height:auto;margin-bottom:7%}
+  .carton-name{font-size:clamp(14px,2.7vw,17px);line-height:1.3;font-weight:700;letter-spacing:.15em;text-indent:.15em;color:#fff3d2}
+  .carton-question{margin-top:5px;font-size:clamp(12px,2.3vw,14px);letter-spacing:.08em;text-indent:.08em;color:#ffe2a6}
+  .carton.shake{animation:rock .66s cubic-bezier(.36,.07,.19,.97)}
+  @keyframes rock{
+    0%,100%{transform:rotate(0) translateX(0)}
+    12%{transform:rotate(-7deg) translateX(-11px)}
+    30%{transform:rotate(6deg) translateX(10px)}
+    48%{transform:rotate(-5deg) translateX(-8px)}
+    66%{transform:rotate(3deg) translateX(5px)}
+    84%{transform:rotate(-1.4deg) translateX(-2px)}
+  }
+  .carton.shake .fry{animation:jiggle .66s ease-in-out;animation-delay:calc(var(--i) * 8ms)}
+  @keyframes jiggle{
+    0%,100%{transform:rotate(var(--r)) translateY(0)}
+    28%{transform:rotate(calc(var(--r) + 5deg)) translateY(-8px)}
+    56%{transform:rotate(calc(var(--r) - 4deg)) translateY(-2px)}
+    80%{transform:rotate(calc(var(--r) + 2deg)) translateY(-5px)}
+  }
+
+  .cast-row{text-align:center;margin-top:6px}
+  .has-result .cast-row{display:none}
+  .cast{
+    border:0;border-radius:999px;background:var(--red);color:#fff;cursor:pointer;
+    padding:15px 46px;font-size:13px;font-weight:750;letter-spacing:.17em;text-indent:.17em;
+    transition:background .16s,transform .12s;
+  }
+  .cast:hover{background:var(--red-deep)}
+  .cast:active{transform:scale(.975)}
+  .cast:disabled{background:#b9ab9b;cursor:default}
+  .micro{font-size:10.5px;color:#958b7f;letter-spacing:.02em;margin:12px 0 0}
+
+  .result{max-width:680px;margin:36px auto 0;scroll-margin-top:24px}
+  .result.show{animation:rise .42s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .result-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+  .result-head{display:flex;align-items:center;gap:18px;padding:22px 24px;border-bottom:1px solid var(--line)}
+  .gua-seal{
+    flex:0 0 auto;width:66px;height:66px;display:grid;place-items:center;background:var(--red);
+    color:var(--gold);border-radius:12px;font-family:var(--serif);font-size:38px;line-height:1;
+  }
+  .result-heading{flex:1;min-width:0}
+  .result-kicker{font-size:10px;letter-spacing:.16em;color:var(--muted);margin:0 0 5px;font-weight:700}
+  .result-title{font-size:22px;letter-spacing:-.025em;margin:0;font-weight:800;line-height:1.25}
+  .result-title span{color:var(--red);margin-left:5px;font-size:13px;font-weight:600}
+  .fortune{
+    flex:0 0 auto;background:var(--gold);color:#4e3000;border-radius:5px;
+    padding:7px 10px;font-size:11px;font-weight:800;white-space:nowrap;letter-spacing:.05em;
+  }
+  .result-line{padding:17px 24px 0;font-family:var(--serif);font-size:14px;color:var(--muted);line-height:1.7}
+  .meal-panel{margin:16px 24px 0;padding:24px 24px 20px;background:var(--cream);border-radius:12px}
+  .meal-label{font-size:10px;letter-spacing:.2em;color:var(--red);font-weight:800;margin:0 0 10px}
+  .meal-main{font-size:clamp(27px,4vw,36px);line-height:1.24;letter-spacing:-.04em;font-weight:800;margin:0}
+  .meal-pair{margin:8px 0 0;font-size:15px;line-height:1.6;color:#574d42}
+  .meal-fallback{margin:17px 0 0;padding-top:13px;border-top:1px dashed #d9cebd;font-size:11.5px;line-height:1.7;color:#8a7f71}
+  .meal-fallback b{color:var(--red);font-weight:700}
+  .result-note{padding:14px 24px 0;font-size:10.5px;line-height:1.65;color:#958a7d}
+  .result-actions{display:flex;gap:10px;padding:19px 24px 24px}
+  .action{border-radius:999px;padding:12px 22px;font-size:12px;font-weight:700;cursor:pointer;transition:background .16s,color .16s}
+  .action.primary{flex:1;background:var(--red);color:#fff;border:1px solid var(--red)}
+  .action.primary:hover{background:var(--red-deep);border-color:var(--red-deep)}
+  .action.secondary{background:transparent;color:var(--red);border:1px solid var(--red)}
+  .action.secondary:hover{background:#fbebe7}
+
+  footer{max-width:980px;margin:38px auto 0;padding:18px 28px 40px;border-top:1px solid var(--line);color:#948a7d;font-size:10.5px;line-height:1.9;text-align:center}
+  footer b{color:var(--muted);font-weight:650}
+  footer a{color:var(--red);text-decoration:none;border-bottom:1px solid rgba(218,41,28,.35)}
+  footer a:hover{border-bottom-color:var(--red)}
+  .toast{
+    position:fixed;z-index:50;left:50%;bottom:28px;transform:translate(-50%,16px);
+    background:var(--ink);color:#fff8eb;border-radius:8px;padding:11px 17px;font-size:12px;
+    opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media(max-width:760px){
+    .site-head{padding:18px 18px}
+    .brand-sub{display:none}
+    .landing{padding:30px 18px 62px}
+    .landing h1{font-size:clamp(50px,15.2vw,72px)}
+    .lead{font-size:14px;margin-top:22px}
+    .mode-grid{grid-template-columns:1fr;gap:12px;margin-top:36px}
+    .mode-card{padding:22px 21px 19px;border-radius:15px}
+    .mode-card h2{font-size:27px;margin-top:14px}
+    .mode-desc{min-height:0}
+    .mode-go{margin-top:17px;padding-top:13px}
+    .entry-note{font-size:11px;line-height:1.7}
+    .ritual{padding:4px 18px 42px}
+    .stage{grid-template-columns:1fr;gap:9px;min-height:0;margin-top:8px}
+    .gua-board{width:min(76vw,260px);height:168px;justify-self:center;order:1}
+    .gua-board:before{left:13px;top:13px}
+    .board-label{top:12px;right:13px}
+    .ghost-lines{left:20px;right:20px;top:37px;bottom:54px}
+    .pieces{left:20px;right:20px;top:37px;bottom:54px}
+    .gua-caption{left:16px;right:16px;bottom:11px;padding-top:9px}
+    .gua-caption b{font-size:14px;min-width:60px}
+    .gua-caption span{font-size:10px}
+    .carton{width:212px;height:269px;justify-self:center;order:2}
+    .carton-face{padding-top:32%}
+    .carton-name{font-size:13px}
+    .carton-question{font-size:11px}
+    .hint{font-size:11.5px}
+    .cast-row{margin-top:2px}
+    .cast{padding:14px 38px}
+    .micro{font-size:10px}
+    .result{margin-top:24px}
+    .result-head{padding:17px 17px;gap:12px}
+    .gua-seal{width:52px;height:52px;font-size:30px;border-radius:9px}
+    .result-title{font-size:18px}
+    .result-title span{display:block;margin:3px 0 0;font-size:11px}
+    .fortune{font-size:10px;padding:6px 7px}
+    .result-line{padding:14px 17px 0;font-size:12.5px}
+    .meal-panel{margin:13px 17px 0;padding:19px 17px 17px}
+    .meal-main{font-size:27px}
+    .meal-pair{font-size:13px}
+    .meal-fallback{font-size:10.5px}
+    .result-note{padding:12px 17px 0;font-size:10px}
+    .result-actions{padding:15px 17px 18px}
+    .action{padding:11px 14px;font-size:11px}
+    footer{margin-top:26px;padding:16px 18px 32px;font-size:10px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto} *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <button class="brand" id="brandBtn" type="button" aria-label="回到麦门签首页">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 132 104"><path d="M22 96V52C22 18 66 18 66 52V96V52C66 18 110 18 110 52V96" fill="none" stroke="#ffc72c" stroke-width="15" stroke-linecap="butt" stroke-linejoin="round"/></svg>
+    </span>
+    <span><span class="brand-word">麦门签</span><br><span class="brand-sub">一卦定一餐</span></span>
+  </button>
+  <div class="head-actions">
+    <span class="mode-chip" id="headMode" hidden>早签 · 早餐</span>
+    <button class="back-home" id="backHome" type="button" hidden>换一顿</button>
+  </div>
+</header>
+
+<main>
+  <section class="landing" id="landing">
+    <div class="three-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p class="kicker">三根薯条 · 一个明确答案</p>
+    <h1>今天，<br><span>吃哪一顿？</span></h1>
+    <p class="lead">不查城市，不看价格，也不让时钟替你猜。<b>你选一顿，摇三根薯条，落成一卦，只给一个结果。</b></p>
+    <div class="mode-grid">
+      <button class="mode-card" type="button" data-mode="breakfast">
+        <span class="mode-no">01 / 早签</span>
+        <h2>早餐</h2>
+        <p class="mode-desc">麦满分、炒双蛋堡、脆薯饼、油条豆浆。早上的胃，值得一套明确的答案。</p>
+        <span class="mode-go">进早餐签筒 <span aria-hidden="true">→</span></span>
+      </button>
+      <button class="mode-card" type="button" data-mode="all_day">
+        <span class="mode-no">02 / 正餐签</span>
+        <h2>午晚</h2>
+        <p class="mode-desc">汉堡、鸡排、麦乐鸡。中午和晚上共用一套签，不看钟点，只问你此刻想吃什么。</p>
+        <span class="mode-go">进正餐签筒 <span aria-hidden="true">→</span></span>
+      </button>
+    </div>
+    <p class="entry-note"><b>餐段由你决定。</b> 十点半的早餐还是午餐，不该由网页猜。</p>
+  </section>
+
+  <section class="ritual" id="ritual" hidden>
+    <div class="ritual-head">
+      <p class="ritual-eyebrow" id="ritualEyebrow">早签 · 早餐</p>
+      <h2>摇三根，落一卦。</h2>
+      <p class="hint" id="hint">点击盒子，或按住鼠标快速左右摇。三根薯条会落成一卦。</p>
+    </div>
+    <div class="stage" id="stage">
+      <div class="gua-board" id="guaBoard" aria-label="卦象区">
+        <span class="board-label">今 日 卦 象</span>
+        <div class="ghost-lines" aria-hidden="true">
+          <div class="ghost-row"><i class="full"></i></div>
+          <div class="ghost-row"><i class="half"></i><i class="half"></i></div>
+          <div class="ghost-row"><i class="full"></i></div>
+        </div>
+        <div class="pieces" id="pieces" aria-hidden="true"></div>
+        <div class="gua-caption"><b id="guaName">签未落</b><span id="guaImage">摇一摇，让薯条说话</span></div>
+      </div>
+      <button class="carton" id="carton" type="button" aria-label="摇一摇薯条盒">
+        <div class="fries-layer" id="fries" aria-hidden="true"></div>
+        <svg class="carton-back" viewBox="0 0 260 330" aria-hidden="true">
+          <path d="M19 31Q130 18 241 31L215 286Q130 273 45 286Z" fill="#9b1a11"/>
+        </svg>
+        <svg class="carton-front" viewBox="0 0 260 330" aria-hidden="true">
+          <path d="M17 49Q130 96 243 49L209 310Q130 285 51 310Z" fill="#da291c"/>
+        </svg>
+        <div class="carton-face" aria-hidden="true">
+          <svg class="mlogo" viewBox="0 0 132 104"><path d="M22 96V52C22 18 66 18 66 52V96V52C66 18 110 18 110 52V96" fill="none" stroke="#ffc72c" stroke-width="15" stroke-linecap="butt" stroke-linejoin="round"/></svg>
+          <div class="carton-name">麦门签：</div>
+          <div class="carton-question">今天吃什么？</div>
+        </div>
+      </button>
+    </div>
+    <div class="cast-row">
+      <button class="cast" id="cast" type="button">摇 一 签</button>
+      <p class="micro">点击盒子 · 快速左右摇鼠标 · 请把餐段选对</p>
+    </div>
+  </section>
+
+  <section class="result" id="result" hidden aria-live="polite"></section>
+</main>
+
+<footer>
+  <b>食运只图一乐</b>，不预测吉凶，也不代表菜品高低。大吉不等于更贵，平也不等于不好。<br>
+  菜单锚点核对自麦当劳中国官方 MCP 查询结果（2026-10-22），本页不含价格，不保证各门店全时段供应。<br>
+  本作品为参赛创意，非麦当劳官方产品。<br>
+  <a href="https://github.com/Dovesoup/maimen-qiantong" target="_blank" rel="noopener">在 GitHub 看源码 · 给这签点一颗 Star</a>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+window.GUA_DATA = /*__GUA_DATA__*/null;
+</script>
+<script>
+(function(){
+  'use strict';
+  const DATA = window.GUA_DATA;
+  if(!DATA || !Array.isArray(DATA.gua)) return;
+
+  const LINES = {
+    qian:[1,1,1], dui:[0,1,1], li:[1,0,1], zhen:[0,0,1],
+    xun:[1,1,0], kan:[0,1,0], gen:[1,0,0], kun:[0,0,0]
+  };
+  const MODE = {
+    breakfast:{label:'早签', title:'早餐', intro:'早签 · 早餐'},
+    all_day:{label:'正餐签', title:'午晚', intro:'正餐签 · 午晚'}
+  };
+  const $ = id => document.getElementById(id);
+  const refs = {
+    landing:$('landing'), ritual:$('ritual'), result:$('result'), stage:$('stage'),
+    board:$('guaBoard'), pieces:$('pieces'), guaName:$('guaName'), guaImage:$('guaImage'),
+    carton:$('carton'), fries:$('fries'), cast:$('cast'), hint:$('hint'),
+    headMode:$('headMode'), backHome:$('backHome'), ritualEyebrow:$('ritualEyebrow'), toast:$('toast')
+  };
+  const state = { mode:null, busy:false, last:null };
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function makeFries(){
+    const colors = ['', ' alt', '', '', ' alt'];
+    for(let i=0;i<21;i++){
+      const el=document.createElement('i');
+      const w=2.9 + (i%5)*0.36;
+      const h=78 + ((i*37)%31);
+      const left=2 + i*4.55;
+      const rot=((i*53)%17)-8;
+      el.className='fry'+colors[i%colors.length];
+      el.style.cssText=`left:${left}%;width:${w}%;height:${h}%;transform:rotate(${rot}deg);--r:${rot}deg;--i:${i}`;
+      refs.fries.appendChild(el);
+    }
+  }
+
+  function setMode(mode, fromEntry){
+    state.mode=mode;
+    refs.landing.hidden=true;
+    refs.ritual.hidden=false;
+    refs.result.hidden=true;
+    refs.headMode.hidden=false;
+    refs.backHome.hidden=false;
+    refs.headMode.textContent=MODE[mode].label+' · '+MODE[mode].title;
+    refs.ritualEyebrow.textContent=MODE[mode].intro;
+    refs.hint.textContent='点击盒子，或按住鼠标快速左右摇。三根薯条会落成一卦。';
+    refs.cast.disabled=false;
+    refs.cast.textContent='摇 一 签';
+    resetBoard();
+    if(fromEntry) window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});
+  }
+
+  function resetBoard(){
+    refs.pieces.innerHTML='';
+    refs.board.classList.remove('filled','landed');
+    refs.guaName.textContent='签未落';
+    refs.guaImage.textContent='摇一摇，让薯条说话';
+    refs.result.hidden=true;
+    refs.result.innerHTML='';
+    document.body.classList.remove('has-result');
+  }
+
+  function home(){
+    state.mode=null; state.busy=false;
+    refs.landing.hidden=false;
+    refs.ritual.hidden=true;
+    refs.result.hidden=true;
+    refs.headMode.hidden=true;
+    refs.backHome.hidden=true;
+    resetBoard();
+    window.scrollTo({top:0,behavior:reduced?'auto':'smooth'});
+  }
+
+  function randomGua(){
+    return DATA.gua[Math.floor(Math.random()*DATA.gua.length)];
+  }
+
+  function wait(ms){return new Promise(r=>setTimeout(r,ms));}
+
+  function makePiece(x,y,w,delay,alt){
+    const el=document.createElement('i');
+    el.className='piece'+(alt?' alt':'');
+    el.style.left=x+'px'; el.style.top=y+'px'; el.style.width=w+'px';
+    refs.pieces.appendChild(el);
+
+    const pr=refs.pieces.getBoundingClientRect();
+    const cr=refs.carton.getBoundingClientRect();
+    const sourceX=cr.left+cr.width/2-pr.left+(Math.random()-.5)*34;
+    const sourceY=cr.top+32-pr.top;
+    const dx=sourceX-(x+w/2);
+    const dy=sourceY-(y+5.5);
+    const startRot=-90+((Math.random()*12)-6);
+
+    el.style.opacity='0';
+    if(reduced){el.style.opacity='1';return Promise.resolve();}
+    const anim=el.animate([
+      {transform:`translate(${dx}px,${dy}px) rotate(${startRot}deg)`,opacity:0},
+      {opacity:1,offset:.14},
+      {transform:'translate(0,0) rotate(0deg)',opacity:1}
+    ],{duration:560,delay,easing:'cubic-bezier(.18,.82,.3,1)',fill:'both'});
+    return anim.finished.then(()=>{el.style.opacity='1';el.style.transform='none';anim.cancel();});
+  }
+
+  async function drawGua(g){
+    refs.board.classList.add('filled');
+    const pr=refs.pieces.getBoundingClientRect();
+    const rows=LINES[g.id]||[1,1,1];
+    const rowH=pr.height/3;
+    const long=Math.min(pr.width*.7,152);
+    const gap=16;
+    const short=(long-gap)/2;
+    const tasks=[];
+    let order=0;
+    for(let row=2;row>=0;row--){
+      const y=rowH*(row+.5)-5.5;
+      if(rows[row]){
+        const x=(pr.width-long)/2;
+        tasks.push(makePiece(x,y,long,order*105,false));
+        order++;
+      }else{
+        const x=(pr.width-long)/2;
+        tasks.push(makePiece(x,y,short,order*105,false));
+        tasks.push(makePiece(x+short+gap,y,short,order*105+55,true));
+        order++;
+      }
+    }
+    await Promise.all(tasks);
+    refs.board.classList.add('landed');
+    refs.guaName.textContent=g.symbol+'  '+g.name;
+    refs.guaImage.textContent=g.image;
+    await wait(reduced?0:150);
+  }
+
+  function mealHtml(m){
+    return `<p class="meal-label">今日食帖</p>
+      <h3 class="meal-main">${m.main}</h3>
+      <p class="meal-pair">${m.companions.join(' · ')}</p>
+      <p class="meal-fallback"><b>若无此味，整份换：</b>${m.fallback.main} · ${m.fallback.companions.join(' · ')}</p>`;
+  }
+
+  function showResult(g){
+    const m=g[state.mode];
+    refs.result.innerHTML=`<div class="result-card">
+      <div class="result-head">
+        <div class="gua-seal" aria-hidden="true">${g.symbol}</div>
+        <div class="result-heading">
+          <p class="result-kicker">${MODE[state.mode].label} · ${MODE[state.mode].title}</p>
+          <h3 class="result-title">${g.name}<span>${g.image}</span></h3>
+        </div>
+        <span class="fortune">食运 · ${g.fortune}</span>
+      </div>
+      <p class="result-line">${g.line}</p>
+      <div class="meal-panel">${mealHtml(m)}</div>
+      <p class="result-note">不给价格，不给第二选择。门店缺货时只换这一份食帖，不重新摇签。</p>
+      <div class="result-actions">
+        <button class="action primary" id="shareBtn" type="button">分享这一签</button>
+        <button class="action secondary" id="againBtn" type="button">再摇一签</button>
+      </div>
+    </div>`;
+    refs.result.hidden=false;
+    document.body.classList.add('has-result');
+    refs.result.classList.remove('show');
+    void refs.result.offsetWidth;
+    refs.result.classList.add('show');
+    $('shareBtn').addEventListener('click',()=>share(g,m));
+    $('againBtn').addEventListener('click',()=>{if(state.busy)return;resetBoard();cast();});
+    setTimeout(()=>refs.result.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'}),100);
+  }
+
+  async function cast(){
+    if(!state.mode || state.busy) return;
+    state.busy=true;
+    resetBoard();
+    refs.cast.disabled=true;
+    refs.cast.textContent='摇 签 中…';
+    refs.hint.textContent='签在筒里响。等三根薯条落定。';
+    refs.carton.classList.remove('shake');
+    void refs.carton.offsetWidth;
+    refs.carton.classList.add('shake');
+    if(navigator.vibrate) navigator.vibrate([28,40,28]);
+    await wait(reduced?40:660);
+    refs.carton.classList.remove('shake');
+    const g=randomGua();
+    state.last=g;
+    await drawGua(g);
+    showResult(g);
+    refs.cast.disabled=false;
+    refs.cast.textContent='再 摇 一 签';
+    refs.hint.textContent='一卦已定。往下看这一顿。';
+    state.busy=false;
+  }
+
+  async function copyText(text){
+    try{await navigator.clipboard.writeText(text);return true;}
+    catch(e){
+      try{
+        const t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';
+        document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();return ok;
+      }catch(_){return false;}
+    }
+  }
+
+  function toast(msg){
+    refs.toast.textContent=msg;refs.toast.classList.add('show');
+    clearTimeout(toast.t);toast.t=setTimeout(()=>refs.toast.classList.remove('show'),2200);
+  }
+
+  async function share(g,m){
+    const url=location.origin+location.pathname;
+    const text=`我在麦门签摇到「${g.name}·${g.image}」：${m.main}，配 ${m.companions.join('、')}。今天你吃哪一卦？`;
+    if(navigator.share){
+      try{await navigator.share({title:'麦门签 · 今天吃什么？',text,url});return;}catch(e){if(e && e.name==='AbortError')return;}
+    }
+    const ok=await copyText(`${text}\n${url}`);
+    toast(ok?'文案已复制，去发给那个也选不出来的人':'复制失败，请手动复制地址');
+  }
+
+  document.querySelectorAll('.mode-card').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode,true)));
+  refs.carton.addEventListener('click',cast);
+  refs.cast.addEventListener('click',cast);
+  $('brandBtn').addEventListener('click',home);
+  refs.backHome.addEventListener('click',home);
+
+  let lastX=null,lastT=0,dir=0,reversals=0,firstReverse=0,lastMove=0;
+  refs.stage.addEventListener('mousemove',e=>{
+    if(!state.mode||state.busy||!refs.result.hidden) return;
+    const now=performance.now();
+    if(now-lastMove>700){lastX=e.clientX;reversals=0;dir=0;lastMove=now;return;}
+    lastMove=now;
+    if(lastX===null){lastX=e.clientX;lastT=now;return;}
+    const dx=e.clientX-lastX;
+    const dt=Math.max(1,now-lastT);
+    const speed=Math.abs(dx)/dt*1000;
+    if(Math.abs(dx)>=3 && speed>520){
+      const nd=Math.sign(dx);
+      if(dir && nd!==dir){
+        if(now-firstReverse>850){reversals=1;firstReverse=now;}
+        else reversals++;
+        if(reversals>=4){reversals=0;cast();}
+      }
+      dir=nd;
+    }
+    lastX=e.clientX;lastT=now;
+  });
+  refs.stage.addEventListener('mouseleave',()=>{lastX=null;dir=0;reversals=0;});
+
+  makeFries();
+})();
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "麦门签·两套八卦 × 八个食帖",
-    "version": "v0.1",
+    "version": "v0.2",
     "dataSource": "麦当劳中国 MCP 菜单快照 · repo/data/menus.json",
     "collectedOn": "2026-10-22",
     "cityCount": 11,
@@ -285,16 +285,16 @@
       "symbol": "☷",
       "name": "坤",
       "image": "地载·当令",
-      "line": "地载时令，今天尝新。",
+      "line": "地载时令，今天吃鸡。",
       "fortune": "小吉",
       "breakfast": {
-        "main": "当季早餐新品（问店员）",
+        "main": "当季鸡肉早餐新品（请店员选一个）",
         "companions": [
           "脆薯饼",
           "优品豆浆"
         ],
         "fallback": {
-          "main": "猪柳炒双蛋堡",
+          "main": "原味板烧鸡腿炒双蛋堡",
           "companions": [
             "脆薯饼",
             "优品豆浆"
@@ -302,13 +302,13 @@
         }
       },
       "all_day": {
-        "main": "当季新品主食（问店员）",
+        "main": "当季鸡肉新品主食（请店员选一个）",
         "companions": [
           "玉米杯",
           "锡兰红茶"
         ],
         "fallback": {
-          "main": "双层深海鳕鱼堡",
+          "main": "麦香鸡",
           "companions": [
             "玉米杯",
             "锡兰红茶"

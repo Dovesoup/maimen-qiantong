@@ -2,178 +2,175 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>麦门签筒 · 选择困难症专用</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>麦门签筒 · 摇一根薯条，定今天中午吃什么</title>
 <style>
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   :root{
-    --paper:#f4ecdd; --paper2:#efe5d2; --ink:#241f1a; --ink2:#5c5348;
-    --red:#b02e26; --red2:#8d2119; --gold:#b8873b; --line:#d9cbae;
+    --red:#DA291C; --red-deep:#A8140A; --red-dark:#7d1208;
+    --gold:#FFC72C; --ink:#1b1712; --ink2:#6b625a; --ink3:#9a9188;
+    --paper:#faf6ef; --line:#e8dfd2;
   }
-  html,body{margin:0;height:100%}
+  html,body{margin:0}
   body{
     background:var(--paper); color:var(--ink);
-    font-family:"Songti SC","STSong","SimSun",Georgia,serif;
-    display:flex; flex-direction:column; align-items:center;
-    overflow-x:hidden; padding:0 18px 40px;
-    background-image:radial-gradient(circle at 50% 0%,#faf5e9 0%,var(--paper) 55%,var(--paper2) 100%);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    display:flex;flex-direction:column;align-items:center;
+    padding:0 20px 56px;overflow-x:hidden;
   }
-  header{text-align:center;padding:26px 0 6px;width:100%;max-width:520px}
-  .title{font-size:30px;letter-spacing:.22em;margin:0;font-weight:600;text-indent:.22em}
-  .title small{display:block;font-size:11px;letter-spacing:.34em;color:var(--gold);margin-top:8px;font-weight:400;text-indent:.34em}
-  .sub{font-size:12.5px;color:var(--ink2);margin:10px 0 0;line-height:1.8;letter-spacing:.02em}
-  .citybar{display:flex;align-items:center;gap:8px;margin:16px 0 0;font-size:13px;color:var(--ink2)}
-  select{
-    font-family:inherit;font-size:13px;color:var(--ink);background:transparent;
-    border:none;border-bottom:1px dashed var(--gold);padding:3px 2px;outline:none;cursor:pointer;
-  }
-  .dot{width:5px;height:5px;border-radius:50%;background:var(--red);display:inline-block}
+  .topline{position:fixed;top:0;left:0;right:0;height:4px;background:var(--red)}
+  header{text-align:center;padding:38px 0 0;max-width:520px;width:100%}
+  .eyebrow{font-size:11px;letter-spacing:.3em;color:var(--red);font-weight:600;margin-bottom:14px}
+  h1{font-size:34px;letter-spacing:.1em;margin:0;font-weight:700;text-indent:.1em}
+  .tagline{font-size:13px;color:var(--ink2);line-height:1.9;margin:14px 0 0}
+  .tagline b{color:var(--ink);font-weight:600}
+  .citybar{display:flex;align-items:center;justify-content:center;gap:10px;margin:20px 0 0;font-size:12px;color:var(--ink3)}
+  .pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:20px;padding:4px 11px;background:#fff}
+  .pill .sq{width:5px;height:5px;background:var(--red);border-radius:1px}
+  select{font-family:inherit;font-size:12px;color:var(--ink);border:none;background:transparent;outline:none;cursor:pointer;padding:0}
 
-  /* ── 签筒 ── */
-  .stage{width:100%;max-width:520px;display:flex;flex-direction:column;align-items:center;
-         position:relative;flex:1;justify-content:center;min-height:340px;padding-top:10px}
-  .tube{position:relative;width:132px;height:196px;margin-top:56px;transition:transform .12s}
-  .tube.shaking{animation:shake .13s linear infinite}
-  @keyframes shake{
-    0%{transform:rotate(-3.2deg) translateY(0)}
-    25%{transform:rotate(2.6deg) translateY(-3px)}
-    50%{transform:rotate(-2.4deg) translateY(1px)}
-    75%{transform:rotate(3deg) translateY(-2px)}
-    100%{transform:rotate(-3.2deg) translateY(0)}
-  }
-  .body{
-    position:absolute;bottom:0;left:0;width:132px;height:150px;
-    background:linear-gradient(100deg,#8e5a2f 0%,#b07a44 22%,#c99457 45%,#a06f3c 72%,#7d4f28 100%);
-    border-radius:6px 6px 9px 9px;
-    box-shadow:inset -8px 0 14px rgba(0,0,0,.18),inset 8px 0 10px rgba(255,255,255,.14),0 10px 22px -8px rgba(70,40,10,.5);
-  }
-  .body:before{ /* 筒口内阴影 */
-    content:"";position:absolute;top:-3px;left:0;width:100%;height:14px;
-    background:linear-gradient(#5d3718,#8d5c30);border-radius:50%/70%;
-  }
-  .body:after{ /* 腰箍 */
-    content:"";position:absolute;top:84px;left:-4px;width:140px;height:11px;
-    background:linear-gradient(#6d4520,#a9763f,#6d4520);border-radius:3px;
-    box-shadow:0 1px 2px rgba(0,0,0,.25);
-  }
-  .label{
-    position:absolute;top:56px;left:0;width:132px;text-align:center;
-    font-size:15px;letter-spacing:.3em;color:#ffe7bd;text-indent:.3em;
-    text-shadow:0 1px 2px rgba(60,30,0,.6);z-index:3;pointer-events:none;
-  }
-  .sticks{position:absolute;top:-64px;left:50%;transform:translateX(-50%);width:110px;height:80px;z-index:1}
-  .stk{
-    position:absolute;bottom:0;width:5px;border-radius:2px 2px 0 0;
-    background:linear-gradient(#f7e6c4,#e8cfa3);
-    box-shadow:inset -1px 0 1px rgba(150,110,60,.5),0 0 2px rgba(120,80,30,.35);
-  }
-  .stk i{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:var(--red);opacity:.55}
+  .stage{position:relative;width:100%;max-width:520px;min-height:470px;
+         display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:26px}
+  .floor{position:absolute;bottom:56px;left:50%;transform:translateX(-50%);
+         width:250px;height:26px;background:radial-gradient(ellipse at center,rgba(60,35,10,.16),transparent 68%);
+         filter:blur(2px);pointer-events:none}
 
-  /* 飞出的签 */
-  .flyer{
-    position:absolute;left:50%;top:64px;width:34px;height:136px;
-    background:linear-gradient(#fffdf6,#f3e6c8);border-radius:3px;
-    box-shadow:0 8px 22px -6px rgba(80,50,20,.5);z-index:9;
-    display:flex;align-items:center;justify-content:center;
-    transform:translate(-50%,0) scale(.9);opacity:0;
-    writing-mode:vertical-rl;font-size:13px;letter-spacing:.24em;color:var(--red2);
-    border-top:3px solid var(--red);
+  .carton{position:relative;width:196px;height:200px;cursor:pointer;
+          transform-origin:50% 100%;filter:drop-shadow(0 16px 18px rgba(80,30,10,.18));
+          -webkit-user-select:none;user-select:none}
+  .carton-back{position:absolute;bottom:0;left:0;width:196px;height:200px;
+    background:linear-gradient(105deg,#8e150b,#b81f10 45%,#8e150b);
+    clip-path:polygon(0 0,100% 0,84% 100%,16% 100%)}
+  .carton-front{position:absolute;bottom:0;left:0;width:196px;height:186px;
+    background:linear-gradient(100deg,#c22214 0%,#DA291C 26%,#e8331f 52%,#c81f12 84%,#a81a0e 100%);
+    clip-path:polygon(0 0,100% 0,84% 100%,16% 100%);
+    display:flex;flex-direction:column;align-items:center}
+  .carton-front:after{content:"";position:absolute;top:0;left:0;width:100%;height:14px;
+    background:linear-gradient(rgba(0,0,0,.22),transparent)}
+  .mlogo{margin-top:44px;width:96px;height:64px}
+  .ff{margin-top:2px;color:#ffe9b0;font-size:10px;letter-spacing:.32em;font-weight:600;text-indent:.32em}
+  .cn{margin-top:auto;margin-bottom:26px;color:#ffd9a0;font-size:12px;letter-spacing:.42em;text-indent:.42em;
+      font-family:"Songti SC","STSong",serif;opacity:.85}
+
+  .fries{position:absolute;bottom:172px;left:0;width:196px;height:130px;z-index:2;pointer-events:none}
+  .fry{position:absolute;bottom:0;width:9px;border-radius:3px 3px 1px 1px;
+       background:linear-gradient(90deg,#c8901f 0%,#f2c248 26%,#ffe08a 55%,#f7d061 78%,#d79c25 100%);
+       box-shadow:inset 0 -6px 6px rgba(160,100,20,.25),inset 0 3px 2px rgba(255,240,200,.6);
+       transform-origin:50% 100%}
+  .fry:before{content:"";position:absolute;top:0;left:0;width:100%;height:9px;
+       background:linear-gradient(rgba(150,95,20,.35),transparent);border-radius:3px 3px 0 0}
+
+  .carton.shake{animation:rock .72s cubic-bezier(.36,.07,.19,.97)}
+  @keyframes rock{
+    0%,100%{transform:rotate(0) translateX(0)}
+    12%{transform:rotate(-8deg) translateX(-12px)}
+    30%{transform:rotate(7deg) translateX(11px)}
+    48%{transform:rotate(-6deg) translateX(-9px)}
+    66%{transform:rotate(4deg) translateX(6px)}
+    84%{transform:rotate(-2deg) translateX(-3px)}
   }
-  .flyer.out{animation:fly .72s cubic-bezier(.2,.9,.25,1) forwards}
-  @keyframes fly{
-    0%{transform:translate(-50%,0) scale(.9) rotate(0);opacity:0}
-    18%{opacity:1;transform:translate(-50%,-56px) scale(1) rotate(-6deg)}
-    70%{transform:translate(-50%,-70px) scale(1) rotate(4deg)}
-    100%{transform:translate(-50%,-58px) scale(.96) rotate(-2deg);opacity:1}
+  .carton.shake .fry{animation:jiggle .72s ease-in-out;animation-delay:calc(var(--i) * 9ms)}
+  @keyframes jiggle{
+    0%,100%{transform:rotate(var(--r)) translateY(0)}
+    25%{transform:rotate(calc(var(--r) + 5deg)) translateY(-9px)}
+    55%{transform:rotate(calc(var(--r) - 4deg)) translateY(-3px)}
+    80%{transform:rotate(calc(var(--r) + 2deg)) translateY(-5px)}
   }
 
-  .hint{font-size:12.5px;color:var(--ink2);letter-spacing:.1em;margin-top:36px;text-align:center;line-height:1.9}
-  .btn{
-    font-family:inherit;font-size:15px;letter-spacing:.2em;text-indent:.2em;
-    color:#fff8ea;background:var(--red);border:none;border-radius:2px;
-    padding:14px 42px;cursor:pointer;margin-top:16px;
-    box-shadow:0 6px 18px -8px var(--red2),inset 0 0 0 1px rgba(255,255,255,.14);
-    transition:transform .12s,background .2s;
-  }
-  .btn:active{transform:scale(.97)}
-  .btn:disabled{opacity:.5;cursor:default}
-  .btn.ghost{background:transparent;color:var(--red);box-shadow:none;border:1px solid var(--red);padding:11px 26px;font-size:13px}
+  .flyer{position:absolute;width:12px;height:104px;border-radius:4px;z-index:20;pointer-events:none;
+    background:linear-gradient(90deg,#c8901f,#f2c248 30%,#ffe08a 58%,#d79c25);
+    box-shadow:inset 0 -6px 6px rgba(160,100,20,.25),0 10px 16px -6px rgba(90,60,10,.4);
+    transform-origin:50% 50%;opacity:0}
 
-  /* ── 结果 ── */
-  .result{
-    width:100%;max-width:520px;display:none;padding:8px 0 0;
-  }
-  .result.show{display:block;animation:rise .5s ease both}
-  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-  .card{
-    background:linear-gradient(#fffdf7,#faf3e3);border:1px solid var(--line);
-    border-radius:3px;padding:26px 22px 22px;position:relative;
-    box-shadow:0 18px 40px -24px rgba(80,50,20,.55);
-  }
-  .card:before,.card:after{
-    content:"";position:absolute;left:14px;right:14px;height:1px;background:var(--line);
-  }
-  .card:before{top:10px}.card:after{bottom:10px}
-  .no{font-size:12px;color:var(--ink2);letter-spacing:.2em;text-align:center}
-  .hex{font-size:27px;letter-spacing:.16em;text-align:center;margin:10px 0 4px;text-indent:.16em}
-  .hexsub{text-align:center;font-size:11.5px;letter-spacing:.22em;color:var(--ink2);margin-top:8px}
-  .seal{
-    display:inline-block;margin:10px auto 0;padding:6px 12px 5px;
-    background:var(--red);color:#fff4e2;font-size:14px;letter-spacing:.24em;text-indent:.24em;
-    border-radius:2px;transform:rotate(-3deg);
-    box-shadow:0 2px 0 var(--red2);
-    animation:stamp .42s cubic-bezier(.2,1.4,.4,1) both .18s;
-  }
-  @keyframes stamp{from{transform:rotate(-14deg) scale(2.1);opacity:0}to{transform:rotate(-3deg) scale(1);opacity:1}}
-  .sealwrap{text-align:center}
-  .poem{margin:22px 0 4px;text-align:center;font-size:16.5px;line-height:2.35;letter-spacing:.1em;color:#33291f}
+  .hint{margin-top:22px;font-size:12.5px;color:var(--ink2);text-align:center;line-height:2;min-height:44px}
+  .hint em{font-style:normal;color:var(--red);font-weight:600}
+  .cast{
+    margin-top:6px;font-family:inherit;font-size:14px;font-weight:600;letter-spacing:.18em;text-indent:.18em;
+    color:#fff;background:var(--red);border:none;border-radius:26px;padding:14px 44px;cursor:pointer;
+    box-shadow:0 8px 20px -8px rgba(218,41,28,.7);transition:transform .12s,box-shadow .2s}
+  .cast:hover{box-shadow:0 10px 26px -8px rgba(218,41,28,.8)}
+  .cast:active{transform:scale(.96)}
+  .cast:disabled{opacity:.45;cursor:default;box-shadow:none}
+  .micro{font-size:11px;color:var(--ink3);margin-top:14px;letter-spacing:.04em}
+
+  .result{width:100%;max-width:520px;display:none}
+  .result.show{display:block;animation:rise .45s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 26px 24px;
+        box-shadow:0 24px 50px -30px rgba(80,50,20,.35);position:relative;overflow:hidden}
+  .card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--red)}
+  .card-top{display:flex;align-items:center;justify-content:space-between}
+  .no{font-size:11px;letter-spacing:.2em;color:var(--ink3);font-variant-numeric:tabular-nums}
+  .seal{background:var(--red);color:#fff8ea;font-size:12px;font-weight:600;letter-spacing:.2em;text-indent:.2em;
+        padding:5px 12px 4px;border-radius:3px;transform:rotate(-3deg);
+        animation:stamp .4s cubic-bezier(.2,1.5,.4,1) both .15s}
+  @keyframes stamp{from{transform:rotate(-12deg) scale(1.9);opacity:0}to{transform:rotate(-3deg) scale(1);opacity:1}}
+  .hex{font-size:30px;font-weight:700;letter-spacing:.12em;margin:20px 0 6px;text-align:center;text-indent:.12em}
+  .hexsub{text-align:center;font-size:11px;letter-spacing:.24em;color:var(--ink3)}
+  .poem{margin:24px 0 0;text-align:center;font-size:17px;line-height:2.4;letter-spacing:.12em;
+        font-family:"Songti SC","STSong","SimSun",serif;color:#2a2119}
   .poem div{opacity:0;animation:fadein .5s ease forwards}
-  .poem div:nth-child(1){animation-delay:.30s}
-  .poem div:nth-child(2){animation-delay:.40s}
-  .poem div:nth-child(3){animation-delay:.50s}
-  .poem div:nth-child(4){animation-delay:.60s}
+  .poem div:nth-child(1){animation-delay:.3s}.poem div:nth-child(2){animation-delay:.42s}
+  .poem div:nth-child(3){animation-delay:.54s}.poem div:nth-child(4){animation-delay:.66s}
   @keyframes fadein{to{opacity:1}}
-  .rule{height:1px;background:var(--line);margin:22px 0 16px}
-  .dish-h{font-size:11.5px;letter-spacing:.24em;color:var(--gold);margin-bottom:10px}
-  .dish{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;font-size:14.5px;border-bottom:1px dotted var(--line)}
-  .dish span:first-child{color:var(--ink2);font-size:12px;letter-spacing:.1em;min-width:46px}
-  .dish span:last-child{font-variant-numeric:tabular-nums;color:var(--ink)}
-  .sum{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;font-size:15px}
-  .sum b{font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
-  .aside{
-    margin-top:20px;padding:13px 15px;background:rgba(184,135,59,.09);
-    border-left:2px solid var(--gold);font-size:12.5px;line-height:1.85;color:var(--ink2);
-  }
+  .rule{height:1px;background:repeating-linear-gradient(90deg,var(--line) 0 5px,transparent 5px 10px);margin:24px 0 18px}
+  .dish-h{font-size:10.5px;letter-spacing:.28em;color:var(--red);font-weight:600;margin-bottom:12px}
+  .dish{display:flex;align-items:baseline;gap:10px;padding:9px 0;font-size:14px;border-bottom:1px solid #f4eee4}
+  .dish .lb{flex:0 0 34px;font-size:11px;color:var(--ink3)}
+  .dish .nm{flex:1;color:var(--ink)}
+  .dish .pr{font-variant-numeric:tabular-nums;color:var(--ink2);font-size:13px}
+  .sum{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px}
+  .sum span{font-size:12px;letter-spacing:.2em;color:var(--ink2)}
+  .sum b{font-size:26px;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+  .aside{margin-top:22px;padding:14px 16px;background:#fff8e8;border-left:3px solid var(--gold);
+         border-radius:0 8px 8px 0;font-size:12px;line-height:1.9;color:var(--ink2)}
   .aside b{color:var(--ink);font-weight:600}
-  .aside .tag{font-size:10.5px;letter-spacing:.2em;color:var(--gold);display:block;margin-bottom:4px}
-  .acts{display:flex;gap:10px;justify-content:center;margin-top:22px}
-  footer{width:100%;max-width:520px;margin-top:34px;font-size:11px;line-height:1.9;color:#8d8477;text-align:center;border-top:1px solid var(--line);padding-top:14px}
-  footer b{color:#6d6459}
-  .empty{padding:40px 0;text-align:center;font-size:13px;color:var(--ink2);line-height:2}
+  .aside .tag{display:block;font-size:10px;letter-spacing:.26em;color:#b8912f;font-weight:600;margin-bottom:6px}
+  .again{display:block;margin:24px auto 0;font-family:inherit;font-size:13px;letter-spacing:.16em;text-indent:.16em;
+    color:var(--red);background:transparent;border:1px solid var(--red);border-radius:22px;padding:11px 30px;cursor:pointer}
+  .again:hover{background:rgba(218,41,28,.05)}
+
+  footer{max-width:520px;width:100%;margin-top:36px;padding-top:16px;border-top:1px solid var(--line);
+         font-size:10.5px;line-height:1.95;color:var(--ink3);text-align:center}
+  footer b{color:var(--ink2)}
+  @media (max-width:400px){
+    h1{font-size:28px}
+    .card{padding:24px 20px 20px}
+    .poem{font-size:16px}
+  }
 </style>
 </head>
 <body>
+<div class="topline"></div>
 
 <header>
-  <h1 class="title">麦门签筒<small>MAI MEN QIAN TONG</small></h1>
-  <p class="sub">摇一支签，今日吃什么都由它定。<br>签是随机的，签上的价钱是真的。</p>
+  <div class="eyebrow">MAI MEN QIAN TONG</div>
+  <h1>麦门签筒</h1>
+  <p class="tagline">摇一根薯条，今天吃什么都由它定。<br>签是随机的，<b>签上那顿饭的价钱是真的</b>。</p>
   <div class="citybar">
-    <span class="dot"></span>
-    <span id="slotTag">正签</span>
-    <select id="city"></select>
-    <span id="storeName" style="font-size:11.5px;opacity:.7"></span>
+    <span class="pill"><span class="sq"></span><span id="slotTag">正签</span></span>
+    <span class="pill"><select id="city"></select></span>
+    <span id="storeName" style="font-size:11px"></span>
   </div>
 </header>
 
 <div class="stage" id="stage">
-  <div class="tube" id="tube">
-    <div class="sticks" id="sticks"></div>
-    <div class="body"></div>
-    <div class="label">麥門簽</div>
+  <div class="floor"></div>
+  <div class="carton" id="carton" role="button" tabindex="0" aria-label="摇一摇薯条盒">
+    <div class="fries" id="fries"></div>
+    <div class="carton-back"></div>
+    <div class="carton-front">
+      <svg class="mlogo" viewBox="0 0 120 76" aria-hidden="true">
+        <path d="M14 66 V30 Q14 12 30 12 Q46 12 46 30 V66" fill="none" stroke="#FFC72C" stroke-width="12"/>
+        <path d="M74 66 V30 Q74 12 90 12 Q106 12 106 30 V66" fill="none" stroke="#FFC72C" stroke-width="12"/>
+      </svg>
+      <div class="ff">FRENCH FRIES</div>
+      <div class="cn">麥門簽</div>
+    </div>
   </div>
-  <div class="flyer" id="flyer"></div>
-  <p class="hint" id="hint">双手合十，心念今天想吃什么<br>然后摇一摇</p>
-  <button class="btn" id="cast">摇 一 签</button>
+  <div class="hint" id="hint">点击盒子，或按住鼠标<em>快速左右摇</em><br>也可以直接点下面这根</div>
+  <button class="cast" id="cast">摇 一 根</button>
+  <div class="micro">手机端可以真的摇一摇</div>
 </div>
 
 <div class="result" id="result"></div>
@@ -190,9 +187,6 @@
   const SIGNS = window.SIGNS, MENUS = window.MENUS;
   const MU = ["零","一","二","三","四","五","六","七","八","九","十"];
   const CN = n => n<=10 ? MU[n] : (n<20 ? "十"+MU[n-10] : (n%10===0 ? MU[Math.floor(n/10)]+"十" : MU[Math.floor(n/10)]+"十"+MU[n%10]));
-
-  // 签等：按合计价在本店全部可出签中的分位，便宜=上上
-  // 签等按「这一签的规格」排：三件为上上，一杯水为下下。与吉凶无关。
   const GRADES = [
     {max:.15, name:"上上", word:"最丰"},
     {max:.40, name:"上吉", word:"有肉"},
@@ -201,7 +195,7 @@
     {max:1.01,name:"下下", word:"最简"}
   ];
 
-  let current = null; // {city, slot, signs:[{sign, items, total, grade}]}
+  let current = null, busy = false;
 
   function pick(items, keys){
     for(const k of keys){
@@ -223,12 +217,11 @@
     if(items.length < 6){ slot = "main"; items = rec.slots.main || []; }
     if(!items.length) return null;
 
-    const pool = SIGNS[slot] || [];
     const built = [];
-    for(const s of pool){
+    for(const s of (SIGNS[slot] || [])){
       const got = [];
       let ok = true;
-      for(const [key, label] of [["main","主食"],["side","小食"],["drink","饮品"]]){
+      for(const [key,label] of [["main","主食"],["side","小食"],["drink","饮品"]]){
         const keys = s[key] || [];
         if(!keys.length) continue;
         const hit = pick(items, keys);
@@ -240,59 +233,54 @@
     }
     if(built.length < 5) return null;
 
-    // 签等：先看这一签的规格（主食>小食>饮品），同规格按真实合计价排序
-    const W = {"主食":2.0, "小食":1.0, "饮品":0.6};
+    const W = {"主食":2.0,"小食":1.0,"饮品":0.6};
     built.forEach(b=>{ b.score = +b.items.reduce((a,i)=>a+(W[i.label]||0),0).toFixed(2); });
     const sorted = built.slice().sort((a,b)=> b.score-a.score || b.total-a.total);
     sorted.forEach((b,i)=>{
-      const q = (i+1)/sorted.length;
-      b.grade = GRADES.find(g => q <= g.max) || GRADES[4];
+      b.grade = GRADES.find(g => (i+1)/sorted.length <= g.max) || GRADES[4];
       b.rank = i+1;
     });
     return {city, slot, storeName:rec.storeName, signs:sorted, count:sorted.length};
   }
 
-  // ── 签外话：把真实价格数据接进解签
   function aside(st, res){
-    const s = res.sign;
     const out = [];
     const cityBm = (MENUS[st.city].slots.main||[]).find(i => i.name === "巨无霸");
     const totals = st.signs.map(x=>x.total).sort((a,b)=>a-b);
     const med = totals[Math.floor(totals.length/2)];
-    const dishes = res.items.length;
+    const n = res.items.length;
 
-    if(res.rank === 1) out.push("这是本店 <b>"+st.count+"</b> 支签里最丰盛的一支："+dishes+" 样东西，合计 <b>"+res.total.toFixed(1)+"</b> 元。");
-    else if(res.rank === st.count) out.push("这是本店 <b>"+st.count+"</b> 支签里最简的一支，只有 "+dishes+" 样。想吃饱的人抽到它，算是一种考验。");
-    else out.push("你这一签 "+dishes+" 样东西，合计 <b>"+res.total.toFixed(1)+"</b> 元；本店 "+st.count+" 支签的合计价中位数是 <b>"+med.toFixed(1)+"</b> 元，你比中位"+(res.total>med?"贵":"省")+" <b>"+Math.abs(res.total-med).toFixed(1)+"</b> 元。");
+    if(res.rank === 1) out.push("这是本店 <b>"+st.count+"</b> 支签里最丰盛的一支："+n+" 样东西，合计 <b>"+res.total.toFixed(1)+"</b> 元。");
+    else if(res.rank === st.count) out.push("这是本店 <b>"+st.count+"</b> 支签里最简的一支，只有 "+n+" 样。想吃饱的人抽到它，算是一种考验。");
+    else out.push("你这一签 "+n+" 样东西，合计 <b>"+res.total.toFixed(1)+"</b> 元；本店 "+st.count+" 支签的合计价中位数是 <b>"+med.toFixed(1)+"</b> 元，你比中位"+(res.total>med?"贵":"省")+" <b>"+Math.abs(res.total-med).toFixed(1)+"</b> 元。");
 
     if(cityBm){
       const p = cityBm.price;
       const lhasa = (MENUS["拉萨市"] && (MENUS["拉萨市"].slots.main||[]).find(i=>i.name==="巨无霸"));
       let t = "巨无霸在"+st.city.replace("市","")+"卖 <b>"+p.toFixed(1)+"</b> 元";
-      if(lhasa && st.city !== "拉萨市"){
-        t += "，比拉萨的 "+lhasa.price.toFixed(1)+" 元便宜 <b>"+(lhasa.price-p).toFixed(1)+"</b> 元";
-      }else if(st.city === "拉萨市"){
-        t += "，是全国最贵的一档（170 家门店里 50.6% 都卖 26.5 元）";
-      }
-      t += "。";
-      out.push(t);
+      if(lhasa && st.city !== "拉萨市") t += "，比拉萨的 "+lhasa.price.toFixed(1)+" 元便宜 <b>"+(lhasa.price-p).toFixed(1)+"</b> 元";
+      else if(st.city === "拉萨市") t += "，是全国最贵的一档（170 家门店里 50.6% 都卖 26.5 元）";
+      out.push(t + "。");
     }
     return out.join("<br>");
   }
 
-  // ── 渲染签支
-  function drawSticks(n){
-    const box = document.getElementById("sticks");
+  function drawFries(){
+    const box = document.getElementById("fries");
     box.innerHTML = "";
-    for(let i=0;i<36;i++){
-      const d = document.createElement("div");
-      d.className = "stk";
-      const h = 44 + ((i*37)%34);
-      d.style.height = h+"px";
-      d.style.left = (3 + (i*2.9)) + "px";
-      d.style.bottom = ((i*13)%9) + "px";
-      d.style.transform = "rotate("+(((i*53)%100)/100*7-3.5)+"deg)";
-      box.appendChild(d);
+    const N = 24;
+    for(let i=0;i<N;i++){
+      const f = document.createElement("div");
+      f.className = "fry";
+      f.style.width = (8 + ((i*17)%3)) + "px";
+      f.style.height = (62 + ((i*41)%58)) + "px";
+      f.style.left = (16 + i*6.6 + ((i*29)%5)) + "px";
+      const r = ((i*53)%100)/100*14 - 7;
+      f.style.setProperty("--r", r+"deg");
+      f.style.setProperty("--i", i);
+      f.style.transform = "rotate("+r+"deg)";
+      f.style.zIndex = (i%3);
+      box.appendChild(f);
     }
   }
 
@@ -304,51 +292,67 @@
       o.value = c; o.textContent = c.replace("市","");
       sel.appendChild(o);
     });
-    // 默认优先杭州，其次上海
     const prefer = ["杭州市","上海市","北京市"].find(c=>MENUS[c]);
     if(prefer) sel.value = prefer;
   }
 
   function loadCity(){
-    const city = document.getElementById("city").value;
-    current = buildFor(city);
+    current = buildFor(document.getElementById("city").value);
     const tag = document.getElementById("slotTag");
     const sn = document.getElementById("storeName");
+    const btn = document.getElementById("cast");
     if(!current){
-      tag.textContent = "无签";
-      sn.textContent = "";
-      document.getElementById("cast").disabled = true;
+      tag.textContent = "无签"; sn.textContent = ""; btn.disabled = true;
       document.getElementById("hint").innerHTML = "这家门店此刻的菜单不足，换一座城试试";
       return;
     }
-    document.getElementById("cast").disabled = false;
+    btn.disabled = false;
     tag.textContent = current.slot === "morning" ? "早签" : "正签";
-    sn.textContent = (current.storeName||"").replace("麦当劳","").slice(0,14);
-    document.getElementById("hint").innerHTML = "双手合十，心念今天想吃什么<br>然后摇一摇";
+    sn.textContent = (current.storeName||"").replace("麦当劳","").slice(0,12);
+  }
+
+  function flyFry(done){
+    const stage = document.getElementById("stage");
+    const carton = document.getElementById("carton");
+    const sr = stage.getBoundingClientRect(), cr = carton.getBoundingClientRect();
+    const f = document.createElement("div");
+    f.className = "flyer";
+    const startX = cr.left - sr.left + cr.width/2 - 6;
+    const startY = cr.top - sr.top - 66;
+    f.style.left = startX+"px";
+    f.style.top = startY+"px";
+    f.style.opacity = "1";
+    stage.appendChild(f);
+    const dx = 108, dy = cr.height + 66 - 26;
+    const anim = f.animate([
+      {transform:"translate(0,0) rotate(0deg) scale(1)",opacity:1,offset:0},
+      {transform:`translate(${dx*0.42}px,${-150}px) rotate(140deg) scale(1.04)`,opacity:1,offset:.42},
+      {transform:`translate(${dx}px,${dy}px) rotate(238deg) scale(1)`,opacity:1,offset:.86},
+      {transform:`translate(${dx}px,${dy}px) rotate(262deg) scale(1)`,opacity:1,offset:1}
+    ],{duration:900,easing:"cubic-bezier(.25,.6,.35,1)",fill:"forwards"});
+    anim.onfinish = ()=>{ setTimeout(()=>{ f.remove(); done(); }, 260); };
   }
 
   function cast(){
-    if(!current) return;
+    if(!current || busy) return;
+    busy = true;
     const btn = document.getElementById("cast");
-    btn.disabled = true;
-    const tube = document.getElementById("tube");
-    const flyer = document.getElementById("flyer");
+    const carton = document.getElementById("carton");
     const hint = document.getElementById("hint");
-    flyer.className = "flyer";
-    tube.classList.add("shaking");
-    hint.textContent = "签筒摇动中……";
-
-    let n = 0;
-    const iv = setInterval(()=>{ n++; if(n>9) clearInterval(iv); }, 60);
+    btn.disabled = true;
+    carton.classList.remove("shake");
+    void carton.offsetWidth;
+    carton.classList.add("shake");
+    hint.innerHTML = "薯条晃动中……";
 
     setTimeout(()=>{
-      tube.classList.remove("shaking");
-      const pool = current.signs;
-      const hit = pool[Math.floor(Math.random()*pool.length)];
-      flyer.textContent = "第"+CN(hit.sign.no)+"签";
-      flyer.classList.add("out");
-      hint.textContent = "";
-      setTimeout(()=>{ showResult(hit); btn.disabled = false; }, 520);
+      carton.classList.remove("shake");
+      flyFry(()=>{
+        const pool = current.signs;
+        showResult(pool[Math.floor(Math.random()*pool.length)]);
+        btn.disabled = false; busy = false;
+        hint.innerHTML = "点击盒子，或按住鼠标<em>快速左右摇</em>";
+      });
     }, 620);
   }
 
@@ -357,55 +361,71 @@
     const el = document.getElementById("result");
     el.innerHTML = `
       <div class="card">
-        <div class="no">第 ${CN(s.no)} 签 · ${st.slot==="morning"?"早":"正"}签</div>
+        <div class="card-top">
+          <span class="no">第 ${CN(s.no)} 签 / ${st.slot==="morning"?"早":"正"}签</span>
+          <span class="seal">${res.grade.name}</span>
+        </div>
         <div class="hex">${s.hex}</div>
         <div class="hexsub">${s.mood}　·　${res.grade.word}</div>
-        <div class="sealwrap"><span class="seal">${res.grade.name}</span></div>
         <div class="poem">${s.poem.map(l=>`<div>${l}</div>`).join("")}</div>
         <div class="rule"></div>
         <div class="dish-h">应 签 之 餐</div>
-        ${res.items.map(i=>`<div class="dish"><span>${i.label}</span><span>${i.name}</span><span>¥${i.price.toFixed(1)}</span></div>`).join("")}
+        ${res.items.map(i=>`<div class="dish"><span class="lb">${i.label}</span><span class="nm">${i.name}</span><span class="pr">¥${i.price.toFixed(1)}</span></div>`).join("")}
         <div class="sum"><span>合 计</span><b>¥${res.total.toFixed(1)}</b></div>
         <div class="aside"><span class="tag">签 外 话</span>${aside(st,res)}</div>
-        <div class="acts">
-          <button class="btn ghost" id="again">再摇一支</button>
-        </div>
+        <button class="again" id="again">再摇一根</button>
       </div>`;
     el.classList.add("show");
-    document.getElementById("stage").style.minHeight = "0";
     document.getElementById("again").onclick = ()=>{
-      el.classList.remove("show");
-      el.innerHTML = "";
-      document.getElementById("stage").style.minHeight = "340px";
+      el.classList.remove("show"); el.innerHTML = "";
       document.getElementById("hint").innerHTML = "心念不变的话，签可能会重复<br>想换口味就先换个念头";
-      document.getElementById("flyer").className = "flyer";
       window.scrollTo({top:0,behavior:"smooth"});
     };
     setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),120);
   }
 
-  // 摇一摇（移动端）
+  let lastX = null, lastT = 0, lastDir = 0, swings = 0, swingReset = null;
+  document.getElementById("stage").addEventListener("mousemove", e=>{
+    if(busy) return;
+    const now = performance.now();
+    if(lastX === null){ lastX = e.clientX; lastT = now; return; }
+    const dt = Math.max(1, now-lastT), dx = e.clientX-lastX;
+    const v = Math.abs(dx)/dt*1000;
+    if(v > 620){
+      const dir = Math.sign(dx);
+      if(lastDir && dir !== lastDir){
+        swings++;
+        clearTimeout(swingReset);
+        swingReset = setTimeout(()=>{ swings = 0; }, 700);
+        if(swings >= 2){ swings = 0; cast(); }
+      }
+      lastDir = dir;
+    }
+    lastX = e.clientX; lastT = now;
+  });
+
   let lastShake = 0;
   window.addEventListener("devicemotion", e=>{
     const a = e.accelerationIncludingGravity;
     if(!a) return;
     const m = Math.abs(a.x||0)+Math.abs(a.y||0)+Math.abs(a.z||0);
-    if(m > 34 && Date.now()-lastShake > 1600){
+    if(m > 34 && Date.now()-lastShake > 1800){
       lastShake = Date.now();
-      if(!document.getElementById("cast").disabled && !document.getElementById("result").classList.contains("show")) cast();
+      if(!busy) cast();
     }
   });
 
   document.addEventListener("DOMContentLoaded", ()=>{
-    drawSticks();
-    renderChoices();
-    loadCity();
+    drawFries(); renderChoices(); loadCity();
+    document.getElementById("cast").onclick = cast;
+    const carton = document.getElementById("carton");
+    carton.onclick = cast;
+    carton.onkeydown = e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); cast(); } };
     document.getElementById("city").onchange = ()=>{
       document.getElementById("result").classList.remove("show");
-      document.getElementById("result").innerHTML="";
+      document.getElementById("result").innerHTML = "";
       loadCity();
     };
-    document.getElementById("cast").onclick = cast;
     document.getElementById("genAt").textContent = (window.META||{}).genAt || "—";
   });
 })();

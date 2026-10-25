@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "麦门签·两套八卦 × 八个食帖",
-    "version": "v0.2",
+    "version": "v0.3",
     "dataSource": "麦当劳中国 MCP 菜单快照 · repo/data/menus.json",
     "collectedOn": "2026-10-22",
     "cityCount": 11,
@@ -9,32 +9,14 @@
     "mainStoreCount": 11,
     "note": "早餐另有 2 家门店返回空菜单，不计入供应判断。快照用于设计核对，不代表全国全时段供应承诺。"
   },
-  "fortuneScale": [
-    {
-      "label": "大吉",
-      "meaning": "今天值得认真满足自己"
-    },
-    {
-      "label": "中吉",
-      "meaning": "稳妥合口，不容易出错"
-    },
-    {
-      "label": "小吉",
-      "meaning": "轻快一点，留点余量"
-    },
-    {
-      "label": "平",
-      "meaning": "不折腾，简单解决一餐"
-    }
-  ],
   "gua": [
     {
       "id": "qian",
       "symbol": "☰",
       "name": "乾",
       "image": "天行·顶饱",
+      "taste": "顶饱",
       "line": "天行健，今天要吃饱。",
-      "fortune": "大吉",
       "breakfast": {
         "main": "双层原味板烧鸡腿麦满分",
         "companions": [
@@ -61,7 +43,29 @@
             "薯条",
             "可乐"
           ]
-        }
+        },
+        "variants": [
+          {
+            "main": "芝士安格斯厚牛堡",
+            "companions": [
+              "薯条",
+              "可乐"
+            ],
+            "fallback": {
+              "main": "巨无霸",
+              "companions": [
+                "薯条",
+                "可乐"
+              ]
+            },
+            "availabilityNote": "部分门店供应，缺货时按下方食帖替换。",
+            "sampleCoverage": {
+              "matchingStores": 10,
+              "sampleStores": 11,
+              "snapshotDate": "2026-10-22"
+            }
+          }
+        ]
       }
     },
     {
@@ -69,8 +73,8 @@
       "symbol": "☱",
       "name": "兑",
       "image": "泽畔·清爽",
+      "taste": "清爽",
       "line": "泽畔一口，清爽收尾。",
-      "fortune": "小吉",
       "breakfast": {
         "main": "吉士蛋麦满分",
         "companions": [
@@ -105,8 +109,8 @@
       "symbol": "☲",
       "name": "离",
       "image": "火候·热烈",
+      "taste": "热烈",
       "line": "火候正旺，来点痛快。",
-      "fortune": "大吉",
       "breakfast": {
         "main": "大脆鸡扒麦满分",
         "companions": [
@@ -141,8 +145,8 @@
       "symbol": "☳",
       "name": "震",
       "image": "雷响·酥脆",
+      "taste": "酥脆",
       "line": "雷声一响，先听脆的。",
-      "fortune": "中吉",
       "breakfast": {
         "main": "脆香油条",
         "companions": [
@@ -177,8 +181,8 @@
       "symbol": "☴",
       "name": "巽",
       "image": "风入·入味",
+      "taste": "入味",
       "line": "风入味里，慢慢顺口。",
-      "fortune": "中吉",
       "breakfast": {
         "main": "原味板烧鸡腿麦满分",
         "companions": [
@@ -213,8 +217,8 @@
       "symbol": "☵",
       "name": "坎",
       "image": "水润·浓郁",
+      "taste": "浓郁",
       "line": "水气丰足，浓郁一点。",
-      "fortune": "中吉",
       "breakfast": {
         "main": "猪柳蛋麦满分",
         "companions": [
@@ -241,7 +245,29 @@
             "麦辣鸡翅",
             "可乐"
           ]
-        }
+        },
+        "variants": [
+          {
+            "main": "培根安格斯厚牛堡",
+            "companions": [
+              "麦辣鸡翅",
+              "可乐"
+            ],
+            "fallback": {
+              "main": "双层吉士汉堡",
+              "companions": [
+                "麦辣鸡翅",
+                "可乐"
+              ]
+            },
+            "availabilityNote": "部分门店供应，缺货时按下方食帖替换。",
+            "sampleCoverage": {
+              "matchingStores": 9,
+              "sampleStores": 11,
+              "snapshotDate": "2026-10-22"
+            }
+          }
+        ]
       }
     },
     {
@@ -249,8 +275,8 @@
       "symbol": "☶",
       "name": "艮",
       "image": "山止·慢吃",
+      "taste": "慢吃",
       "line": "山不赶路，一口一口。",
-      "fortune": "平",
       "breakfast": {
         "main": "火腿扒麦满分",
         "companions": [
@@ -285,8 +311,8 @@
       "symbol": "☷",
       "name": "坤",
       "image": "地载·当令",
+      "taste": "当令",
       "line": "地载时令，今天吃鸡。",
-      "fortune": "小吉",
       "breakfast": {
         "main": "当季鸡肉早餐新品（请店员选一个）",
         "companions": [

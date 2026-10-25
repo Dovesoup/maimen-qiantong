@@ -17,6 +17,19 @@ def meal(m, label):
     fb = m["fallback"]
     fb_line = " + ".join([fb["main"], *fb["companions"]])
     tag = '<span class="conditional">条件签</span>' if conditional else ""
+    variants = []
+    for variant in m.get("variants", []):
+        coverage = variant["sampleCoverage"]
+        variant_fallback = variant["fallback"]
+        variant_fallback_line = " + ".join([variant_fallback["main"], *variant_fallback["companions"]])
+        variants.append(f"""
+      <div class="variant">
+        <div class="variant-head">可选口味：{escape(variant['main'])}</div>
+        <div class="companions">{escape(' + '.join(variant['companions']))}</div>
+        <div class="coverage">菜单快照供应 {coverage['matchingStores']}/{coverage['sampleStores']} 家（{escape(coverage['snapshotDate'])}）</div>
+        <div class="availability">{escape(variant['availabilityNote'])}</div>
+        <div class="fallback"><span>缺货替换</span>{escape(variant_fallback_line)}</div>
+      </div>""".strip())
     return f"""
       <div class="meal-head">
         <span class="meal-label">{escape(label)}</span>
@@ -25,7 +38,8 @@ def meal(m, label):
       <div class="dish">{escape(main)}{tag}</div>
       <div class="companions">{escape(companion)}</div>
       <div class="fallback"><span>若无此味</span>{escape(fb_line)}</div>
-    """
+      {''.join(variants)}
+    """.strip()
 
 
 rows = []
@@ -33,25 +47,20 @@ for g in data["gua"]:
     rows.append(f"""
     <tr>
       <td class="gua-cell" data-label="卦象">
-        <div class="gua-top"><span class="symbol">{escape(g['symbol'])}</span><span class="fortune f-{escape(g['fortune'])}">食运 · {escape(g['fortune'])}</span></div>
+        <div class="gua-top"><span class="symbol">{escape(g['symbol'])}</span><span class="taste">口味 · {escape(g['taste'])}</span></div>
         <div class="gua-name">{escape(g['name'])}<span>{escape(g['image'])}</span></div>
         <p class="line">{escape(g['line'])}</p>
       </td>
       <td class="meal-cell breakfast" data-label="早签 · 早餐食帖">{meal(g['breakfast'], '早签')}</td>
       <td class="meal-cell allday" data-label="正餐签 · 午晚食帖">{meal(g['all_day'], '正餐签')}</td>
-    </tr>""")
-
-scale = "".join(
-    f'<span><b>{escape(i["label"])}</b>{escape(i["meaning"])}</span>'
-    for i in data["fortuneScale"]
-)
+    </tr>""".strip())
 
 html = f"""<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>麦门签 · 两套八卦 × 八个食帖</title>
+<title>麦门签 · 两套八卦 × 十八份食帖</title>
 <style>
   :root{{--red:#da291c;--dark:#781f18;--yellow:#ffc72c;--cream:#f5f0e6;--paper:#fffdf8;--ink:#28231f;--muted:#776e64;--line:#ded5c7}}
   *{{box-sizing:border-box}} html{{scroll-behavior:smooth}}
@@ -67,8 +76,6 @@ html = f"""<!doctype html>
   .how div{{background:var(--paper);padding:18px 20px;font-size:13px;line-height:1.65;color:var(--muted)}}
   .how b{{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}}
   .how span{{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:11px;margin-right:6px}}
-  .legend{{display:flex;gap:8px 18px;flex-wrap:wrap;padding:12px 0 22px;font-size:12px;color:var(--muted)}}
-  .legend span{{display:flex;align-items:center;gap:6px}} .legend b{{color:var(--ink)}}
   .table-wrap{{background:var(--paper);border:1px solid var(--line);border-radius:15px;overflow:hidden}}
   table{{width:100%;border-collapse:collapse;table-layout:fixed}}
   thead th{{background:var(--dark);color:#fff7e6;text-align:left;padding:15px 20px;font-size:12px;font-weight:650;letter-spacing:.03em}}
@@ -78,9 +85,7 @@ html = f"""<!doctype html>
   .gua-cell{{background:#fbf7ef}} .meal-cell{{border-left:1px solid var(--line)}}
   .gua-top{{display:flex;justify-content:space-between;align-items:center;gap:8px}}
   .symbol{{font-family:"Songti SC",serif;font-size:42px;line-height:1;color:var(--red)}}
-  .fortune{{font-size:11px;font-weight:700;padding:5px 8px;border-radius:4px;white-space:nowrap}}
-  .f-大吉{{background:var(--red);color:#fff}} .f-中吉{{background:var(--yellow);color:#4d2d00}}
-  .f-小吉{{background:#f7e8ce;color:#7d4d0c;border:1px solid #e6c999}} .f-平{{background:#e8e3d8;color:#4f483f}}
+  .taste{{font-size:11px;font-weight:700;padding:5px 8px;border-radius:4px;white-space:nowrap;background:#f7e8ce;color:#7d4d0c;border:1px solid #e6c999}}
   .gua-name{{font-size:22px;font-weight:750;letter-spacing:-.02em;margin-top:9px}}
   .gua-name span{{font-size:12px;font-weight:500;color:var(--red);margin-left:7px;letter-spacing:0}}
   .line{{font-family:"Songti SC","STSong",serif;font-size:13px;color:var(--muted);margin:10px 0 0;line-height:1.65}}
@@ -93,6 +98,10 @@ html = f"""<!doctype html>
   .conditional{{display:inline-block;vertical-align:2px;font-size:10px;font-weight:600;color:var(--dark);border:1px solid #d6b7a9;border-radius:3px;padding:2px 5px;margin-left:7px;white-space:nowrap}}
   .fallback{{margin-top:12px;padding-top:9px;border-top:1px dashed #ded5c7;font-size:11px;color:#8a7f72;line-height:1.55}}
   .fallback span{{display:inline-block;color:var(--red);margin-right:7px;font-weight:650}}
+  .variant{{margin-top:14px;padding:12px;border:1px solid #ead8c9;border-radius:8px;background:#fffaf3}}
+  .variant-head{{font-size:14px;font-weight:750;line-height:1.5}}
+  .coverage,.availability{{margin-top:5px;font-size:10px;color:#8a7f72;line-height:1.6}}
+  .availability{{color:var(--dark)}}
   .foot{{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;margin-top:24px;font-size:12px;line-height:1.8;color:var(--muted)}}
   .foot strong{{display:block;color:var(--ink);font-size:13px;margin-bottom:5px}}
   .stamp{{border-left:3px solid var(--red);padding-left:14px}}
@@ -113,9 +122,9 @@ html = f"""<!doctype html>
 <main class="page">
   <div class="kicker">MAIMEN QIAN · GUA MENU MATRIX · {escape(meta['version'])}</div>
   <h1>八种食象，<br><em>两套吃法。</em></h1>
-  <p class="lead">同一套八卦，不改卦意，只换餐段。先由用户选“早签”或“正餐签”，摇出三根薯条的卦象，再照单点。没有城市、没有价格，也不让时钟替人猜。</p>
+  <p class="lead">同一套八卦，只换餐段和食帖。先由用户选早餐或午晚，再摇出三根薯条对应的一个点餐结果。部分门店供应的口味变体会明确标注样本覆盖与缺货替换。</p>
   <div class="stats">
-    <div><b>8</b>卦象</div><div><b>16</b>份明确食帖</div><div><b>2</b>个餐段入口</div><div><b>0</b>个价格</div>
+    <div><b>8</b>卦象</div><div><b>18</b>份可出食帖</div><div><b>2</b>个餐段入口</div><div><b>0</b>个价格</div>
   </div>
 
   <section class="how" aria-label="使用方式">
@@ -124,27 +133,23 @@ html = f"""<!doctype html>
     <div><b><span>3</span>照单点餐</b>缺货不重摇，只替换整份食帖一次。</div>
   </section>
 
-  <div class="legend" aria-label="食运档位">
-    {scale}
-  </div>
-
   <div class="table-wrap">
     <table>
-      <thead><tr><th>卦象 / 食运</th><th>早签 · 早餐食帖</th><th>正餐签 · 午晚食帖</th></tr></thead>
+      <thead><tr><th>卦象 / 口味</th><th>早签 · 早餐食帖</th><th>正餐签 · 午晚食帖（含部分门店变体）</th></tr></thead>
       <tbody>{''.join(rows)}
       </tbody>
     </table>
   </div>
 
   <section class="foot">
-    <div class="stamp"><strong>食运的边界</strong>食运只图一乐，不预测吉凶，也不代表菜品高低。大吉不等于更贵，平也不等于不好；它只是今天这一餐的语气。</div>
-    <div><strong>数据来自哪里</strong>餐品名核对自麦当劳中国 MCP 菜单快照，采集于 {escape(meta['collectedOn'])}；覆盖 {meta['cityCount']} 城，早市 {meta['breakfastStoreCount']} 家有效、正餐 {meta['mainStoreCount']} 家有效。所有固定锚点在对应有效样本中均出现，但这不构成全国全时段供应承诺。</div>
+    <div class="stamp"><strong>随机结果的边界</strong>食帖由随机结果给出，只用于点餐娱乐，不预测运势，也不代表菜品高低。口味标签只是食帖的描述。</div>
+    <div><strong>数据来自哪里</strong>餐品名核对自麦当劳中国 MCP 菜单快照，采集于 {escape(meta['collectedOn'])}；覆盖 {meta['cityCount']} 城，早市 {meta['breakfastStoreCount']} 家有效、正餐 {meta['mainStoreCount']} 家有效。两款厚牛堡变体分别在 10/11、9/11 家正餐样本出现，其他固定餐品在所有对应有效样本中出现。样本不代表全国全时段供应。</div>
   </section>
-  <div class="sig"><span>无城市 · 无价格 · 无下下签 · 新品仅作条件签</span><span>完整食帖对照表 · 非麦当劳官方产品</span></div>
+  <div class="sig"><span>无城市 · 无价格 · 新品仅作条件食帖</span><span>完整食帖对照表 · 非麦当劳官方产品</span></div>
 </main>
 </body>
 </html>
 """
 out = WEB / "gua-matrix.html"
 out.write_text(html)
-print(f"→ {out}  {len(html)/1024:.1f} KB  {len(data['gua'])} 卦 × 2 餐段")
+print(f"→ {out}  {len(html)/1024:.1f} KB  {len(data['gua'])} 卦 · {len(data['gua']) * 2 + sum(len(g['all_day'].get('variants', [])) for g in data['gua'])} 份食帖")

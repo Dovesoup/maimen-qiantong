@@ -15,6 +15,7 @@ function site() {
   const animations = new Set();
   let timerId = 0;
   let guaIndex = 0;
+  let randomQueue = [];
 
   class Element {
     constructor(id) {
@@ -64,15 +65,20 @@ function site() {
     if (!elements.has(id)) elements.set(id, new Element(id));
     return elements.get(id);
   };
-  const modeButtons = ['breakfast', 'all_day'].map(mode => {
-    const button = new Element(mode);
+  const modeButtons = [
+    ['breakfast', '早餐'],
+    ['all_day', '午餐'],
+    ['all_day', '晚餐'],
+  ].map(([mode, mealTitle]) => {
+    const button = new Element(mealTitle);
     button.dataset.mode = mode;
+    button.dataset.mealTitle = mealTitle;
     return button;
   });
   // Start with the same hidden sections as the document.
   for (const id of ['ritual', 'result', 'headMode', 'backHome']) get(id).hidden = true;
   const random = Object.create(Math);
-  random.random = () => (guaIndex + 0.5) / data.gua.length;
+  random.random = () => randomQueue.length ? randomQueue.shift() : (guaIndex + 0.5) / data.gua.length;
   const context = {
     window: { scrollTo() {} },
     document: {
@@ -119,7 +125,10 @@ function site() {
   return {
     get, nextTimer, finishAnimations, settle,
     setGua(index) { guaIndex = index; },
-    choose(mode) { return modeButtons.find(button => button.dataset.mode === mode).click(); },
+    setRandom(values) { randomQueue = [...values]; },
+    choose(selection) {
+      return modeButtons.find(button => button.dataset.mealTitle === selection || button.dataset.mode === selection).click();
+    },
   };
 }
 
@@ -172,7 +181,7 @@ test('old draw animations cannot overwrite a newly selected meal', async () => {
   await newCast;
   assert.ok(page.get('result').innerHTML.includes(data.gua[7].all_day.main));
   assert.equal(page.get('pieces').children.length, 6);
-  assert.equal(page.get('headMode').textContent, '正餐签 · 午晚');
+  assert.equal(page.get('headMode').textContent, '正餐签 · 午餐');
 });
 
 test('again replaces the previous pieces and meal', async () => {
@@ -190,6 +199,42 @@ test('again replaces the previous pieces and meal', async () => {
   assert.equal(page.get('cast').disabled, false);
 });
 
+for (const mealTitle of ['午餐', '晚餐']) {
+  test(`${mealTitle}: shares the all-day meals and keeps the chosen label`, async () => {
+    const page = site();
+    await page.choose(mealTitle);
+    assert.equal(page.get('headMode').textContent, `正餐签 · ${mealTitle}`);
+    assert.equal(page.get('ritualEyebrow').textContent, `正餐签 · ${mealTitle}`);
+    const pending = page.get('cast').click();
+    await page.settle();
+    await pending;
+    assert.ok(page.get('result').innerHTML.includes(`正餐签 · ${mealTitle}`));
+    assert.ok(page.get('result').innerHTML.includes(data.gua[0].all_day.main));
+  });
+}
+
+test('homepage shows three short, keyboard-accessible meal choices with inline icons', () => {
+  const cards = [...template.matchAll(/<button class="mode-card"([^>]*)>([\s\S]*?)<\/button>/g)];
+  assert.equal(cards.length, 3);
+  assert.deepEqual(cards.map(([, attrs]) => attrs.match(/data-meal-title="([^"]+)"/)?.[1]), ['早餐', '午餐', '晚餐']);
+  for (const [, attrs, contents] of cards) {
+    assert.match(attrs, /type="button"/);
+    assert.match(attrs, /aria-label="选择(?:早餐|午餐|晚餐)"/);
+    assert.match(contents, /<svg[^>]*aria-hidden="true"[^>]*focusable="false"/);
+  }
+  assert.match(template, /今天<span>吃哪顿？<\/span>/);
+  assert.doesNotMatch(template, /class="(?:lead|mode-desc|entry-note)"/);
+  assert.match(template, /<details class="menu-source">[\s\S]*菜单锚点核对自麦当劳中国官方 MCP 查询结果/);
+  assert.match(template, /本作品为参赛创意，非麦当劳官方产品/);
+});
+
+test('fries carton uses a dozen broad fries and thicker divination lines', () => {
+  const page = site();
+  assert.equal(page.get('fries').children.length, 12);
+  assert.match(template, /class="carton-front" viewBox="0 0 260 354"/);
+  assert.match(template, /\.piece\{position:absolute;height:14px/);
+});
+
 const pieceCounts = { qian: 3, dui: 4, li: 4, zhen: 5, xun: 4, kan: 5, gen: 5, kun: 6 };
 for (const [index, gua] of data.gua.entries()) {
   test(`${gua.id}: expected piece count and matching result`, async () => {
@@ -202,5 +247,26 @@ for (const [index, gua] of data.gua.entries()) {
     assert.equal(page.get('pieces').children.length, pieceCounts[gua.id]);
     assert.equal(page.get('guaName').textContent, `${gua.symbol}  ${gua.name}`);
     assert.ok(page.get('result').innerHTML.includes(gua.breakfast.main));
+  });
+}
+
+for (const [guaIndex, name] of [[0, '芝士安格斯厚牛堡'], [5, '培根安格斯厚牛堡']]) {
+  test(`${name}: a single sampled meal is rendered with its own fallback`, async () => {
+    const page = site();
+    await page.choose('晚餐');
+    page.setRandom([(guaIndex + 0.5) / data.gua.length, 0.99]);
+    const pending = page.get('cast').click();
+    await page.settle();
+    await pending;
+    const variant = data.gua[guaIndex].all_day.variants[0];
+    const html = page.get('result').innerHTML;
+    assert.ok(html.includes(name));
+    assert.ok(html.includes(variant.fallback.main));
+    assert.ok(html.includes(variant.availabilityNote));
+    assert.ok(html.includes('正餐签 · 晚餐'));
+    assert.equal((html.match(/class="meal-main"/g) || []).length, 1);
+    assert.ok(html.includes(`口味 · ${data.gua[guaIndex].taste}`));
+    assert.ok(!html.includes('食运'));
+    assert.ok(!html.includes('undefined'));
   });
 }

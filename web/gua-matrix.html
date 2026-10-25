@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>麦门签 · 两套八卦 × 八个食帖</title>
+<title>麦门签 · 两套八卦 × 十八份食帖</title>
 <style>
   :root{--red:#da291c;--dark:#781f18;--yellow:#ffc72c;--cream:#f5f0e6;--paper:#fffdf8;--ink:#28231f;--muted:#776e64;--line:#ded5c7}
   *{box-sizing:border-box} html{scroll-behavior:smooth}
@@ -19,8 +19,6 @@
   .how div{background:var(--paper);padding:18px 20px;font-size:13px;line-height:1.65;color:var(--muted)}
   .how b{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
   .how span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:11px;margin-right:6px}
-  .legend{display:flex;gap:8px 18px;flex-wrap:wrap;padding:12px 0 22px;font-size:12px;color:var(--muted)}
-  .legend span{display:flex;align-items:center;gap:6px} .legend b{color:var(--ink)}
   .table-wrap{background:var(--paper);border:1px solid var(--line);border-radius:15px;overflow:hidden}
   table{width:100%;border-collapse:collapse;table-layout:fixed}
   thead th{background:var(--dark);color:#fff7e6;text-align:left;padding:15px 20px;font-size:12px;font-weight:650;letter-spacing:.03em}
@@ -30,9 +28,7 @@
   .gua-cell{background:#fbf7ef} .meal-cell{border-left:1px solid var(--line)}
   .gua-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
   .symbol{font-family:"Songti SC",serif;font-size:42px;line-height:1;color:var(--red)}
-  .fortune{font-size:11px;font-weight:700;padding:5px 8px;border-radius:4px;white-space:nowrap}
-  .f-大吉{background:var(--red);color:#fff} .f-中吉{background:var(--yellow);color:#4d2d00}
-  .f-小吉{background:#f7e8ce;color:#7d4d0c;border:1px solid #e6c999} .f-平{background:#e8e3d8;color:#4f483f}
+  .taste{font-size:11px;font-weight:700;padding:5px 8px;border-radius:4px;white-space:nowrap;background:#f7e8ce;color:#7d4d0c;border:1px solid #e6c999}
   .gua-name{font-size:22px;font-weight:750;letter-spacing:-.02em;margin-top:9px}
   .gua-name span{font-size:12px;font-weight:500;color:var(--red);margin-left:7px;letter-spacing:0}
   .line{font-family:"Songti SC","STSong",serif;font-size:13px;color:var(--muted);margin:10px 0 0;line-height:1.65}
@@ -45,6 +41,10 @@
   .conditional{display:inline-block;vertical-align:2px;font-size:10px;font-weight:600;color:var(--dark);border:1px solid #d6b7a9;border-radius:3px;padding:2px 5px;margin-left:7px;white-space:nowrap}
   .fallback{margin-top:12px;padding-top:9px;border-top:1px dashed #ded5c7;font-size:11px;color:#8a7f72;line-height:1.55}
   .fallback span{display:inline-block;color:var(--red);margin-right:7px;font-weight:650}
+  .variant{margin-top:14px;padding:12px;border:1px solid #ead8c9;border-radius:8px;background:#fffaf3}
+  .variant-head{font-size:14px;font-weight:750;line-height:1.5}
+  .coverage,.availability{margin-top:5px;font-size:10px;color:#8a7f72;line-height:1.6}
+  .availability{color:var(--dark)}
   .foot{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;margin-top:24px;font-size:12px;line-height:1.8;color:var(--muted)}
   .foot strong{display:block;color:var(--ink);font-size:13px;margin-bottom:5px}
   .stamp{border-left:3px solid var(--red);padding-left:14px}
@@ -63,11 +63,11 @@
 </head>
 <body>
 <main class="page">
-  <div class="kicker">MAIMEN QIAN · GUA MENU MATRIX · v0.2</div>
+  <div class="kicker">MAIMEN QIAN · GUA MENU MATRIX · v0.3</div>
   <h1>八种食象，<br><em>两套吃法。</em></h1>
-  <p class="lead">同一套八卦，不改卦意，只换餐段。先由用户选“早签”或“正餐签”，摇出三根薯条的卦象，再照单点。没有城市、没有价格，也不让时钟替人猜。</p>
+  <p class="lead">同一套八卦，只换餐段和食帖。先由用户选早餐或午晚，再摇出三根薯条对应的一个点餐结果。部分门店供应的口味变体会明确标注样本覆盖与缺货替换。</p>
   <div class="stats">
-    <div><b>8</b>卦象</div><div><b>16</b>份明确食帖</div><div><b>2</b>个餐段入口</div><div><b>0</b>个价格</div>
+    <div><b>8</b>卦象</div><div><b>18</b>份可出食帖</div><div><b>2</b>个餐段入口</div><div><b>0</b>个价格</div>
   </div>
 
   <section class="how" aria-label="使用方式">
@@ -76,223 +76,193 @@
     <div><b><span>3</span>照单点餐</b>缺货不重摇，只替换整份食帖一次。</div>
   </section>
 
-  <div class="legend" aria-label="食运档位">
-    <span><b>大吉</b>今天值得认真满足自己</span><span><b>中吉</b>稳妥合口，不容易出错</span><span><b>小吉</b>轻快一点，留点余量</span><span><b>平</b>不折腾，简单解决一餐</span>
-  </div>
-
   <div class="table-wrap">
     <table>
-      <thead><tr><th>卦象 / 食运</th><th>早签 · 早餐食帖</th><th>正餐签 · 午晚食帖</th></tr></thead>
-      <tbody>
-    <tr>
+      <thead><tr><th>卦象 / 口味</th><th>早签 · 早餐食帖</th><th>正餐签 · 午晚食帖（含部分门店变体）</th></tr></thead>
+      <tbody><tr>
       <td class="gua-cell" data-label="卦象">
-        <div class="gua-top"><span class="symbol">☰</span><span class="fortune f-大吉">食运 · 大吉</span></div>
+        <div class="gua-top"><span class="symbol">☰</span><span class="taste">口味 · 顶饱</span></div>
         <div class="gua-name">乾<span>天行·顶饱</span></div>
         <p class="line">天行健，今天要吃饱。</p>
       </td>
-      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖">
-      <div class="meal-head">
+      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖"><div class="meal-head">
         <span class="meal-label">早签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">双层原味板烧鸡腿麦满分</div>
       <div class="companions">脆薯饼 + 优品豆浆</div>
-      <div class="fallback"><span>若无此味</span>原味板烧鸡腿麦满分 + 脆薯饼 + 优品豆浆</div>
-    </td>
-      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖">
-      <div class="meal-head">
+      <div class="fallback"><span>若无此味</span>原味板烧鸡腿麦满分 + 脆薯饼 + 优品豆浆</div></td>
+      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖"><div class="meal-head">
         <span class="meal-label">正餐签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">巨无霸</div>
       <div class="companions">薯条 + 可乐</div>
       <div class="fallback"><span>若无此味</span>双层吉士汉堡 + 薯条 + 可乐</div>
-    </td>
-    </tr>
-    <tr>
+      <div class="variant">
+        <div class="variant-head">可选口味：芝士安格斯厚牛堡</div>
+        <div class="companions">薯条 + 可乐</div>
+        <div class="coverage">菜单快照供应 10/11 家（2026-10-22）</div>
+        <div class="availability">部分门店供应，缺货时按下方食帖替换。</div>
+        <div class="fallback"><span>缺货替换</span>巨无霸 + 薯条 + 可乐</div>
+      </div></td>
+    </tr><tr>
       <td class="gua-cell" data-label="卦象">
-        <div class="gua-top"><span class="symbol">☱</span><span class="fortune f-小吉">食运 · 小吉</span></div>
+        <div class="gua-top"><span class="symbol">☱</span><span class="taste">口味 · 清爽</span></div>
         <div class="gua-name">兑<span>泽畔·清爽</span></div>
         <p class="line">泽畔一口，清爽收尾。</p>
       </td>
-      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖">
-      <div class="meal-head">
+      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖"><div class="meal-head">
         <span class="meal-label">早签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">吉士蛋麦满分</div>
       <div class="companions">玉米杯 + 纯牛奶(盒装)</div>
-      <div class="fallback"><span>若无此味</span>火腿扒麦满分 + 玉米杯 + 纯牛奶(盒装)</div>
-    </td>
-      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖">
-      <div class="meal-head">
+      <div class="fallback"><span>若无此味</span>火腿扒麦满分 + 玉米杯 + 纯牛奶(盒装)</div></td>
+      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖"><div class="meal-head">
         <span class="meal-label">正餐签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">麦香鱼</div>
       <div class="companions">玉米杯 + 怡泉+C</div>
-      <div class="fallback"><span>若无此味</span>麦香鸡 + 玉米杯 + 怡泉+C</div>
-    </td>
-    </tr>
-    <tr>
+      <div class="fallback"><span>若无此味</span>麦香鸡 + 玉米杯 + 怡泉+C</div></td>
+    </tr><tr>
       <td class="gua-cell" data-label="卦象">
-        <div class="gua-top"><span class="symbol">☲</span><span class="fortune f-大吉">食运 · 大吉</span></div>
+        <div class="gua-top"><span class="symbol">☲</span><span class="taste">口味 · 热烈</span></div>
         <div class="gua-name">离<span>火候·热烈</span></div>
         <p class="line">火候正旺，来点痛快。</p>
       </td>
-      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖">
-      <div class="meal-head">
+      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖"><div class="meal-head">
         <span class="meal-label">早签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">大脆鸡扒麦满分</div>
       <div class="companions">脆薯饼 + 可乐</div>
-      <div class="fallback"><span>若无此味</span>猪柳蛋麦满分 + 脆薯饼 + 可乐</div>
-    </td>
-      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖">
-      <div class="meal-head">
+      <div class="fallback"><span>若无此味</span>猪柳蛋麦满分 + 脆薯饼 + 可乐</div></td>
+      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖"><div class="meal-head">
         <span class="meal-label">正餐签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">麦辣鸡腿汉堡</div>
       <div class="companions">薯条 + 可乐</div>
-      <div class="fallback"><span>若无此味</span>板烧鸡腿堡 + 薯条 + 可乐</div>
-    </td>
-    </tr>
-    <tr>
+      <div class="fallback"><span>若无此味</span>板烧鸡腿堡 + 薯条 + 可乐</div></td>
+    </tr><tr>
       <td class="gua-cell" data-label="卦象">
-        <div class="gua-top"><span class="symbol">☳</span><span class="fortune f-中吉">食运 · 中吉</span></div>
+        <div class="gua-top"><span class="symbol">☳</span><span class="taste">口味 · 酥脆</span></div>
         <div class="gua-name">震<span>雷响·酥脆</span></div>
         <p class="line">雷声一响，先听脆的。</p>
       </td>
-      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖">
-      <div class="meal-head">
+      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖"><div class="meal-head">
         <span class="meal-label">早签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">脆香油条</div>
       <div class="companions">脆薯饼 + 优品豆浆</div>
-      <div class="fallback"><span>若无此味</span>猪柳麦满分 + 脆薯饼 + 优品豆浆</div>
-    </td>
-      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖">
-      <div class="meal-head">
+      <div class="fallback"><span>若无此味</span>猪柳麦满分 + 脆薯饼 + 优品豆浆</div></td>
+      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖"><div class="meal-head">
         <span class="meal-label">正餐签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">那么大鸡排（椒盐风味）</div>
       <div class="companions">玉米杯 + 锡兰红茶</div>
-      <div class="fallback"><span>若无此味</span>麦乐鸡 + 玉米杯 + 锡兰红茶</div>
-    </td>
-    </tr>
-    <tr>
+      <div class="fallback"><span>若无此味</span>麦乐鸡 + 玉米杯 + 锡兰红茶</div></td>
+    </tr><tr>
       <td class="gua-cell" data-label="卦象">
-        <div class="gua-top"><span class="symbol">☴</span><span class="fortune f-中吉">食运 · 中吉</span></div>
+        <div class="gua-top"><span class="symbol">☴</span><span class="taste">口味 · 入味</span></div>
         <div class="gua-name">巽<span>风入·入味</span></div>
         <p class="line">风入味里，慢慢顺口。</p>
       </td>
-      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖">
-      <div class="meal-head">
+      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖"><div class="meal-head">
         <span class="meal-label">早签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">原味板烧鸡腿麦满分</div>
       <div class="companions">玉米杯 + 锡兰红茶</div>
-      <div class="fallback"><span>若无此味</span>吉士蛋麦满分 + 玉米杯 + 锡兰红茶</div>
-    </td>
-      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖">
-      <div class="meal-head">
+      <div class="fallback"><span>若无此味</span>吉士蛋麦满分 + 玉米杯 + 锡兰红茶</div></td>
+      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖"><div class="meal-head">
         <span class="meal-label">正餐签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">板烧鸡腿堡</div>
       <div class="companions">薯条 + 锡兰红茶</div>
-      <div class="fallback"><span>若无此味</span>麦香鸡 + 薯条 + 锡兰红茶</div>
-    </td>
-    </tr>
-    <tr>
+      <div class="fallback"><span>若无此味</span>麦香鸡 + 薯条 + 锡兰红茶</div></td>
+    </tr><tr>
       <td class="gua-cell" data-label="卦象">
-        <div class="gua-top"><span class="symbol">☵</span><span class="fortune f-中吉">食运 · 中吉</span></div>
+        <div class="gua-top"><span class="symbol">☵</span><span class="taste">口味 · 浓郁</span></div>
         <div class="gua-name">坎<span>水润·浓郁</span></div>
         <p class="line">水气丰足，浓郁一点。</p>
       </td>
-      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖">
-      <div class="meal-head">
+      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖"><div class="meal-head">
         <span class="meal-label">早签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">猪柳蛋麦满分</div>
       <div class="companions">脆薯饼 + 鲜萃咖啡</div>
-      <div class="fallback"><span>若无此味</span>猪柳麦满分 + 脆薯饼 + 鲜萃咖啡</div>
-    </td>
-      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖">
-      <div class="meal-head">
+      <div class="fallback"><span>若无此味</span>猪柳麦满分 + 脆薯饼 + 鲜萃咖啡</div></td>
+      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖"><div class="meal-head">
         <span class="meal-label">正餐签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">双层吉士汉堡</div>
       <div class="companions">麦辣鸡翅 + 可乐</div>
       <div class="fallback"><span>若无此味</span>巨无霸 + 麦辣鸡翅 + 可乐</div>
-    </td>
-    </tr>
-    <tr>
+      <div class="variant">
+        <div class="variant-head">可选口味：培根安格斯厚牛堡</div>
+        <div class="companions">麦辣鸡翅 + 可乐</div>
+        <div class="coverage">菜单快照供应 9/11 家（2026-10-22）</div>
+        <div class="availability">部分门店供应，缺货时按下方食帖替换。</div>
+        <div class="fallback"><span>缺货替换</span>双层吉士汉堡 + 麦辣鸡翅 + 可乐</div>
+      </div></td>
+    </tr><tr>
       <td class="gua-cell" data-label="卦象">
-        <div class="gua-top"><span class="symbol">☶</span><span class="fortune f-平">食运 · 平</span></div>
+        <div class="gua-top"><span class="symbol">☶</span><span class="taste">口味 · 慢吃</span></div>
         <div class="gua-name">艮<span>山止·慢吃</span></div>
         <p class="line">山不赶路，一口一口。</p>
       </td>
-      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖">
-      <div class="meal-head">
+      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖"><div class="meal-head">
         <span class="meal-label">早签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">火腿扒麦满分</div>
       <div class="companions">玉米杯 + 纯牛奶(盒装)</div>
-      <div class="fallback"><span>若无此味</span>吉士蛋麦满分 + 玉米杯 + 纯牛奶(盒装)</div>
-    </td>
-      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖">
-      <div class="meal-head">
+      <div class="fallback"><span>若无此味</span>吉士蛋麦满分 + 玉米杯 + 纯牛奶(盒装)</div></td>
+      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖"><div class="meal-head">
         <span class="meal-label">正餐签</span>
         <span class="meal-note">照单点</span>
       </div>
       <div class="dish">麦乐鸡</div>
       <div class="companions">玉米杯 + 纯牛奶(盒装)</div>
-      <div class="fallback"><span>若无此味</span>麦辣鸡翅 + 玉米杯 + 纯牛奶(盒装)</div>
-    </td>
-    </tr>
-    <tr>
+      <div class="fallback"><span>若无此味</span>麦辣鸡翅 + 玉米杯 + 纯牛奶(盒装)</div></td>
+    </tr><tr>
       <td class="gua-cell" data-label="卦象">
-        <div class="gua-top"><span class="symbol">☷</span><span class="fortune f-小吉">食运 · 小吉</span></div>
+        <div class="gua-top"><span class="symbol">☷</span><span class="taste">口味 · 当令</span></div>
         <div class="gua-name">坤<span>地载·当令</span></div>
         <p class="line">地载时令，今天吃鸡。</p>
       </td>
-      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖">
-      <div class="meal-head">
+      <td class="meal-cell breakfast" data-label="早签 · 早餐食帖"><div class="meal-head">
         <span class="meal-label">早签</span>
         <span class="meal-note">有新品才成立</span>
       </div>
       <div class="dish">当季鸡肉早餐新品（请店员选一个）<span class="conditional">条件签</span></div>
       <div class="companions">脆薯饼 + 优品豆浆</div>
-      <div class="fallback"><span>若无此味</span>原味板烧鸡腿炒双蛋堡 + 脆薯饼 + 优品豆浆</div>
-    </td>
-      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖">
-      <div class="meal-head">
+      <div class="fallback"><span>若无此味</span>原味板烧鸡腿炒双蛋堡 + 脆薯饼 + 优品豆浆</div></td>
+      <td class="meal-cell allday" data-label="正餐签 · 午晚食帖"><div class="meal-head">
         <span class="meal-label">正餐签</span>
         <span class="meal-note">有新品才成立</span>
       </div>
       <div class="dish">当季鸡肉新品主食（请店员选一个）<span class="conditional">条件签</span></div>
       <div class="companions">玉米杯 + 锡兰红茶</div>
-      <div class="fallback"><span>若无此味</span>麦香鸡 + 玉米杯 + 锡兰红茶</div>
-    </td>
+      <div class="fallback"><span>若无此味</span>麦香鸡 + 玉米杯 + 锡兰红茶</div></td>
     </tr>
       </tbody>
     </table>
   </div>
 
   <section class="foot">
-    <div class="stamp"><strong>食运的边界</strong>食运只图一乐，不预测吉凶，也不代表菜品高低。大吉不等于更贵，平也不等于不好；它只是今天这一餐的语气。</div>
-    <div><strong>数据来自哪里</strong>餐品名核对自麦当劳中国 MCP 菜单快照，采集于 2026-10-22；覆盖 11 城，早市 9 家有效、正餐 11 家有效。所有固定锚点在对应有效样本中均出现，但这不构成全国全时段供应承诺。</div>
+    <div class="stamp"><strong>随机结果的边界</strong>食帖由随机结果给出，只用于点餐娱乐，不预测运势，也不代表菜品高低。口味标签只是食帖的描述。</div>
+    <div><strong>数据来自哪里</strong>餐品名核对自麦当劳中国 MCP 菜单快照，采集于 2026-10-22；覆盖 11 城，早市 9 家有效、正餐 11 家有效。两款厚牛堡变体分别在 10/11、9/11 家正餐样本出现，其他固定餐品在所有对应有效样本中出现。样本不代表全国全时段供应。</div>
   </section>
-  <div class="sig"><span>无城市 · 无价格 · 无下下签 · 新品仅作条件签</span><span>完整食帖对照表 · 非麦当劳官方产品</span></div>
+  <div class="sig"><span>无城市 · 无价格 · 新品仅作条件食帖</span><span>完整食帖对照表 · 非麦当劳官方产品</span></div>
 </main>
 </body>
 </html>

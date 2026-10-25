@@ -4,7 +4,7 @@
 
 不查城市，不看价格，不让时钟替用户猜。先选「早签」或「正餐签」，再从麦当劳薯条盒里摇出三根薯条，落成一卦，得到一份具体到主食、配餐和替换项的食帖。
 
-> 线上地址（GitHub Pages 开启后）：<https://dovesoup.github.io/maimen-qiantong/>
+> 在线体验：<https://dovesoup.github.io/maimen-qiantong/>
 > 本地打开：`python3 -m http.server 8899 -d web`，访问 `http://localhost:8899/`
 
 ---
@@ -125,7 +125,7 @@ CONTEST_DECLARATION.md  官方参赛声明（原样保留）
 workbuddy.md            WorkBuddy 开发过程记录
 ```
 
-`data/`、`tools/`、`web/report.html` 保留了前期菜单与价格数据研究，不属于当前运行链路。
+`data/`、旧版采集脚本、`web/report.html` 保留了前期菜单与价格数据研究，不属于当前运行链路。
 
 ## 声明
 
@@ -138,3 +138,9 @@ workbuddy.md            WorkBuddy 开发过程记录
 ## License
 
 代码使用 [MIT License](LICENSE)。参赛声明与官方文件按活动规则保留。
+
+## 发布与验证
+
+GitHub Pages 使用 GitHub Actions，从 `web/` 仅发布正式入口和食帖对照表。分支式 Pages 不支持选择 `/web`，请在 Settings → Pages 将 Source 设为 **GitHub Actions**。每次推送 main 会自动校验、构建并部署；历史价格报告和设计稿保留在源码中，不部署到站点。
+
+离线检查：`python3 -m unittest discover -s tests -p "test_*.py"`、`node --test tests/test_site.cjs`、`python3 src/validate_content.py`。这些检查不调用 MCP。

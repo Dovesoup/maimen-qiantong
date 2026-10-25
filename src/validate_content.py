@@ -39,6 +39,10 @@ for city, rec in menus.items():
             presence[slot][item["name"]].add(city)
 valid = {s: {c for c, r in menus.items() if r.get("slots", {}).get(s)} for s in presence}
 
+for slot in valid:
+    if not valid[slot]:
+        errors.append(f"{slot}: 没有有效门店样本，无法核对餐品")
+
 for g in gua:
     for slot, key in (("morning", "breakfast"), ("main", "all_day")):
         meal = g[key]

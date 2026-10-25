@@ -140,7 +140,7 @@ html = f"""<!doctype html>
     <div class="stamp"><strong>食运的边界</strong>食运只图一乐，不预测吉凶，也不代表菜品高低。大吉不等于更贵，平也不等于不好；它只是今天这一餐的语气。</div>
     <div><strong>数据来自哪里</strong>餐品名核对自麦当劳中国 MCP 菜单快照，采集于 {escape(meta['collectedOn'])}；覆盖 {meta['cityCount']} 城，早市 {meta['breakfastStoreCount']} 家有效、正餐 {meta['mainStoreCount']} 家有效。所有固定锚点在对应有效样本中均出现，但这不构成全国全时段供应承诺。</div>
   </section>
-  <div class="sig"><span>无城市 · 无价格 · 无下下签 · 新品仅作条件签</span><span>设计核对稿，正式签筒尚未修改</span></div>
+  <div class="sig"><span>无城市 · 无价格 · 无下下签 · 新品仅作条件签</span><span>完整食帖对照表 · 非麦当劳官方产品</span></div>
 </main>
 </body>
 </html>

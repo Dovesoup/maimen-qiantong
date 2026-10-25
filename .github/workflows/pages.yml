@@ -1,0 +1,43 @@
+name: Deploy website
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Validate content and client
+        run: |
+          python -m unittest discover -s tests -p 'test_*.py'
+          node --test tests/test_site.cjs
+          python src/validate_content.py
+          python src/build_site.py
+          python src/render_gua_matrix.py
+          git diff --exit-code -- web/index.html web/gua-matrix.html
+      - uses: actions/configure-pages@v5
+      - name: Prepare public pages
+        run: |
+          mkdir _site
+          cp web/index.html web/gua-matrix.html _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

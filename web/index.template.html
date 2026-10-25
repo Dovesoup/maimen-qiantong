@@ -370,7 +370,7 @@ window.GUA_DATA = /*__GUA_DATA__*/null;
     carton:$('carton'), fries:$('fries'), cast:$('cast'), hint:$('hint'),
     headMode:$('headMode'), backHome:$('backHome'), ritualEyebrow:$('ritualEyebrow'), toast:$('toast')
   };
-  const state = { mode:null, busy:false, last:null };
+  const state = { mode:null, busy:false, last:null, run:0 };
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function makeFries(){
@@ -388,6 +388,8 @@ window.GUA_DATA = /*__GUA_DATA__*/null;
   }
 
   function setMode(mode, fromEntry){
+    state.run++; state.busy=false;
+    refs.carton.classList.remove('shake');
     state.mode=mode;
     refs.landing.hidden=true;
     refs.ritual.hidden=false;
@@ -414,7 +416,8 @@ window.GUA_DATA = /*__GUA_DATA__*/null;
   }
 
   function home(){
-    state.mode=null; state.busy=false;
+    state.run++; state.mode=null; state.busy=false;
+    refs.carton.classList.remove('shake');
     refs.landing.hidden=false;
     refs.ritual.hidden=true;
     refs.result.hidden=true;
@@ -454,7 +457,7 @@ window.GUA_DATA = /*__GUA_DATA__*/null;
     return anim.finished.then(()=>{el.style.opacity='1';el.style.transform='none';anim.cancel();});
   }
 
-  async function drawGua(g){
+  async function drawGua(g, run){
     refs.board.classList.add('filled');
     const pr=refs.pieces.getBoundingClientRect();
     const rows=LINES[g.id]||[1,1,1];
@@ -478,6 +481,7 @@ window.GUA_DATA = /*__GUA_DATA__*/null;
       }
     }
     await Promise.all(tasks);
+    if(run!==state.run) return;
     refs.board.classList.add('landed');
     refs.guaName.textContent=g.symbol+'  '+g.name;
     refs.guaImage.textContent=g.image;
@@ -517,12 +521,14 @@ window.GUA_DATA = /*__GUA_DATA__*/null;
     refs.result.classList.add('show');
     $('shareBtn').addEventListener('click',()=>share(g,m));
     $('againBtn').addEventListener('click',()=>{if(state.busy)return;resetBoard();cast();});
-    setTimeout(()=>refs.result.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'}),100);
+    const run=state.run;
+    setTimeout(()=>{if(run===state.run && !refs.result.hidden) refs.result.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});},100);
   }
 
   async function cast(){
     if(!state.mode || state.busy) return;
     state.busy=true;
+    const run=++state.run;
     resetBoard();
     refs.cast.disabled=true;
     refs.cast.textContent='摇 签 中…';
@@ -532,10 +538,12 @@ window.GUA_DATA = /*__GUA_DATA__*/null;
     refs.carton.classList.add('shake');
     if(navigator.vibrate) navigator.vibrate([28,40,28]);
     await wait(reduced?40:660);
+    if(run!==state.run) return;
     refs.carton.classList.remove('shake');
     const g=randomGua();
     state.last=g;
-    await drawGua(g);
+    await drawGua(g, run);
+    if(run!==state.run) return;
     showResult(g);
     refs.cast.disabled=false;
     refs.cast.textContent='再 摇 一 签';

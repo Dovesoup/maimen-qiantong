@@ -6,9 +6,7 @@
 """
 import json, pathlib, sys, time, traceback
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from mcp_client import call, ROOT, CACHE
-from mcp_client import extract_json
-from mcp_client import bigmac_price
+from mcp_client import call, ROOT, bigmac_price
 
 CITIES = [
     ("北京市", "王府井"), ("上海市", "南京东路"), ("广州市", "天河城"), ("深圳市", "华强北"),
@@ -28,20 +26,18 @@ OUT = ROOT / "data" / "latest.json"
 OUT.parent.mkdir(parents=True, exist_ok=True)
 
 
-def txt(name):
-    f = CACHE / f"raw_{name}.txt"
-    return f.read_text() if f.exists() else ""
-
-
 def fetch_stores(city, kw):
-    call("query-nearby-stores", {"beType": 1, "searchType": 2, "city": city, "keyword": kw})
-    obj = extract_json(txt("query-nearby-stores")) or {}
-    return [s for s in (obj.get("data") or []) if s.get("storeCode")]
+    obj = call("query-nearby-stores", {"beType": 1, "searchType": 2, "city": city, "keyword": kw})
+    stores = obj.get("data") if isinstance(obj, dict) else None
+    if not isinstance(stores, list):
+        raise ValueError("query-nearby-stores returned an invalid store list")
+    return [s for s in stores if isinstance(s, dict) and s.get("storeCode")]
 
 
 def fetch_price(code):
-    call("query-meals", {"storeCode": code, "orderType": 1, "beType": 1})
-    obj = extract_json(txt("query-meals")) or {}
+    obj = call("query-meals", {"storeCode": code, "orderType": 1, "beType": 1})
+    if not isinstance(obj, dict) or not isinstance(obj.get("data"), dict):
+        raise ValueError("query-meals returned an invalid menu object")
     meals = (obj.get("data") or {}).get("meals") or {}
     if not meals:
         return None, 0
@@ -81,7 +77,7 @@ def main():
             print(f"{city:8s} 失败 {e}")
             traceback.print_exc()
         result.append(rec)
-            OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2))
+        OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2))
     valid = [r for r in result if any(s["bigmac"] for s in r.get("stores", []))]
     print(f"\n完成：{len(result)} 城，{len(valid)} 城有有效价格")
 

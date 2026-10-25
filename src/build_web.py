@@ -25,3 +25,17 @@ js = (
 p = WEB / "data.js"
 p.write_text(js)
 print(f"→ {p}  {len(js)/1024:.0f} KB  城数 {len(out)}  正签 {len(signs['main'])} 早签 {len(signs['morning'])}")
+
+# 把数据内联进 index.html，保证单文件可离线、可直接预览，不依赖 data.js 的相对路径
+page = WEB / "index.html"
+if page.exists():
+    html = page.read_text()
+    import re
+    inline = "<script>\n" + js + "</script>"
+    if '<script src="data.js"></script>' in html:
+        html = html.replace('<script src="data.js"></script>', inline)
+    else:
+        # 已经内联过：替换 window.META 起到 </script> 的数据块
+        html = re.sub(r'<script>\nwindow\.META=.*?</script>', inline, html, count=1, flags=re.S)
+    page.write_text(html)
+    print(f"→ {page}  已内联数据 ({len(html)/1024:.0f} KB)")
